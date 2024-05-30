@@ -41,18 +41,29 @@ class AuthenticationRepositoryImplementation
   }
 
   @override
-  ResultFuture<void> forgotPassword(String email) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
+  ResultVoid googleSSO() async {
+    try {
+      await _remoteDataSource.googleSSO();
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
   }
 
   @override
   ResultFuture<User> login({
     required String email,
     required String password,
-  }) {
-    // TODO: implement login
-    throw UnimplementedError();
+  }) async {
+    try {
+      final result = await _remoteDataSource.login(
+        email: email,
+        password: password,
+      );
+      return Right(result);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
   }
 
   @override
@@ -60,22 +71,36 @@ class AuthenticationRepositoryImplementation
     required String email,
     required String fullName,
     required String password,
-  }) {
-    // TODO: implement register
-    throw UnimplementedError();
-  }
-
-  @override
-  ResultFuture<void> updateUser(
-      {required UpdateUserAction action, required userData}) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
-  }
-
-  @override
-  ResultVoid googleSSO() async {
+  }) async {
     try {
-      await _remoteDataSource.googleSSO();
+      await _remoteDataSource.register(
+        email: email,
+        fullName: fullName,
+        password: password,
+      );
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<void> forgotPassword(String email) async {
+    try {
+      await _remoteDataSource.forgotPassword(email);
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<void> updateUser({
+    required UpdateUserAction action,
+    required userData,
+  }) async {
+    try {
+      await _remoteDataSource.updateUser(action: action, userData: userData);
       return const Right(null);
     } on APIException catch (e) {
       return Left(APIFailure.fromException(e));

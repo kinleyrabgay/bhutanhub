@@ -25,7 +25,9 @@ class AuthenticationBloc
         _forgotPassword = forgotPassword,
         _updateUser = updateUser,
         _sso = sso,
-        super(const AuthenticationInitial()) {
+        super(
+          const AuthenticationInitial(),
+        ) {
     on<AuthenticationEvent>((event, emit) {
       emit(const AuthLoading());
     });
@@ -49,24 +51,6 @@ class AuthenticationBloc
     emit(AuthenticationLoading());
     await _sso();
     emit(AuthenticationSuccess());
-    // final googleSignIn = GoogleSignIn();
-    // try {
-    //   final account = await googleSignIn.signIn();
-    //   // Dispatch event to AuthenticationBloc with Google Sign-In credentials
-    //   if (account != null) {
-    //     // Perform your authentication logic here, e.g., calling the login method
-    //     // with the Google Sign-In credentials
-    //     // final result = await _loginWithGoogle(account);
-    //     // result.fold(
-    //     //   (failure) => emit(AuthenticationError(failure.message)),
-    //     //   (user) => emit(SignedIn(user)),
-    //     // );
-    //   } else {
-    //     // Handle sign-in cancellation
-    //   }
-    // } catch (error) {
-    //   // Handle sign-in failure
-    // }
   }
 
   Future<void> _emailSigninHandler(
