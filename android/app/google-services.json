@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "197157180991",
+    "project_id": "bhutanhub",
+    "storage_bucket": "bhutanhub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197157180991:android:5bba3fed8f3b26e61a0a8a",
+        "android_client_info": {
+          "package_name": "com.bhutanhub.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197157180991-f8il4icd7fp0qsgd6oo2e0gtqhmija1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-oMeGJniIg-8xyM-dCWQM3fluAShGB1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197157180991-f8il4icd7fp0qsgd6oo2e0gtqhmija1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
