@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class BHFormDivider extends StatelessWidget {
   const BHFormDivider({
     super.key,
-    required this.divierText,
+    required this.dividerText,
   });
 
-  final String divierText;
+  final String dividerText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BHFormDivider extends StatelessWidget {
           ),
         ),
         Text(
-          divierText,
+          dividerText,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         Flexible(

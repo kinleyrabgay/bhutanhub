@@ -96,8 +96,53 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> forgotPassword(String email) {
-    throw UnimplementedError();
+  Future<void> googleSSO() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        throw const APIException(
+          message: 'Google Sign-In cancelled',
+          statusCode: 400,
+        );
+      }
+
+      print('Here');
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await _authClient.signInWithCredential(credential);
+
+      final User? user = userCredential.user;
+
+      if (user == null) {
+        throw const APIException(
+          message: 'Google Sign-In failed',
+          statusCode: 500,
+        );
+      }
+
+      var userData = await _getUserData(user.uid);
+
+      if (!userData.exists) {
+        await _setUserData(user, user.email!);
+      }
+    } on FirebaseAuthException catch (e) {
+      throw APIException(
+        message: e.message ?? 'Google Sign-In failed',
+        statusCode: 500,
+      );
+    } catch (e) {
+      throw APIException(message: e.toString(), statusCode: 500);
+    }
   }
 
   @override
@@ -126,7 +171,10 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       userData = await _getUserData(user.uid);
       return UserModel.fromMap(userData.data()!);
     } on FirebaseAuthException catch (e) {
-      throw APIException(message: e.toString(), statusCode: 505);
+      throw APIException(
+        message: e.toString(),
+        statusCode: 505,
+      );
     }
   }
 
@@ -136,6 +184,11 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     required String fullName,
     required String password,
   }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> forgotPassword(String email) {
     throw UnimplementedError();
   }
 
@@ -151,7 +204,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   Future<void> _setUserData(User user, String fallbackEmail) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
           UserModel(
-            uid: user.uid as int,
+            uid: user.uid,
             email: user.email ?? fallbackEmail,
             name: user.displayName ?? '',
             avatar: user.photoURL ?? '',
@@ -159,52 +212,10 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         );
   }
 
-  @override
-  Future<void> googleSSO() async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
-      if (googleUser == null) {
-        throw const APIException(
-          message: 'Google Sign-In cancelled',
-          statusCode: 400,
-        );
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final UserCredential userCredential =
-          await _authClient.signInWithCredential(credential);
-      final User? user = userCredential.user;
-
-      if (user == null) {
-        throw const APIException(
-            message: 'Google Sign-In failed', statusCode: 500);
-      }
-
-      var userData = await _getUserData(user.uid);
-
-      if (!userData.exists) {
-        await _setUserData(user, user.email!);
-      }
-    } on FirebaseAuthException catch (e) {
-      throw APIException(
-          message: e.message ?? 'Google Sign-In failed', statusCode: 500);
-    } catch (e) {
-      throw APIException(message: e.toString(), statusCode: 500);
-    }
+  Future<void> _updateUserData(DataMap data) async {
+    await _cloudStoreClient
+        .collection('users')
+        .doc(_authClient.currentUser?.uid)
+        .update(data);
   }
-
-  // Future<void> _updateUserData(DataMap data) async {
-  //   await _cloudStoreClient
-  //       .collection('users')
-  //       .doc(_authClient.currentUser?.uid)
-  //       .update(data);
-  // }
 }

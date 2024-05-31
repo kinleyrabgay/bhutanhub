@@ -1,4 +1,4 @@
-package com.example.bhutan_hub
+package com.bhutanhub.app
 
 import io.flutter.embedding.android.FlutterActivity
 

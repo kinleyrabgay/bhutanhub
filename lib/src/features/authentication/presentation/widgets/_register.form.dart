@@ -1,39 +1,53 @@
+import 'package:bhutan_hub/core/common/widgets/password.strength.dart';
 import 'package:bhutan_hub/core/constants/colors.dart';
 import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/constants/texts.dart';
+import 'package:bhutan_hub/core/utils/validators/password.strength.dart';
 import 'package:bhutan_hub/core/utils/validators/validator.dart';
 import 'package:bhutan_hub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   bool _hidePassword = true;
-  bool _rememberMe = false;
+  bool _hideConfirmPassword = true;
+  double _passwordStrength = 0;
+  String _passwordStrengthText = '';
 
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _updatePasswordStrength(String password) {
+    final result = checkPasswordStrength(password);
+    setState(() {
+      _passwordStrength = result.strength;
+      _passwordStrengthText = result.strengthText;
+    });
   }
 
   @override
@@ -52,7 +66,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
               const SizedBox(height: BHSizes.spaceItems / 2),
               TextFormField(
-                // controller: controller.email,
+                controller: _emailController,
                 validator: (value) => BHValidator.validateEmail(value),
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(
@@ -65,7 +79,6 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
           const SizedBox(height: BHSizes.spaceSections),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -75,9 +88,12 @@ class _LoginFormState extends State<LoginForm> {
               ),
               const SizedBox(height: BHSizes.spaceItems / 2),
               TextFormField(
-                // controller: controller.email,
-                validator: (value) => BHValidator.validateEmail(value),
+                controller: _passwordController,
+                validator: (value) => BHValidator.validatePassword(value),
                 obscureText: _hidePassword,
+                onChanged: (value) {
+                  _updatePasswordStrength(value);
+                },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.zero,
@@ -96,51 +112,48 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
               ),
+              if (_passwordController.text.isNotEmpty) ...[
+                PasswordStrengthWidget(
+                  passwordStrength: _passwordStrength,
+                  passwordStrengthText: _passwordStrengthText,
+                )
+              ]
             ],
           ),
-          const SizedBox(height: BHSizes.spaceItems),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          const SizedBox(height: BHSizes.spaceSections),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Remember Me
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: Checkbox(
-                        value: _rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            _rememberMe = !_rememberMe;
-                          });
-                        }),
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    BHTexts.rememberMe,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                ],
+              Text(
+                'Confirm Password',
+                style: Theme.of(context).textTheme.bodySmall,
               ),
-
-              // Forget Password
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  BHTexts.forgetPassword,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge!
-                      .apply(color: Colors.blueAccent),
+              const SizedBox(height: BHSizes.spaceItems / 2),
+              TextFormField(
+                controller: _confirmPasswordController,
+                validator: (value) => BHValidator.validatePassword(value),
+                obscureText: _hideConfirmPassword,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  hintText: 'yourpassword@123!#',
+                  hintStyle: Theme.of(context).textTheme.labelLarge,
+                  suffixIcon: IconButton(
+                    icon: _hideConfirmPassword
+                        ? const Icon(Iconsax.eye_slash)
+                        : const Icon(Iconsax.eye),
+                    onPressed: () {
+                      setState(() {
+                        _hideConfirmPassword = !_hideConfirmPassword;
+                      });
+                    },
+                  ),
                 ),
-              )
+              ),
             ],
           ),
-          const SizedBox(height: BHSizes.spaceItems * 0.5),
-
-          // Button
+          const SizedBox(height: BHSizes.spaceSections),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -153,7 +166,12 @@ class _LoginFormState extends State<LoginForm> {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Login', style: TextStyle(color: BHColors.white)),
+                  Text(
+                    'Register',
+                    style: TextStyle(
+                      color: BHColors.white,
+                    ),
+                  ),
                   SizedBox(width: BHSizes.spaceItems),
                   Icon(Iconsax.arrow_right_1)
                 ],

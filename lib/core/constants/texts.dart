@@ -22,6 +22,8 @@ class BHTexts {
       "Sign in with your email. If you don't have and Expense account yet, we'll get on set up for you.";
 
   static const String authLoginTitle = "Sign in with your Bhutan Hub account.";
+  static const String authRegisterTitle =
+      "Let's create you a Bhutan Hub account.";
 
   static const String createPasswordTitle = "Create Password";
   static const String createPasswordSubTitle = "Must be 8 character or long";
@@ -54,6 +56,10 @@ class BHTexts {
   static const String tcontinue = "Continue";
   static const String submit = "Submit";
   static const String done = "Done";
+  static const String dontHaveAccount = "Don't have an account?";
+  static const String alreadyHaveAccount = "Already have an account?";
+  static const String register = "Register";
+  static const String login = "Login";
 
   // Authentication Heading Text
   static const String loginTitle = "Welcome back.";

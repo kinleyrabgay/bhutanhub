@@ -14,9 +14,9 @@ class BHOutlinedButtonTheme {
         color: Colors.black,
         fontWeight: FontWeight.w400,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 18),
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      // shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
     ),
   );
 
@@ -30,9 +30,9 @@ class BHOutlinedButtonTheme {
         color: Colors.white,
         fontWeight: FontWeight.w400,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 18),
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      // shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
     ),
   );
 }
