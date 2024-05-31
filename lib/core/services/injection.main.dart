@@ -10,7 +10,9 @@ Future<void> init() async {
 Future<void> _initOnBoarding() async {
   final prefs = await SharedPreferences.getInstance();
 
-  sl.registerLazySingleton(() => prefs);
+  sl
+    ..registerLazySingleton(() => prefs)
+    ..registerLazySingleton(() => StorageService(sl()));
 }
 
 Future<void> _initAuthentication() async {
@@ -23,6 +25,7 @@ Future<void> _initAuthentication() async {
         forgotPassword: sl(),
         updateUser: sl(),
         sso: sl(),
+        cacheCredentials: sl(),
       ),
     )
     ..registerLazySingleton(() => GoogleSSO(sl()))
@@ -30,8 +33,12 @@ Future<void> _initAuthentication() async {
     ..registerLazySingleton(() => Register(sl()))
     ..registerLazySingleton(() => ForgotPassword(sl()))
     ..registerLazySingleton(() => UpdateUser(sl()))
+    ..registerLazySingleton(() => CacheCredentials(sl()))
     ..registerLazySingleton<AuthenticationRepository>(
-        () => AuthenticationRepositoryImplementation(sl()))
+        () => AuthenticationRepositoryImplementation(
+              remoteDataSource: sl(),
+              localDataSource: sl(),
+            ))
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImplementation(
         authClient: sl(),
@@ -39,6 +46,9 @@ Future<void> _initAuthentication() async {
         dbClient: sl(),
         client: sl(),
       ),
+    )
+    ..registerLazySingleton<AutheLocalDataSource>(
+      () => AutheLocalDataSourceImplementation(storageService: sl()),
     )
     ..registerLazySingleton(() => FirebaseAuth.instance)
     ..registerLazySingleton(() => FirebaseFirestore.instance)

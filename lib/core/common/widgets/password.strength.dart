@@ -18,17 +18,18 @@ class PasswordStrengthWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: BHSizes.spaceItems),
+        const SizedBox(height: BHSizes.spaceItems / 2),
         LinearProgressIndicator(
           value: _passwordStrength,
           backgroundColor: BHColors.grey,
           color: _passwordStrength < 0.5 ? Colors.red : Colors.green,
           minHeight: 5,
+          borderRadius: BorderRadius.circular(4),
         ),
         const SizedBox(height: BHSizes.spaceItems / 2),
         Text(
           _passwordStrengthText,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: _passwordStrength < 0.5 ? Colors.red : Colors.green,
               ),
         ),

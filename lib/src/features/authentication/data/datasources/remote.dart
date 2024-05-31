@@ -27,7 +27,6 @@ abstract class AuthRemoteDataSource {
 
   Future<void> register({
     required String email,
-    required String fullName,
     required String password,
   });
 
@@ -108,8 +107,6 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         );
       }
 
-      print('Here');
-
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
@@ -181,10 +178,34 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   @override
   Future<void> register({
     required String email,
-    required String fullName,
     required String password,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      final result = await _authClient.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = result.user;
+
+      if (user == null) {
+        throw const APIException(
+          message: 'Registration failed',
+          statusCode: 500,
+        );
+      }
+
+      var userData = await _getUserData(user.uid);
+
+      if (!userData.exists) {
+        await _setUserData(user, email);
+        userData = await _getUserData(user.uid);
+      }
+    } on FirebaseAuthException catch (e) {
+      throw APIException(
+        message: e.message ?? 'Registration error',
+        statusCode: 505,
+      );
+    }
   }
 
   @override

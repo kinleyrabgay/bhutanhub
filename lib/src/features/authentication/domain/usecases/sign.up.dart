@@ -12,7 +12,6 @@ class Register extends UsecaseWithParam<void, RegisterParams> {
   ResultFuture<void> call(RegisterParams params) => _repo.register(
         email: params.email,
         password: params.password,
-        fullName: params.fullName,
       );
 }
 
@@ -20,15 +19,13 @@ class RegisterParams extends Equatable {
   const RegisterParams({
     required this.email,
     required this.password,
-    required this.fullName,
   });
 
-  const RegisterParams.empty() : this(email: '', password: '', fullName: '');
+  const RegisterParams.empty() : this(email: '', password: '');
 
   final String email;
   final String password;
-  final String fullName;
 
   @override
-  List<String> get props => [email, password, fullName];
+  List<String> get props => [email, password];
 }

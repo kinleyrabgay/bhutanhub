@@ -22,7 +22,6 @@ abstract class AuthenticationRepository {
 
   ResultFuture<void> register({
     required String email,
-    required String fullName,
     required String password,
   });
 
@@ -31,5 +30,10 @@ abstract class AuthenticationRepository {
   ResultFuture<void> updateUser({
     required UpdateUserAction action,
     required dynamic userData,
+  });
+
+  ResultFuture<void> cacheCredentials({
+    required String email,
+    required String password,
   });
 }

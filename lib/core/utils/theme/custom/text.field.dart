@@ -6,13 +6,15 @@ class BHTextFieldTheme {
 
   // Light Theme
   static InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(
-    errorMaxLines: 3,
+    // errorMaxLines: 3,
     prefixIconColor: BHColors.grey,
     suffixIconColor: BHColors.darkGrey,
     labelStyle: const TextStyle().copyWith(fontSize: 14, color: BHColors.grey),
     hintStyle: const TextStyle().copyWith(fontSize: 14, color: BHColors.grey),
-    errorStyle:
-        const TextStyle().copyWith(fontSize: 12, fontStyle: FontStyle.normal),
+    errorStyle: const TextStyle().copyWith(
+      fontSize: 10, fontStyle: FontStyle.normal, height: 0,
+      // color: Colors.transparent,
+    ),
     contentPadding:
         const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
     floatingLabelStyle: const TextStyle().copyWith(
@@ -40,15 +42,17 @@ class BHTextFieldTheme {
     ),
   );
 
-  // Dart Theme
+  // Dark Theme
   static InputDecorationTheme darkInputDecorationTheme = InputDecorationTheme(
-    errorMaxLines: 3,
+    // errorMaxLines: 3,
     prefixIconColor: BHColors.grey,
     suffixIconColor: BHColors.grey,
     labelStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
     hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
-    errorStyle:
-        const TextStyle().copyWith(fontSize: 12, fontStyle: FontStyle.normal),
+    errorStyle: const TextStyle().copyWith(
+      fontSize: 10, fontStyle: FontStyle.normal, height: 0,
+      // color: Colors.transparent,
+    ),
     contentPadding:
         const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
     floatingLabelStyle: const TextStyle().copyWith(

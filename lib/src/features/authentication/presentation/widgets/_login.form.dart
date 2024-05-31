@@ -145,7 +145,7 @@ class _LoginFormState extends State<LoginForm> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => context.read<AuthenticationBloc>().add(
-                    SignInWithEmailEvent(
+                    LoginWithEmailEvent(
                       email: _emailController.text,
                       password: _passwordController.text,
                     ),
@@ -154,8 +154,6 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Login', style: TextStyle(color: BHColors.white)),
-                  SizedBox(width: BHSizes.spaceItems),
-                  Icon(Iconsax.arrow_right_1)
                 ],
               ),
             ),
