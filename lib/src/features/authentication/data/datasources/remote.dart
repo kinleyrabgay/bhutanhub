@@ -6,6 +6,8 @@ import 'package:bhutan_hub/src/features/authentication/data/models/user.model.da
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,7 +29,6 @@ abstract class AuthRemoteDataSource {
 
   Future<void> register({
     required String email,
-    required String fullName,
     required String password,
   });
 
@@ -96,8 +97,57 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> forgotPassword(String email) {
-    throw UnimplementedError();
+  Future<void> googleSSO() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        throw const APIException(
+          message: 'Google Sign-In cancelled',
+          statusCode: 400,
+        );
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      EasyLoading.show(
+        indicator: const CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true,
+      );
+
+      final UserCredential userCredential =
+          await _authClient.signInWithCredential(credential);
+
+      final User? user = userCredential.user;
+
+      if (user == null) {
+        throw const APIException(
+          message: 'Google Sign-In failed',
+          statusCode: 500,
+        );
+      }
+
+      var userData = await _getUserData(user.uid);
+
+      if (!userData.exists) {
+        await _setUserData(user, user.email!);
+      }
+    } on FirebaseAuthException catch (e) {
+      throw APIException(
+        message: e.message ?? 'Google Sign-In failed',
+        statusCode: 500,
+      );
+    } catch (e) {
+      throw APIException(message: e.toString(), statusCode: 500);
+    }
   }
 
   @override
@@ -126,16 +176,48 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       userData = await _getUserData(user.uid);
       return UserModel.fromMap(userData.data()!);
     } on FirebaseAuthException catch (e) {
-      throw APIException(message: e.toString(), statusCode: 505);
+      throw APIException(
+        message: e.toString(),
+        statusCode: 505,
+      );
     }
   }
 
   @override
   Future<void> register({
     required String email,
-    required String fullName,
     required String password,
-  }) {
+  }) async {
+    try {
+      final result = await _authClient.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = result.user;
+
+      if (user == null) {
+        throw const APIException(
+          message: 'Registration failed',
+          statusCode: 500,
+        );
+      }
+
+      var userData = await _getUserData(user.uid);
+
+      if (!userData.exists) {
+        await _setUserData(user, email);
+        userData = await _getUserData(user.uid);
+      }
+    } on FirebaseAuthException catch (e) {
+      throw APIException(
+        message: e.message ?? 'Registration error',
+        statusCode: 505,
+      );
+    }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) {
     throw UnimplementedError();
   }
 
@@ -151,7 +233,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   Future<void> _setUserData(User user, String fallbackEmail) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
           UserModel(
-            uid: user.uid as int,
+            uid: user.uid,
             email: user.email ?? fallbackEmail,
             name: user.displayName ?? '',
             avatar: user.photoURL ?? '',
@@ -159,52 +241,10 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         );
   }
 
-  @override
-  Future<void> googleSSO() async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
-      if (googleUser == null) {
-        throw const APIException(
-          message: 'Google Sign-In cancelled',
-          statusCode: 400,
-        );
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final UserCredential userCredential =
-          await _authClient.signInWithCredential(credential);
-      final User? user = userCredential.user;
-
-      if (user == null) {
-        throw const APIException(
-            message: 'Google Sign-In failed', statusCode: 500);
-      }
-
-      var userData = await _getUserData(user.uid);
-
-      if (!userData.exists) {
-        await _setUserData(user, user.email!);
-      }
-    } on FirebaseAuthException catch (e) {
-      throw APIException(
-          message: e.message ?? 'Google Sign-In failed', statusCode: 500);
-    } catch (e) {
-      throw APIException(message: e.toString(), statusCode: 500);
-    }
+  Future<void> _updateUserData(DataMap data) async {
+    await _cloudStoreClient
+        .collection('users')
+        .doc(_authClient.currentUser?.uid)
+        .update(data);
   }
-
-  // Future<void> _updateUserData(DataMap data) async {
-  //   await _cloudStoreClient
-  //       .collection('users')
-  //       .doc(_authClient.currentUser?.uid)
-  //       .update(data);
-  // }
 }

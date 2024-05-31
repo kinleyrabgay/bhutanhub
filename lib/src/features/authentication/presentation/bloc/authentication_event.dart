@@ -58,23 +58,13 @@ class UpdateUserEvent extends AuthenticationEvent {
   List<Object?> get props => [action, userData];
 }
 
-class LoginWithEmail extends AuthenticationEvent {
-  final String email;
-  final String password;
-
-  const LoginWithEmail(this.email, this.password);
-
-  @override
-  List<String> get props => [email, password];
-}
-
 class SignInWithGoogleEvent extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
 
-class SignInWithEmailEvent extends AuthenticationEvent {
-  const SignInWithEmailEvent({
+class LoginWithEmailEvent extends AuthenticationEvent {
+  const LoginWithEmailEvent({
     required this.email,
     required this.password,
   });
@@ -84,4 +74,22 @@ class SignInWithEmailEvent extends AuthenticationEvent {
 
   @override
   List<String> get props => [email, password];
+}
+
+class RegisterWithEmailEvent extends AuthenticationEvent {
+  const RegisterWithEmailEvent({
+    required this.email,
+    required this.password,
+  });
+
+  final String email;
+  final String password;
+
+  @override
+  List<String> get props => [email, password];
+}
+
+class CacheCredentialsEvent extends AuthenticationEvent {
+  @override
+  List<Object?> get props => [];
 }

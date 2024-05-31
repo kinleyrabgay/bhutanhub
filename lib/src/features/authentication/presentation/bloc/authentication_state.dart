@@ -13,7 +13,9 @@ class AuthenticationInitial extends AuthenticationState {
 
 class AuthenticationLoading extends AuthenticationState {}
 
-class AuthenticationSuccess extends AuthenticationState {}
+class AuthenticationSuccess extends AuthenticationState {
+  const AuthenticationSuccess();
+}
 
 class AuthenticationFailure extends AuthenticationState {
   const AuthenticationFailure(this.error);

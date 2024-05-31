@@ -23,6 +23,13 @@ class ServerFailure extends Failure {
   });
 }
 
+class CacheFailure extends Failure {
+  const CacheFailure({
+    required super.message,
+    required super.statusCode,
+  });
+}
+
 // API
 class APIFailure extends Failure {
   const APIFailure({

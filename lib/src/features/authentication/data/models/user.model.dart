@@ -15,7 +15,7 @@ class UserModel extends User {
 
   UserModel.fromMap(DataMap map)
       : super(
-          uid: map['uid'] ?? 0,
+          uid: map['uid'] ?? '',
           avatar: map['avatar'] ?? '',
           name: map['name'] ?? '',
           email: map['email'] ?? '',
@@ -33,7 +33,7 @@ class UserModel extends User {
   String toJson() => json.encode(toMap());
 
   UserModel copyWith({
-    int? uid,
+    String? uid,
     String? name,
     String? avatar,
     String? email,
@@ -48,9 +48,9 @@ class UserModel extends User {
 
   const UserModel.empty()
       : this(
-          uid: 1,
-          avatar: '_empty.avatar',
-          name: '_empty.name',
-          email: '_empty.email',
+          uid: '',
+          avatar: '',
+          name: '',
+          email: '',
         );
 }

@@ -25,19 +25,23 @@ class BHValidator {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password if required';
+      return 'Password is required';
+      // return '';
     }
 
     if (value.length < 6) {
       return 'Password must be at least 6 characters long';
+      // return '';
     }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
       return 'Password must contain at least one number';
+      // return '';
     }
 
     if (!value.contains(RegExp(r'[!@#$%^&*()":{}|<>]'))) {
       return 'Password must contain at least one special character';
+      // return '';
     }
 
     return null;
@@ -45,19 +49,7 @@ class BHValidator {
 
   static String? validatePasswordConfirm(String? value, String password) {
     if (value == null || value.isEmpty) {
-      return 'Password if required';
-    }
-
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters long';
-    }
-
-    if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
-    }
-
-    if (!value.contains(RegExp(r'[!@#$%^&*()":{}|<>]'))) {
-      return 'Password must contain at least one special character';
+      return 'Password is required';
     }
 
     if (value != password) {

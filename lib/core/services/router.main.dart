@@ -27,7 +27,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           } else if (sl<FirebaseAuth>().currentUser != null) {
             final user = sl<FirebaseAuth>().currentUser!;
             final localUser = UserModel(
-              uid: user.uid as int,
+              uid: user.uid,
               avatar: user.photoURL ?? '',
               name: user.displayName ?? '',
               email: user.email ?? '',
