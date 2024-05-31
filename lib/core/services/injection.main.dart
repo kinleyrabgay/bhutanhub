@@ -35,10 +35,11 @@ Future<void> _initAuthentication() async {
     ..registerLazySingleton(() => UpdateUser(sl()))
     ..registerLazySingleton(() => CacheCredentials(sl()))
     ..registerLazySingleton<AuthenticationRepository>(
-        () => AuthenticationRepositoryImplementation(
-              remoteDataSource: sl(),
-              localDataSource: sl(),
-            ))
+      () => AuthenticationRepositoryImplementation(
+        remoteDataSource: sl(),
+        localDataSource: sl(),
+      ),
+    )
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImplementation(
         authClient: sl(),
@@ -48,7 +49,9 @@ Future<void> _initAuthentication() async {
       ),
     )
     ..registerLazySingleton<AutheLocalDataSource>(
-      () => AutheLocalDataSourceImplementation(storageService: sl()),
+      () => AutheLocalDataSourceImplementation(
+        storageService: sl(),
+      ),
     )
     ..registerLazySingleton(() => FirebaseAuth.instance)
     ..registerLazySingleton(() => FirebaseFirestore.instance)

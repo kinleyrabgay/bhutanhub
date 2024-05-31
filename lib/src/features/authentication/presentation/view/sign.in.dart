@@ -11,6 +11,7 @@ import 'package:bhutan_hub/src/features/authentication/presentation/widgets/_log
 import 'package:bhutan_hub/src/features/authentication/presentation/widgets/_social.authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
@@ -22,7 +23,9 @@ class SignInView extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state is AuthenticationSuccess) {}
+          if (state is AuthenticationSuccess) {
+            EasyLoading.dismiss();
+          } else if (state is AuthenticationFailure) {}
         },
         builder: (context, state) {
           return const BHCustomContainer(

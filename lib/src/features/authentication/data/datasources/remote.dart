@@ -6,6 +6,8 @@ import 'package:bhutan_hub/src/features/authentication/data/models/user.model.da
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
@@ -113,6 +115,12 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
+      );
+
+      EasyLoading.show(
+        indicator: const CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true,
       );
 
       final UserCredential userCredential =
