@@ -23,3 +23,8 @@ enum UpdateUserAction {
   profilePic,
 }
 
+enum ConnectionType {
+  wifi,
+  mobile,
+}
+
