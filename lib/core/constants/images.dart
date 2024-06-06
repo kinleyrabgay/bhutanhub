@@ -10,10 +10,15 @@ class BHImages {
   static const String _baseOnboardingPath = "$_baseImagesPath/onboarding";
   static const String _basePaymentPath = "$_baseImagesPath/payment";
   static const String _baseProfilePath = "$_baseImagesPath/profile";
+  static const String _baseRivePath = "$_baseAssetPath/rive";
 
   // Logo
   static const String darkAppLogo = "$_baseLogosPath/tmdb-logo.svg";
   static const String lightAppLogo = "$_baseLogosPath/tmdb-log.svg";
+
+  // Rive
+  static const String riveIcons = "$_baseRivePath/icons.riv";
+  static const String riveIcons2 = "$_baseRivePath/rive_icons.riv";
 
   // App
   static const String pageUnderConstruction =

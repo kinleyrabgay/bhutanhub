@@ -19,6 +19,9 @@ class BHColors {
     ],
   );
 
+  //
+  static const Color heartColor = Color(0xFFDA0048);
+
   // Selected tab
   static const Color selectedTab = Color(0xFFFF8F71);
 

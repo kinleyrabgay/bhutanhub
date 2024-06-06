@@ -34,10 +34,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             );
             // route home
           }
-          return BlocProvider(
-            create: (_) => sl<AuthenticationBloc>(),
-            child: const SignInView(),
-          );
+          // return BlocProvider(
+          //   create: (_) => sl<AuthenticationBloc>(),
+          //   child: const SignInView(),
+          // );
+          return const NavigationMenu();
         },
         settings: settings,
       );

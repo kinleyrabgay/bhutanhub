@@ -1,3 +1,4 @@
+import 'package:bhutan_hub/core/services/internet/internet_cubit.dart';
 import 'package:bhutan_hub/core/services/injection.dart';
 import 'package:bhutan_hub/core/services/router.dart';
 import 'package:bhutan_hub/core/utils/theme/theme.dart';
@@ -27,7 +28,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        BlocProvider(create: (_) => sl<AuthenticationBloc>()),
+        BlocProvider<AuthenticationBloc>(
+          create: (_) => sl<AuthenticationBloc>(),
+        ),
+        BlocProvider<InternetCubit>(
+          create: (_) => sl<InternetCubit>(),
+        )
       ],
       child: MaterialApp(
         title: 'Bhutan Hub',
@@ -37,6 +43,7 @@ class MyApp extends StatelessWidget {
         theme: BHAppTheme.lightTheme,
         builder: EasyLoading.init(),
         onGenerateRoute: generateRoute,
+        // home: const BottomMenu(),
       ),
     );
   }

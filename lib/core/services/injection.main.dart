@@ -3,8 +3,14 @@ part of 'injection.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  await _initConnectivity();
   await _initOnBoarding();
   await _initAuthentication();
+}
+
+Future<void> _initConnectivity() async {
+  sl.registerLazySingleton(() => Connectivity());
+  sl.registerFactory(() => InternetCubit(connectivity: sl()));
 }
 
 Future<void> _initOnBoarding() async {
