@@ -31,9 +31,6 @@ class AuthenticationBloc
         super(
           const AuthenticationInitial(),
         ) {
-    on<AuthenticationEvent>((event, emit) {
-      emit(const AuthLoading());
-    });
     on<LoginWithEmailEvent>(_emailSigninHandler);
     on<RegisterWithEmailEvent>(_registerHandler);
     on<ForgotPasswordEvent>(_forgotPasswordHandler);
@@ -54,8 +51,11 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     emit(AuthenticationLoading());
-    await _sso();
-    emit(const AuthenticationSuccess());
+    final result = await _sso();
+    result.fold(
+      (failure) => emit(AuthenticationError(failure.message)),
+      (_) => emit(const AuthenticationSuccess()),
+    );
   }
 
   Future<void> _emailSigninHandler(
@@ -69,10 +69,9 @@ class AuthenticationBloc
         password: event.password,
       ),
     );
-
     result.fold(
       (failure) => emit(AuthenticationError(failure.message)),
-      (user) => emit(SignedIn(user)),
+      (user) => emit(UserSignedIn(user)),
     );
   }
 
@@ -93,8 +92,6 @@ class AuthenticationBloc
         password: event.password,
       ),
     );
-
-    print(result);
     result.fold(
       (failure) => emit(AuthenticationError(failure.message)),
       (_) => emit(const AuthenticationSuccess()),

@@ -9,6 +9,7 @@ import 'package:bhutan_hub/src/features/authentication/presentation/view/sign.in
 import 'package:bhutan_hub/src/features/authentication/presentation/widgets/_register.form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
@@ -21,12 +22,9 @@ class SignUpView extends StatelessWidget {
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthenticationSuccess) {
-            const AuthNavigator(
-              text: BHTexts.alreadyHaveAccount,
-              navigatorText: BHTexts.login,
-              routerName: SignInView.routeName,
-            );
-          }
+            EasyLoading.dismiss();
+            Navigator.pushNamed(context, SignInView.routeName);
+          } else if (state is AuthenticationError) {}
         },
         builder: (context, state) {
           return const BHCustomContainer(

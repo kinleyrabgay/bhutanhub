@@ -18,24 +18,6 @@ class AuthenticationRepositoryImplementation
   final AutheLocalDataSource localDataSource;
 
   @override
-  ResultVoid createUser({
-    required String createdAt,
-    required String name,
-    required String avatar,
-  }) async {
-    try {
-      await remoteDataSource.createUser(
-        createdAt: createdAt,
-        name: name,
-        avatar: avatar,
-      );
-      return const Right(null);
-    } on APIException catch (e) {
-      return Left(APIFailure.fromException(e));
-    }
-  }
-
-  @override
   ResultFuture<User> getUser() async {
     try {
       final user = await remoteDataSource.getUser();

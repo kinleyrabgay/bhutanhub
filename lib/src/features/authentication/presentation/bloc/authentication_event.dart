@@ -33,7 +33,7 @@ class RegisterEvent extends AuthenticationEvent {
 }
 
 class ForgotPasswordEvent extends AuthenticationEvent {
-  const ForgotPasswordEvent(this.email);
+  const ForgotPasswordEvent({required this.email});
 
   final String email;
 
@@ -67,10 +67,12 @@ class LoginWithEmailEvent extends AuthenticationEvent {
   const LoginWithEmailEvent({
     required this.email,
     required this.password,
+    this.rememberMe = false,
   });
 
   final String email;
   final String password;
+  final bool rememberMe;
 
   @override
   List<String> get props => [email, password];

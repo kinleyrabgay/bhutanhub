@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class BHHelperFunctions {
@@ -37,15 +36,15 @@ class BHHelperFunctions {
     }
   }
 
-  static void showSnackBar(String message) {
-    ScaffoldMessenger.of(Get.context!).showSnackBar(
+  static void showSnackBar(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
   }
 
-  static void showAlert(String title, String message) {
+  static void showAlert(String title, String message, BuildContext context) {
     showDialog(
-      context: Get.context!,
+      context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
@@ -77,16 +76,16 @@ class BHHelperFunctions {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  static Size screenSize() {
-    return MediaQuery.of(Get.context!).size;
+  static Size screenSize(BuildContext context) {
+    return MediaQuery.of(context).size;
   }
 
-  static double screenHeight() {
-    return MediaQuery.of(Get.context!).size.height;
+  static double screenHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height;
   }
 
-  static double screenWidth() {
-    return MediaQuery.of(Get.context!).size.width;
+  static double screenWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width;
   }
 
   static String getFormattedDate(DateTime date,
