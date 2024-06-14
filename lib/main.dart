@@ -4,19 +4,32 @@ import 'package:bhutan_hub/core/services/router.dart';
 import 'package:bhutan_hub/core/utils/theme/theme.dart';
 import 'package:bhutan_hub/firebase_options.dart';
 import 'package:bhutan_hub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:bhutan_hub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (GetPlatform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseUIAuth.configureProviders([EmailAuthProvider()]);
   runApp(const MyApp());
 }
@@ -33,9 +46,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<InternetCubit>(
           create: (_) => sl<InternetCubit>(),
+        ),
+        BlocProvider<OnboardingCubit>(
+          create: (_) => sl<OnboardingCubit>(),
         )
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: 'Bhutan Hub',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
@@ -43,7 +59,6 @@ class MyApp extends StatelessWidget {
         theme: BHAppTheme.lightTheme,
         builder: EasyLoading.init(),
         onGenerateRoute: generateRoute,
-        // home: const BottomMenu(),
       ),
     );
   }

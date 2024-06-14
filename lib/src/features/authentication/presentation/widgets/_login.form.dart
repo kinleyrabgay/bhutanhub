@@ -52,7 +52,8 @@ class _LoginFormState extends State<LoginForm> {
               ),
               const SizedBox(height: BHSizes.spaceItems / 2),
               TextFormField(
-                // controller: controller.email,
+                controller: _emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => BHValidator.validateEmail(value),
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(
@@ -75,8 +76,9 @@ class _LoginFormState extends State<LoginForm> {
               ),
               const SizedBox(height: BHSizes.spaceItems / 2),
               TextFormField(
-                // controller: controller.email,
-                validator: (value) => BHValidator.validateEmail(value),
+                controller: _passwordController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) => BHValidator.validatePassword(value),
                 obscureText: _hidePassword,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(
@@ -127,7 +129,11 @@ class _LoginFormState extends State<LoginForm> {
 
               // Forget Password
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.read<AuthenticationBloc>().add(
+                      ForgotPasswordEvent(
+                        email: _emailController.text,
+                      ),
+                    ),
                 child: Text(
                   BHTexts.forgetPassword,
                   style: Theme.of(context)
@@ -144,12 +150,18 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => context.read<AuthenticationBloc>().add(
-                    LoginWithEmailEvent(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                    ),
-                  ),
+              onPressed: () => {
+                if (_formKey.currentState!.validate())
+                  {
+                    context.read<AuthenticationBloc>().add(
+                          LoginWithEmailEvent(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            rememberMe: _rememberMe,
+                          ),
+                        ),
+                  }
+              },
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

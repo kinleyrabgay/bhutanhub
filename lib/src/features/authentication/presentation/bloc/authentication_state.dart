@@ -13,6 +13,8 @@ class AuthenticationInitial extends AuthenticationState {
 
 class AuthenticationLoading extends AuthenticationState {}
 
+class Authenticating extends AuthenticationState {}
+
 class AuthenticationSuccess extends AuthenticationState {
   const AuthenticationSuccess();
 }
@@ -25,12 +27,8 @@ class AuthenticationFailure extends AuthenticationState {
   List<Object> get props => [error];
 }
 
-class AuthLoading extends AuthenticationState {
-  const AuthLoading();
-}
-
-class SignedIn extends AuthenticationState {
-  const SignedIn(this.user);
+class UserSignedIn extends AuthenticationState {
+  const UserSignedIn(this.user);
 
   final User user;
 
@@ -38,8 +36,8 @@ class SignedIn extends AuthenticationState {
   List<Object> get props => [user];
 }
 
-class SignedUp extends AuthenticationState {
-  const SignedUp();
+class UserSignedUp extends AuthenticationState {
+  const UserSignedUp();
 }
 
 class ForgotPasswordSent extends AuthenticationState {

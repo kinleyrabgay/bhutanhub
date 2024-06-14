@@ -7,6 +7,8 @@ import 'package:bhutan_hub/src/features/authentication/data/models/user.model.da
 import 'package:bhutan_hub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:bhutan_hub/src/features/authentication/presentation/view/sign.in.dart';
 import 'package:bhutan_hub/src/features/authentication/presentation/view/sign.up.dart';
+import 'package:bhutan_hub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
+import 'package:bhutan_hub/src/features/onboarding/presentations/views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

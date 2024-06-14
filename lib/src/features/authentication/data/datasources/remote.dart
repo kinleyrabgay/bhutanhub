@@ -1,23 +1,19 @@
 import 'dart:convert';
 import 'package:bhutan_hub/core/constants/enums.dart';
 import 'package:bhutan_hub/core/errors/exception.dart';
+import 'package:bhutan_hub/core/errors/firebase.auth.dart';
+import 'package:bhutan_hub/core/errors/firebase.platform.dart';
+import 'package:bhutan_hub/core/services/api/v1/constant.dart';
 import 'package:bhutan_hub/core/utils/typedef.dart';
 import 'package:bhutan_hub/src/features/authentication/data/models/user.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 abstract class AuthRemoteDataSource {
-  Future<void> createUser({
-    required String createdAt,
-    required String name,
-    required String avatar,
-  });
-
   Future<UserModel> getUser();
 
   Future<void> forgotPassword(String email);
@@ -56,35 +52,6 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   final http.Client _client;
 
   @override
-  Future<void> createUser({
-    required String createdAt,
-    required String name,
-    required String avatar,
-  }) async {
-    try {
-      final response = await _client.post(
-        Uri.parse('uri'),
-        body: jsonEncode({
-          'createdAt': createdAt,
-          'name': name,
-          'avatar': avatar,
-        }),
-      );
-
-      if (response.statusCode != 200 && response.statusCode != 201) {
-        throw APIException(
-          message: response.body,
-          statusCode: response.statusCode,
-        );
-      }
-    } on APIException {
-      rethrow;
-    } catch (e) {
-      throw APIException(message: e.toString(), statusCode: 505);
-    }
-  }
-
-  @override
   Future<UserModel> getUser() async {
     try {
       final response = await _client.get(Uri.https('uri'));
@@ -102,25 +69,12 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      if (googleUser == null) {
-        throw const APIException(
-          message: 'Google Sign-In cancelled',
-          statusCode: 400,
-        );
-      }
-
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+          await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
-      );
-
-      EasyLoading.show(
-        indicator: const CircularProgressIndicator(),
-        maskType: EasyLoadingMaskType.clear,
-        dismissOnTap: true,
       );
 
       final UserCredential userCredential =
@@ -128,14 +82,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
       final User? user = userCredential.user;
 
-      if (user == null) {
-        throw const APIException(
-          message: 'Google Sign-In failed',
-          statusCode: 500,
-        );
-      }
-
-      var userData = await _getUserData(user.uid);
+      var userData = await _getUserData(user!.uid);
 
       if (!userData.exists) {
         await _setUserData(user, user.email!);
@@ -145,8 +92,14 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         message: e.message ?? 'Google Sign-In failed',
         statusCode: 500,
       );
+    } on FirebaseException catch (e) {
+      throw BHFirebaseAuthException(e.code).message;
+    } on FormatException catch (_) {
+      throw const FormatException();
+    } on PlatformException catch (e) {
+      throw BHFirebasePlatformException(e.code).message;
     } catch (e) {
-      throw APIException(message: e.toString(), statusCode: 500);
+      throw 'Something went wrong, Please try again';
     }
   }
 
@@ -160,26 +113,27 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         email: email,
         password: password,
       );
-      final user = result.user;
-
-      if (user == null) {
-        throw const APIException(message: 'User not found', statusCode: 404);
-      }
-
-      var userData = await _getUserData(user.uid);
-
-      if (userData.exists) {
-        return UserModel.fromMap(userData.data()!);
-      }
-
-      await _setUserData(user, email);
-      userData = await _getUserData(user.uid);
+      var userData = await _getUserData(result.user!.uid);
       return UserModel.fromMap(userData.data()!);
     } on FirebaseAuthException catch (e) {
       throw APIException(
-        message: e.toString(),
+        message: BHFirebaseAuthException(e.code).message,
         statusCode: 505,
       );
+    } on FirebaseException catch (e) {
+      throw APIException(
+        message: BHFirebaseAuthException(e.code).message,
+        statusCode: 505,
+      );
+    } on FormatException catch (_) {
+      throw const FormatException();
+    } on PlatformException catch (e) {
+      throw APIException(
+        message: BHFirebasePlatformException(e.code).message,
+        statusCode: 505,
+      );
+    } catch (e) {
+      throw 'Something went wrong, Please try again';
     }
   }
 
@@ -217,8 +171,12 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> forgotPassword(String email) {
-    throw UnimplementedError();
+  Future<void> forgotPassword(String email) async {
+    print(email);
+    final response = await _client.get(Uri.https(APIService.greeting));
+    print(response);
+
+    // throw UnimplementedError();
   }
 
   @override

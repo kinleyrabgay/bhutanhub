@@ -3,18 +3,18 @@ class BHTexts {
 
   // Global
 
-  // Onboarding title text
-  static const String onBoardingTitle1 = "Embark on Your Career Journey";
-  static const String onBoardingTitle2 = "Explore Your Career Options";
-  static const String onBoardingTitle3 = "Streamlined Application Process";
+// Onboarding title text
+  static const String onBoardingTitle1 = "Welcome to Bhutan Hub";
+  static const String onBoardingTitle2 = "Discover Great Products";
+  static const String onBoardingTitle3 = "Easy & Secure Transactions";
 
-  // Onboarding sub-title text
+// Onboarding sub-title text
   static const String onBoardingSubTitle1 =
-      "Your personalized gateway to a world of exciting career opportunities, tailored just for you.";
+      "Your gateway to a world of buying and selling goods and services, tailored just for you.";
   static const String onBoardingSubTitle2 =
-      "Dive into a diverse array of job possibilities and uncover the perfect match for your skills and aspirations.";
+      "Explore a wide range of products and services, and find exactly what you need.";
   static const String onBoardingSubTitle3 =
-      "Simplify your job hunt and streamline the application process with the intuitive features of Druk Job.";
+      "Enjoy a seamless and secure transaction process with intuitive features of Bhutan Hub.";
 
   // --------------------------------- AUTHENTICATION ------------------------------
   static const String authEmailTitle = "Enter your email address";

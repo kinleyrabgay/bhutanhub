@@ -2,6 +2,7 @@ import 'package:bhutan_hub/core/common/custom/auth.container.dart';
 import 'package:bhutan_hub/core/common/widgets/auth.header.dart';
 import 'package:bhutan_hub/core/common/widgets/auth.navigator.dart';
 import 'package:bhutan_hub/core/common/widgets/divider.dart';
+import 'package:bhutan_hub/core/common/widgets/loader.dart';
 import 'package:bhutan_hub/core/constants/images.dart';
 import 'package:bhutan_hub/core/constants/sizes.dart';
 import 'package:bhutan_hub/core/constants/texts.dart';
@@ -23,9 +24,25 @@ class SignInView extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state is AuthenticationSuccess) {
+          if (state is AuthenticationLoading) {
+            EasyLoading.show(
+              indicator: const CircularProgressIndicator(),
+              maskType: EasyLoadingMaskType.clear,
+              dismissOnTap: true,
+            );
+          } else if (state is UserSignedIn) {
             EasyLoading.dismiss();
-          } else if (state is AuthenticationFailure) {}
+            BHLoaders.successSnackBar(
+              title: 'Success!',
+              message: 'Login successfull, Welcome back!',
+            );
+          } else if (state is AuthenticationError) {
+            EasyLoading.dismiss();
+            BHLoaders.errorSnackBar(
+              title: 'Oh Snap!',
+              message: state.message,
+            );
+          }
         },
         builder: (context, state) {
           return const BHCustomContainer(

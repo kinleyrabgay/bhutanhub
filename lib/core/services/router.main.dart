@@ -6,24 +6,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final prefs = sl<SharedPreferences>();
       return _pageBuilder(
         (context) {
-          // if (prefs.getBool(kFirstTimerKey) ?? true) {
-          //   return BlocProvider(
-          //     create: (_) => sl<OnBoardingCubit>(),
-          //     child: const OnBoardingView(),
-          //   );
-          // } else if (sl<FirebaseAuth>().currentUser != null) {
-          //   final user = sl<FirebaseAuth>().currentUser!;
-          //   final localUser = LocalUserModel(
-          //     uid: user.uid,
-          //     email: user.email ?? '',
-          //     points: 0,
-          //     fullName: user.displayName ?? '',
-          //   );
-          //   context.userProvider.initUser(localUser);
-          //   return const HomeView();
-          // }
           if (prefs.getBool(Constant.cacheKey) ?? true) {
             // route on boarding
+            return BlocProvider(
+              create: (_) => sl<OnboardingCubit>(),
+              child: const OnboardingView(),
+            );
           } else if (sl<FirebaseAuth>().currentUser != null) {
             final user = sl<FirebaseAuth>().currentUser!;
             final localUser = UserModel(
@@ -32,13 +20,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               name: user.displayName ?? '',
               email: user.email ?? '',
             );
+            //  context.userProvider.initUser(localUser);
+            //   return const HomeView();
             // route home
+            // return const OnboardingView();
           }
-          // return BlocProvider(
-          //   create: (_) => sl<AuthenticationBloc>(),
-          //   child: const SignInView(),
-          // );
-          return const NavigationMenu();
+          return BlocProvider(
+            create: (_) => sl<AuthenticationBloc>(),
+            child: const SignInView(),
+          );
         },
         settings: settings,
       );

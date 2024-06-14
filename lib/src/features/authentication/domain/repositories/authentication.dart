@@ -7,12 +7,6 @@ abstract class AuthenticationRepository {
 
   ResultVoid googleSSO();
 
-  ResultVoid createUser({
-    required String createdAt,
-    required String name,
-    required String avatar,
-  });
-
   ResultFuture<User> getUser();
 
   ResultFuture<User> login({

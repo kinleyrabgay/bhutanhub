@@ -3,26 +3,55 @@ part of 'injection.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  await _initConnectivity();
-  await _initOnBoarding();
+  await _initUtility();
+  await _initOnboarding();
   await _initAuthentication();
 }
 
-Future<void> _initConnectivity() async {
-  sl.registerLazySingleton(() => Connectivity());
-  sl.registerFactory(() => InternetCubit(connectivity: sl()));
-}
-
-Future<void> _initOnBoarding() async {
+Future<void> _initUtility() async {
   final prefs = await SharedPreferences.getInstance();
+  final client = http.Client();
 
   sl
+    ..registerFactory(
+      () => InternetCubit(connectivity: sl()),
+    )
     ..registerLazySingleton(() => prefs)
-    ..registerLazySingleton(() => StorageService(sl()));
+    ..registerLazySingleton(
+      () => StorageService(sl()),
+    )
+    ..registerLazySingleton(
+      () => Connectivity(),
+    )
+    ..registerLazySingleton(
+      () => PageController(),
+    )
+    ..registerLazySingleton(() => client);
+}
+
+Future<void> _initOnboarding() async {
+  sl
+    ..registerFactory(
+      () => OnboardingCubit(
+        checkIfUserIsFirstTimer: sl(),
+        cacheFirstTimer: sl(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => CacheFirstTimer(sl()),
+    )
+    ..registerLazySingleton(
+      () => CheckIfUserIsFirstTimer(sl()),
+    )
+    ..registerLazySingleton<OnboardingRepository>(
+      () => OnboardingRepoImplementation(sl()),
+    )
+    ..registerLazySingleton<OnboardingLocalDatasource>(
+      () => OnboardingLocalDatasourceImplementation(sl()),
+    );
 }
 
 Future<void> _initAuthentication() async {
-  final client = http.Client();
   sl
     ..registerFactory(
       () => AuthenticationBloc(
@@ -34,12 +63,24 @@ Future<void> _initAuthentication() async {
         cacheCredentials: sl(),
       ),
     )
-    ..registerLazySingleton(() => GoogleSSO(sl()))
-    ..registerLazySingleton(() => Login(sl()))
-    ..registerLazySingleton(() => Register(sl()))
-    ..registerLazySingleton(() => ForgotPassword(sl()))
-    ..registerLazySingleton(() => UpdateUser(sl()))
-    ..registerLazySingleton(() => CacheCredentials(sl()))
+    ..registerLazySingleton(
+      () => GoogleSSO(sl()),
+    )
+    ..registerLazySingleton(
+      () => Login(sl()),
+    )
+    ..registerLazySingleton(
+      () => Register(sl()),
+    )
+    ..registerLazySingleton(
+      () => ForgotPassword(sl()),
+    )
+    ..registerLazySingleton(
+      () => UpdateUser(sl()),
+    )
+    ..registerLazySingleton(
+      () => CacheCredentials(sl()),
+    )
     ..registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImplementation(
         remoteDataSource: sl(),
@@ -61,25 +102,5 @@ Future<void> _initAuthentication() async {
     )
     ..registerLazySingleton(() => FirebaseAuth.instance)
     ..registerLazySingleton(() => FirebaseFirestore.instance)
-    ..registerLazySingleton(() => FirebaseStorage.instance)
-    ..registerLazySingleton(() => client);
+    ..registerLazySingleton(() => FirebaseStorage.instance);
 }
-
-// Future<void> _initOnBoarding() async {
-//   final prefs = await SharedPreferences.getInstance();
-//   sl
-//     ..registerFactory(
-//       () => OnBoardingCubit(
-//         cacheFirstTimer: sl(),
-//         checkIfUserIsFirstTimer: sl(),
-//       ),
-//     )
-//     ..registerLazySingleton(() => CacheFirstTimer(sl()))
-//     ..registerLazySingleton(() => CheckIfUserIsFirstTimer(sl()))
-//     ..registerLazySingleton<OnBoardingRepo>(
-//         () => OnBoardingRepoImplementation(sl()))
-//     ..registerLazySingleton<OnBoardingLocalDatasource>(
-//       () => OnboardingLocalDatasourceImplementation(sl()),
-//     )
-//     ..registerLazySingleton(() => prefs);
-// }
