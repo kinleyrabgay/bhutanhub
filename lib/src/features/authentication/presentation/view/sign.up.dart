@@ -1,6 +1,7 @@
 import 'package:bhutan_hub/core/common/custom/auth.container.dart';
 import 'package:bhutan_hub/core/common/widgets/auth.header.dart';
 import 'package:bhutan_hub/core/common/widgets/auth.navigator.dart';
+import 'package:bhutan_hub/core/common/widgets/loader.dart';
 import 'package:bhutan_hub/core/constants/images.dart';
 import 'package:bhutan_hub/core/constants/sizes.dart';
 import 'package:bhutan_hub/core/constants/texts.dart';
@@ -21,10 +22,26 @@ class SignUpView extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state is AuthenticationSuccess) {
+          if (state is AuthenticationLoading) {
+            EasyLoading.show(
+              indicator: const CircularProgressIndicator(),
+              maskType: EasyLoadingMaskType.clear,
+              dismissOnTap: true,
+            );
+          } else if (state is AuthenticationSuccess) {
             EasyLoading.dismiss();
+            BHLoaders.successSnackBar(
+              title: BHTexts.successSnackTitle,
+              message: BHTexts.successRegisterSnackBody,
+            );
             Navigator.pushNamed(context, SignInView.routeName);
-          } else if (state is AuthenticationError) {}
+          } else if (state is AuthenticationError) {
+            EasyLoading.dismiss();
+            BHLoaders.errorSnackBar(
+              title: BHTexts.errorSnackTitle,
+              message: state.message,
+            );
+          }
         },
         builder: (context, state) {
           return const BHCustomContainer(

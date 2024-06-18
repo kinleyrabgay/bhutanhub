@@ -81,4 +81,11 @@ class BHTexts {
       "Your Account Successfully Created";
   static const String yourAccountCreatedSubTitle =
       "Welcome to Your Ultimate Shopping Destination! Your Account is create, Unleash the Joy of Seamless Online Shopping.";
+
+  static const String errorSnackTitle = 'Oh Snap!';
+  static const String successSnackTitle = 'Success!';
+  static const String successRegisterSnackBody =
+      'Account registered successfully, Welcome!';
+  static const String successLoginSnackBody =
+      'Login successfull, Welcome back!';
 }

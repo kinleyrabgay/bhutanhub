@@ -6,7 +6,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final prefs = sl<SharedPreferences>();
       return _pageBuilder(
         (context) {
-          if (prefs.getBool(Constant.cacheKey) ?? true) {
+          if (prefs.getBool(ConstantKeys.cacheKey) ?? true) {
             // route on boarding
             return BlocProvider(
               create: (_) => sl<OnboardingCubit>(),
@@ -23,13 +23,19 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             //  context.userProvider.initUser(localUser);
             //   return const HomeView();
             // route home
-            // return const OnboardingView();
+            return const BhutanhubNavigation();
           }
           return BlocProvider(
             create: (_) => sl<AuthenticationBloc>(),
             child: const SignInView(),
           );
         },
+        settings: settings,
+      );
+
+    case BhutanhubNavigation.routeName:
+      return _pageBuilder(
+        (_) => const BhutanhubNavigation(),
         settings: settings,
       );
 
@@ -56,6 +62,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (_) => const fui.ForgotPasswordScreen(),
         settings: settings,
       );
+
+    case AddressView.routeName:
+      return _pageBuilder(
+        (_) => const AddressView(),
+        settings: settings,
+      );
+
     default:
       return _pageBuilder(
         (_) => const PageUnderConstruction(),

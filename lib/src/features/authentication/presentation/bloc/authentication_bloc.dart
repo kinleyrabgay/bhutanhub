@@ -75,19 +75,14 @@ class AuthenticationBloc
     );
   }
 
-  Future<void> _cacheCredentialsHandler(
-    CacheCredentialsEvent event,
-    Emitter<AuthenticationState> emit,
-  ) async {
-    await _cacheCredentials();
-  }
-
   Future<void> _registerHandler(
     RegisterWithEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
+    emit(AuthenticationLoading());
     final result = await _register(
       RegisterParams(
+        name: event.name,
         email: event.email,
         password: event.password,
       ),
@@ -96,6 +91,13 @@ class AuthenticationBloc
       (failure) => emit(AuthenticationError(failure.message)),
       (_) => emit(const AuthenticationSuccess()),
     );
+  }
+
+  Future<void> _cacheCredentialsHandler(
+    CacheCredentialsEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    await _cacheCredentials();
   }
 
   Future<void> _forgotPasswordHandler(

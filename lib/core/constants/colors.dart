@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class BHColors {
   BHColors._();
+  // Background
+  static const Color appBG = Color(0xFFF4F3F2);
 
   // App Basic Color
   static const Color primary = Color(0xFF272727);

@@ -9,9 +9,14 @@ class PageUnderConstruction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: GradientBackground(
         image: BHImages.aution,
-        child: Center(child: Lottie.asset(BHImages.pageUnderConstruction)),
+        child: Center(
+          child: Lottie.asset(
+            BHImages.pageUnderConstruction,
+          ),
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ class BHSizes {
   BHSizes._();
 
   // Default space
-  static const double defaultSpace = 14;
+  static const double defaultSpace = 16;
 
   // Margin
   static const double mXs = 4.0;

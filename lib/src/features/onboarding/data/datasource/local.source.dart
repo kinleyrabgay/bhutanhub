@@ -1,11 +1,9 @@
-import 'package:bhutan_hub/core/constants/index.dart';
+import 'package:bhutan_hub/core/constants/keys.dart';
 import 'package:bhutan_hub/core/errors/exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class OnboardingLocalDatasource {
   const OnboardingLocalDatasource();
-
-  // Actual data will never have either failure or success : only one
   Future<void> cacheFirstTimer();
   Future<bool> checkIfUserIsFirstTimer();
 }
@@ -19,7 +17,7 @@ class OnboardingLocalDatasourceImplementation
   @override
   Future<void> cacheFirstTimer() async {
     try {
-      await _prefs.setBool(Constant.cacheKey, false);
+      await _prefs.setBool(ConstantKeys.cacheKey, false);
     } catch (e) {
       throw CacheException(message: e.toString());
     }
@@ -28,7 +26,7 @@ class OnboardingLocalDatasourceImplementation
   @override
   Future<bool> checkIfUserIsFirstTimer() async {
     try {
-      return _prefs.getBool(Constant.cacheKey) ?? true;
+      return _prefs.getBool(ConstantKeys.cacheKey) ?? true;
     } catch (e) {
       throw CacheException(message: e.toString());
     }

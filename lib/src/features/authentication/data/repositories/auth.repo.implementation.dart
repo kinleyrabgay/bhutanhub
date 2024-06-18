@@ -55,11 +55,13 @@ class AuthenticationRepositoryImplementation
 
   @override
   ResultFuture<void> register({
+    required String name,
     required String email,
     required String password,
   }) async {
     try {
       await remoteDataSource.register(
+        name: name,
         email: email,
         password: password,
       );

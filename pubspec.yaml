@@ -58,6 +58,7 @@ flutter:
     - assets/images/svgs/
     - assets/images/menu/
     - assets/images/social/
+    - assets/images/profile/
     - assets/rive/icons.riv
     - assets/rive/rive_icons.riv
 

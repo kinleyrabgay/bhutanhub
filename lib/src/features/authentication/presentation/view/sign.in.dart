@@ -1,3 +1,4 @@
+import 'package:bhutan_hub/src/features/bhutanhub/bhutanhub.navigation.dart';
 import 'package:bhutan_hub/core/common/custom/auth.container.dart';
 import 'package:bhutan_hub/core/common/widgets/auth.header.dart';
 import 'package:bhutan_hub/core/common/widgets/auth.navigator.dart';
@@ -33,13 +34,14 @@ class SignInView extends StatelessWidget {
           } else if (state is UserSignedIn) {
             EasyLoading.dismiss();
             BHLoaders.successSnackBar(
-              title: 'Success!',
-              message: 'Login successfull, Welcome back!',
+              title: BHTexts.successSnackTitle,
+              message: BHTexts.successLoginSnackBody,
             );
+            Navigator.pushNamed(context, BhutanhubNavigation.routeName);
           } else if (state is AuthenticationError) {
             EasyLoading.dismiss();
             BHLoaders.errorSnackBar(
-              title: 'Oh Snap!',
+              title: BHTexts.errorSnackTitle,
               message: state.message,
             );
           }

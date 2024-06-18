@@ -24,6 +24,7 @@ abstract class AuthRemoteDataSource {
   });
 
   Future<void> register({
+    required String name,
     required String email,
     required String password,
   });
@@ -139,6 +140,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
   @override
   Future<void> register({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -148,15 +150,8 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         password: password,
       );
       final user = result.user;
-
-      if (user == null) {
-        throw const APIException(
-          message: 'Registration failed',
-          statusCode: 500,
-        );
-      }
-
-      var userData = await _getUserData(user.uid);
+      await user?.updateDisplayName(name);
+      var userData = await _getUserData(user!.uid);
 
       if (!userData.exists) {
         await _setUserData(user, email);
