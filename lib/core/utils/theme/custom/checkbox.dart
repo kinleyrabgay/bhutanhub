@@ -1,3 +1,4 @@
+import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BHCheckboxTheme {
@@ -7,14 +8,14 @@ class BHCheckboxTheme {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     checkColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return Colors.white;
+        return BHColors.white;
       } else {
-        return Colors.black;
+        return BHColors.primary;
       }
     }),
     fillColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return Colors.blue;
+        return BHColors.primary;
       } else {
         return Colors.transparent;
       }

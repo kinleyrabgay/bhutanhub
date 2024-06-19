@@ -19,6 +19,15 @@ class AuthenticationSuccess extends AuthenticationState {
   const AuthenticationSuccess();
 }
 
+class AuthenticationError extends AuthenticationState {
+  const AuthenticationError(this.message);
+
+  final String message;
+
+  @override
+  List<String> get props => [message];
+}
+
 class AuthenticationFailure extends AuthenticationState {
   const AuthenticationFailure(this.error);
   final String error;
@@ -48,11 +57,15 @@ class UserUpdated extends AuthenticationState {
   const UserUpdated();
 }
 
-class AuthenticationError extends AuthenticationState {
-  const AuthenticationError(this.message);
+// Cache Credentials
+class CacheCredentialsSuccess extends AuthenticationState {
+  const CacheCredentialsSuccess();
+}
 
-  final String message;
+class CacheCredentialsFailure extends AuthenticationState {
+  const CacheCredentialsFailure(this.error);
+  final String error;
 
   @override
-  List<String> get props => [message];
+  List<Object> get props => [error];
 }

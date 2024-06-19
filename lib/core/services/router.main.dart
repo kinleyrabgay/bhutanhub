@@ -22,7 +22,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             //  context.userProvider.initUser(localUser);
             //   return const HomeView();
             // route home
-            return const BhutanhubNavigation();
+            return const SignInView();
           }
           return BlocProvider(
             create: (_) => sl<AuthenticationBloc>(),
