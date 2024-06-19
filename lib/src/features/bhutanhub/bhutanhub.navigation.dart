@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/src/features/bhutanhub/category/presentation/view/category.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/src/features/bhutanhub/category/presentation/view/category.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

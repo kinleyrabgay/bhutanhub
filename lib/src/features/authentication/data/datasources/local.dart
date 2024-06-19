@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/core/errors/exception.dart';
-import 'package:bhutan_hub/core/store/store.dart';
+import 'package:bhutanhub/core/errors/exception.dart';
+import 'package:bhutanhub/core/store/store.dart';
 
 abstract class AutheLocalDataSource {
   const AutheLocalDataSource();

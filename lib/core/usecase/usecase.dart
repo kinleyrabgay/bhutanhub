@@ -1,4 +1,4 @@
-import 'package:bhutan_hub/core/utils/typedef.dart';
+import 'package:bhutanhub/core/utils/typedef.dart';
 
 abstract class UsecaseWithParam<T, Params> {
   const UsecaseWithParam();

@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/common/widgets/card.grid.dart';
-import 'package:bhutan_hub/core/common/widgets/product.card.vertical.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/common/widgets/card.grid.dart';
+import 'package:bhutanhub/core/common/widgets/product.card.vertical.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class CategoryView extends StatelessWidget {

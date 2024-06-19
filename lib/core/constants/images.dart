@@ -12,6 +12,13 @@ class BHImages {
   static const String _baseProfilePath = "$_baseImagesPath/profile";
   static const String _baseRivePath = "$_baseAssetPath/rive";
 
+  // Onboarding
+  static const String obIM1 = "$_baseOnboardingPath/welcome.png";
+  static const String obIM2 = "$_baseOnboardingPath/discover.png";
+  static const String obIM3 = "$_baseOnboardingPath/discover.png";
+  static const String obIM4 = "$_baseOnboardingPath/recommend.png";
+  static const String obIM5 = "$_baseOnboardingPath/shopping.png";
+
   // Test
   static const String naruto = "$_baseProfilePath/naruto.jpg";
 

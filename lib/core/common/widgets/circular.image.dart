@@ -1,7 +1,7 @@
-import 'package:bhutan_hub/core/common/widgets/shimmer.dart';
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/helpers/helper.function.dart';
+import 'package:bhutanhub/core/common/widgets/shimmer.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/helpers/helper.function.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

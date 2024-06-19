@@ -1,4 +1,4 @@
-import 'package:bhutan_hub/core/common/custom/curve.edge.dart';
+import 'package:bhutanhub/core/common/custom/curve.edge.dart';
 import 'package:flutter/material.dart';
 
 class CurveEdgesWidget extends StatelessWidget {

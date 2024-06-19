@@ -1,8 +1,8 @@
-import 'package:bhutan_hub/core/common/widgets/cart.dart';
+import 'package:bhutanhub/core/common/widgets/cart.dart';
 import 'package:flutter/material.dart';
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/src/features/bhutanhub/explore/presentation/view/widgets/explore.tab.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/src/features/bhutanhub/explore/presentation/view/widgets/explore.tab.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:iconsax/iconsax.dart';
 

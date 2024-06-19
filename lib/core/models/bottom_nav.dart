@@ -1,4 +1,4 @@
-import 'package:bhutan_hub/core/models/nav_item.model.dart';
+import 'package:bhutanhub/core/models/nav_item.model.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 

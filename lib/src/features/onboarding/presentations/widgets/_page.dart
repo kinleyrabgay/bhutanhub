@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/helpers/helper.function.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/helpers/helper.function.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -31,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
           const SizedBox(height: BHSizes.spaceItems),
           Text(
             subtitle,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
         ],

@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/core/common/widgets/circular.image.dart';
-import 'package:bhutan_hub/core/constants/colors.dart';
+import 'package:bhutanhub/core/common/widgets/circular.image.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

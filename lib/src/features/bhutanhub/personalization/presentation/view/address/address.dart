@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/src/features/bhutanhub/personalization/presentation/view/address/widgets/single.address.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/address/widgets/single.address.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/core/common/widgets/profile.cover.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/common/widgets/profile.cover.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {

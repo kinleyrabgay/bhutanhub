@@ -1,11 +1,11 @@
-import 'package:bhutan_hub/core/common/widgets/product.price.tag.dart';
-import 'package:bhutan_hub/core/common/widgets/product.title.dart';
-import 'package:bhutan_hub/core/common/widgets/rounded.container.dart';
-import 'package:bhutan_hub/core/common/widgets/rounded.image.dart';
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/images.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/helpers/helper.function.dart';
+import 'package:bhutanhub/core/common/widgets/product.price.tag.dart';
+import 'package:bhutanhub/core/common/widgets/product.title.dart';
+import 'package:bhutanhub/core/common/widgets/rounded.container.dart';
+import 'package:bhutanhub/core/common/widgets/rounded.image.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/images.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/helpers/helper.function.dart';
 import 'package:flutter/material.dart';
 
 class BHProductCardVertical extends StatelessWidget {

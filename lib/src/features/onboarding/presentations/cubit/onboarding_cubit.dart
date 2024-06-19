@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/src/features/onboarding/domain/usecases/cache_first_timer.dart';
-import 'package:bhutan_hub/src/features/onboarding/domain/usecases/check_if_user_first_timer.dart';
+import 'package:bhutanhub/src/features/onboarding/domain/usecases/cache_first_timer.dart';
+import 'package:bhutanhub/src/features/onboarding/domain/usecases/check_if_user_first_timer.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   // Method to handle next page navigation
   void nextPage() {
-    if (_currentPageIndex == 2) {
+    if (_currentPageIndex == 3) {
       cacheFirstTimer();
     } else {
       final nextPageIndex = _currentPageIndex + 1;
@@ -70,7 +70,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   // Method to skip to the last page
   void skipPage() {
-    pageController.jumpToPage(2);
-    _currentPageIndex = 2;
+    pageController.jumpToPage(3);
+    _currentPageIndex = 3;
   }
 }

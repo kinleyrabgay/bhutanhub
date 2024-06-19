@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/app.bar.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/bottom.sheet.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/checkbox.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/chip.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/elevated.button.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/outlined.button.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/text.field.dart';
-import 'package:bhutan_hub/core/utils/theme/custom/text.theme.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/utils/theme/custom/app.bar.dart';
+import 'package:bhutanhub/core/utils/theme/custom/bottom.sheet.dart';
+import 'package:bhutanhub/core/utils/theme/custom/checkbox.dart';
+import 'package:bhutanhub/core/utils/theme/custom/chip.dart';
+import 'package:bhutanhub/core/utils/theme/custom/elevated.button.dart';
+import 'package:bhutanhub/core/utils/theme/custom/outlined.button.dart';
+import 'package:bhutanhub/core/utils/theme/custom/text.field.dart';
+import 'package:bhutanhub/core/utils/theme/custom/text.theme.dart';
 
 class BHAppTheme {
   const BHAppTheme._();

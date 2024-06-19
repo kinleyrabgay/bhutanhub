@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:bhutan_hub/core/constants/enums.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/entities/user.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/usecases/cache.credentials.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/usecases/forgot.password.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/usecases/google.sso.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/usecases/sign.in.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/usecases/sign.up.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/usecases/update.user.dart';
+import 'package:bhutanhub/core/constants/enums.dart';
+import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/cache.credentials.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/forgot.password.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/google.sso.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.in.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.up.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/update.user.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

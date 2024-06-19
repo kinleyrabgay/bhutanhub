@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/helpers/helper.function.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/helpers/helper.function.dart';
 import 'package:flutter/material.dart';
 
 class BHCircularIcon extends StatelessWidget {

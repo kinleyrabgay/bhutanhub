@@ -1,4 +1,4 @@
-import 'package:bhutan_hub/core/errors/exception.dart';
+import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:equatable/equatable.dart';
 
 // Interface

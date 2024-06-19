@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/usecase/usecase.dart';
-import 'package:bhutan_hub/core/utils/typedef.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/repositories/authentication.dart';
+import 'package:bhutanhub/core/usecase/usecase.dart';
+import 'package:bhutanhub/core/utils/typedef.dart';
+import 'package:bhutanhub/src/features/authentication/domain/repositories/authentication.dart';
 
 class CacheCredentials extends UsecaseWithoutParam<void> {
   const CacheCredentials(this._repo);

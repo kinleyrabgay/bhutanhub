@@ -1,5 +1,5 @@
-import 'package:bhutan_hub/core/constants/keys.dart';
-import 'package:bhutan_hub/core/errors/exception.dart';
+import 'package:bhutanhub/core/constants/keys.dart';
+import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class OnboardingLocalDatasource {

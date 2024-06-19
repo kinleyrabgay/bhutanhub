@@ -7,7 +7,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           if (prefs.getBool(ConstantKeys.cacheKey) ?? true) {
-            // route on boarding
             return BlocProvider(
               create: (_) => sl<OnboardingCubit>(),
               child: const OnboardingView(),

@@ -1,7 +1,7 @@
-import 'package:bhutan_hub/core/constants/enums.dart';
-import 'package:bhutan_hub/core/usecase/usecase.dart';
-import 'package:bhutan_hub/core/utils/typedef.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/repositories/authentication.dart';
+import 'package:bhutanhub/core/constants/enums.dart';
+import 'package:bhutanhub/core/usecase/usecase.dart';
+import 'package:bhutanhub/core/utils/typedef.dart';
+import 'package:bhutanhub/src/features/authentication/domain/repositories/authentication.dart';
 import 'package:equatable/equatable.dart';
 
 class UpdateUser extends UsecaseWithParam<void, UpdateUserParams> {
