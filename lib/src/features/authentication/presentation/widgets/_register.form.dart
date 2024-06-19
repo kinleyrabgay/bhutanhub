@@ -23,6 +23,18 @@ class _RegisterFormState extends State<RegisterForm> {
   late TextEditingController _confirmPasswordController;
   late TextEditingController _nameController;
 
+  Future<void> _performRegister(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthenticationBloc>().add(
+            RegisterWithEmailEvent(
+              name: _nameController.text,
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
+          );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -48,149 +60,159 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Name',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: BHSizes.spaceItems / 2),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  hintText: 'yourname',
-                  hintStyle: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-            ],
-          ),
+          name(context),
           const SizedBox(height: BHSizes.spaceSections),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Email',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: BHSizes.spaceItems / 2),
-              TextFormField(
-                controller: _emailController,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => BHValidator.validateEmail(value),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  hintText: 'youremail@email.xyz',
-                  hintStyle: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-            ],
-          ),
+          email(context),
           const SizedBox(height: BHSizes.spaceSections),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Password',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: BHSizes.spaceItems / 2),
-              TextFormField(
-                controller: _passwordController,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => BHValidator.validatePassword(value),
-                obscureText: _hidePassword,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  hintText: 'yourpassword@123!#',
-                  hintStyle: Theme.of(context).textTheme.labelLarge,
-                  suffixIcon: IconButton(
-                    icon: _hidePassword
-                        ? const Icon(Iconsax.eye_slash)
-                        : const Icon(Iconsax.eye),
-                    onPressed: () {
-                      setState(() {
-                        _hidePassword = !_hidePassword;
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+          password(context),
           const SizedBox(height: BHSizes.spaceSections),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Confirm Password',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: BHSizes.spaceItems / 2),
-              TextFormField(
-                controller: _confirmPasswordController,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => BHValidator.validatePasswordConfirm(
-                  value,
-                  _passwordController.text,
-                ),
-                obscureText: _hideConfirmPassword,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  hintText: 'yourpassword@123!#',
-                  hintStyle: Theme.of(context).textTheme.labelLarge,
-                  suffixIcon: IconButton(
-                    icon: _hideConfirmPassword
-                        ? const Icon(Iconsax.eye_slash)
-                        : const Icon(Iconsax.eye),
-                    onPressed: () {
-                      setState(() {
-                        _hideConfirmPassword = !_hideConfirmPassword;
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+          confirmPassword(context),
           const SizedBox(height: BHSizes.spaceSections),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
+          registerButton(context)
+        ],
+      ),
+    );
+  }
+
+  Column name(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Name',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: BHSizes.spaceItems / 2),
+        TextFormField(
+          controller: _nameController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            hintText: 'yourname',
+            hintStyle: Theme.of(context).textTheme.labelLarge,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column email(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Email',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: BHSizes.spaceItems / 2),
+        TextFormField(
+          controller: _emailController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => BHValidator.validateEmail(value),
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            hintText: 'youremail@email.xyz',
+            hintStyle: Theme.of(context).textTheme.labelLarge,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column password(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Password',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: BHSizes.spaceItems / 2),
+        TextFormField(
+          controller: _passwordController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => BHValidator.validatePassword(value),
+          obscureText: _hidePassword,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            hintText: 'yourpassword@123!#',
+            hintStyle: Theme.of(context).textTheme.labelLarge,
+            suffixIcon: IconButton(
+              icon: _hidePassword
+                  ? const Icon(Iconsax.eye_slash)
+                  : const Icon(Iconsax.eye),
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  context.read<AuthenticationBloc>().add(
-                        RegisterWithEmailEvent(
-                          name: _nameController.text,
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        ),
-                      );
-                }
+                setState(() {
+                  _hidePassword = !_hidePassword;
+                });
               },
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Register',
-                    style: TextStyle(
-                      color: BHColors.white,
-                    ),
-                  ),
-                ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column confirmPassword(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Confirm Password',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: BHSizes.spaceItems / 2),
+        TextFormField(
+          controller: _confirmPasswordController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => BHValidator.validatePasswordConfirm(
+            value,
+            _passwordController.text,
+          ),
+          obscureText: _hideConfirmPassword,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            hintText: 'yourpassword@123!#',
+            hintStyle: Theme.of(context).textTheme.labelLarge,
+            suffixIcon: IconButton(
+              icon: _hideConfirmPassword
+                  ? const Icon(Iconsax.eye_slash)
+                  : const Icon(Iconsax.eye),
+              onPressed: () {
+                setState(() {
+                  _hideConfirmPassword = !_hideConfirmPassword;
+                });
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  SizedBox registerButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () => _performRegister(context),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Register',
+              style: TextStyle(
+                color: BHColors.white,
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

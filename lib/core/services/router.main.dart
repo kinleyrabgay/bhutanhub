@@ -20,8 +20,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               email: user.email ?? '',
             );
             //  context.userProvider.initUser(localUser);
-            //   return const HomeView();
-            // route home
             return const BhutanhubNavigation();
           }
           return BlocProvider(

@@ -93,7 +93,16 @@ class RegisterWithEmailEvent extends AuthenticationEvent {
   List<String> get props => [name, email, password];
 }
 
+// Cache Credentials
 class CacheCredentialsEvent extends AuthenticationEvent {
+  const CacheCredentialsEvent({
+    required this.email,
+    required this.password,
+  });
+
+  final String email;
+  final String password;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [email, password];
 }
