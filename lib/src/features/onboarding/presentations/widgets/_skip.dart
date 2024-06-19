@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/devices/device.utility.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/devices/device.utility.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

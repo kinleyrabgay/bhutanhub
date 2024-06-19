@@ -1,7 +1,7 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/validators/validator.dart';
-import 'package:bhutan_hub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/validators/validator.dart';
+import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -21,6 +21,7 @@ class _RegisterFormState extends State<RegisterForm> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
+  late TextEditingController _nameController;
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _RegisterFormState extends State<RegisterForm> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
+    _nameController = TextEditingController();
   }
 
   @override
@@ -35,6 +37,7 @@ class _RegisterFormState extends State<RegisterForm> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -45,6 +48,27 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Name',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              const SizedBox(height: BHSizes.spaceItems / 2),
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  hintText: 'yourname',
+                  hintStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: BHSizes.spaceSections),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -146,6 +170,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (_formKey.currentState!.validate()) {
                   context.read<AuthenticationBloc>().add(
                         RegisterWithEmailEvent(
+                          name: _nameController.text,
                           email: _emailController.text,
                           password: _passwordController.text,
                         ),

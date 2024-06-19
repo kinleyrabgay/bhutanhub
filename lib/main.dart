@@ -1,10 +1,10 @@
-import 'package:bhutan_hub/core/services/internet/internet_cubit.dart';
-import 'package:bhutan_hub/core/services/injection.dart';
-import 'package:bhutan_hub/core/services/router.dart';
-import 'package:bhutan_hub/core/utils/theme/theme.dart';
-import 'package:bhutan_hub/firebase_options.dart';
-import 'package:bhutan_hub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
+import 'package:bhutanhub/core/services/internet/internet_cubit.dart';
+import 'package:bhutanhub/core/services/injection.dart';
+import 'package:bhutanhub/core/services/router.dart';
+import 'package:bhutanhub/core/utils/theme/theme.dart';
+import 'package:bhutanhub/firebase_options.dart';
+import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,18 +41,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        BlocProvider<AuthenticationBloc>(
-          create: (_) => sl<AuthenticationBloc>(),
-        ),
         BlocProvider<InternetCubit>(
           create: (_) => sl<InternetCubit>(),
         ),
         BlocProvider<OnboardingCubit>(
           create: (_) => sl<OnboardingCubit>(),
-        )
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (_) => sl<AuthenticationBloc>(),
+        ),
       ],
       child: GetMaterialApp(
-        title: 'Bhutan Hub',
+        title: 'BhutanHub',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         darkTheme: BHAppTheme.darkTheme,

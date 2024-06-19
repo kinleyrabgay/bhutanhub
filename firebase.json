@@ -1,1 +1,30 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"bhutanhub","appId":"1:197157180991:android:5bba3fed8f3b26e61a0a8a","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"bhutanhub","appId":"1:197157180991:ios:0a6c2fe837bf8d841a0a8a","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"bhutanhub","configurations":{"android":"1:197157180991:android:5bba3fed8f3b26e61a0a8a","ios":"1:197157180991:ios:0a6c2fe837bf8d841a0a8a"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "bhutanhub",
+          "appId": "1:197157180991:android:5bba3fed8f3b26e61a0a8a",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "bhutanhub",
+          "appId": "1:197157180991:ios:0a6c2fe837bf8d841a0a8a",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "bhutanhub",
+          "configurations": {
+            "android": "1:197157180991:android:5bba3fed8f3b26e61a0a8a",
+            "ios": "1:197157180991:ios:0a6c2fe837bf8d841a0a8a"
+          }
+        }
+      }
+    }
+  }
+}

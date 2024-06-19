@@ -1,8 +1,9 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/sizes.dart';
-import 'package:bhutan_hub/core/utils/devices/device.utility.dart';
-import 'package:bhutan_hub/core/utils/helpers/helper.function.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/onboarding.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/utils/devices/device.utility.dart';
+import 'package:bhutanhub/core/utils/helpers/helper.function.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,7 +26,7 @@ class OnboardingDotNavigation extends StatelessWidget {
         ),
         controller: onboardingCubit.pageController,
         onDotClicked: onboardingCubit.dotNavigationClick,
-        count: 3,
+        count: onboardingPages.length,
       ),
     );
   }

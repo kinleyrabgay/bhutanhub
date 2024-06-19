@@ -1,6 +1,4 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/models/nav_item.model.dart';
-import 'package:bhutan_hub/src/features/explore/presentation/view/explore.dart';
+import 'package:bhutanhub/core/models/nav_item.model.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
@@ -18,10 +16,10 @@ class _BottomMenuState extends State<BottomMenu> {
   List<StateMachineController?> controllers = [];
   int selectedNavIndex = 0;
   List<Widget> pages = [
-    const ExploreView(),
-    const ExploreView(),
-    const ExploreView(),
-    const ExploreView()
+    Container(),
+    Container(),
+    Container(),
+    Container(),
   ];
 
   void _animateTheIcon(int index) {

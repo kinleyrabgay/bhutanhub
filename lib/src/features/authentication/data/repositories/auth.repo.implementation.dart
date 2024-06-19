@@ -1,11 +1,11 @@
-import 'package:bhutan_hub/core/constants/enums.dart';
-import 'package:bhutan_hub/core/errors/exception.dart';
-import 'package:bhutan_hub/core/errors/failure.dart';
-import 'package:bhutan_hub/core/utils/typedef.dart';
-import 'package:bhutan_hub/src/features/authentication/data/datasources/local.dart';
-import 'package:bhutan_hub/src/features/authentication/data/datasources/remote.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/entities/user.dart';
-import 'package:bhutan_hub/src/features/authentication/domain/repositories/authentication.dart';
+import 'package:bhutanhub/core/constants/enums.dart';
+import 'package:bhutanhub/core/errors/exception.dart';
+import 'package:bhutanhub/core/errors/failure.dart';
+import 'package:bhutanhub/core/utils/typedef.dart';
+import 'package:bhutanhub/src/features/authentication/data/datasources/local.dart';
+import 'package:bhutanhub/src/features/authentication/data/datasources/remote.dart';
+import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
+import 'package:bhutanhub/src/features/authentication/domain/repositories/authentication.dart';
 import 'package:dartz/dartz.dart';
 
 class AuthenticationRepositoryImplementation
@@ -55,11 +55,13 @@ class AuthenticationRepositoryImplementation
 
   @override
   ResultFuture<void> register({
+    required String name,
     required String email,
     required String password,
   }) async {
     try {
       await remoteDataSource.register(
+        name: name,
         email: email,
         password: password,
       );

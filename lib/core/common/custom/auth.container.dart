@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/common/custom/curve.edge.widget.dart';
-import 'package:bhutan_hub/core/common/widgets/circular.container.dart';
-import 'package:bhutan_hub/core/constants/colors.dart';
+import 'package:bhutanhub/core/common/custom/curve.edge.widget.dart';
+import 'package:bhutanhub/core/common/widgets/circular.container.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BHCustomContainer extends StatelessWidget {

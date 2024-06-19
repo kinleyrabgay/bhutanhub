@@ -1,4 +1,4 @@
-import 'package:bhutan_hub/core/constants/sizes.dart';
+import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class AuthNavigator extends StatelessWidget {

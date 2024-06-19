@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '197157180991',
     projectId: 'bhutanhub',
     storageBucket: 'bhutanhub.appspot.com',
-    iosClientId: '197157180991-cc1isqv12e2vgcs5sq7ur5gf8t8no8f5.apps.googleusercontent.com',
+    iosClientId:
+        '197157180991-cc1isqv12e2vgcs5sq7ur5gf8t8no8f5.apps.googleusercontent.com',
     iosBundleId: 'com.example.bhutanHub',
   );
 }

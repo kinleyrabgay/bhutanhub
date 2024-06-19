@@ -5,12 +5,22 @@ class BHImages {
   static const String _baseImagesPath = "$_baseAssetPath/images";
   static const String _baseLogosPath = "$_baseImagesPath/logos";
   static const String _baseMenuPath = "$_baseImagesPath/menu";
-  static const String _baseLottiesPath = "$_baseAssetPath/lotties";
+  static const String _baseLottiesPath = "$_baseImagesPath/lotties";
   static const String _baseSocialPath = "$_baseImagesPath/social";
   static const String _baseOnboardingPath = "$_baseImagesPath/onboarding";
   static const String _basePaymentPath = "$_baseImagesPath/payment";
   static const String _baseProfilePath = "$_baseImagesPath/profile";
   static const String _baseRivePath = "$_baseAssetPath/rive";
+
+  // Onboarding
+  static const String obIM1 = "$_baseOnboardingPath/welcome.png";
+  static const String obIM2 = "$_baseOnboardingPath/discover.png";
+  static const String obIM3 = "$_baseOnboardingPath/discover.png";
+  static const String obIM4 = "$_baseOnboardingPath/recommend.png";
+  static const String obIM5 = "$_baseOnboardingPath/shopping.png";
+
+  // Test
+  static const String naruto = "$_baseProfilePath/naruto.jpg";
 
   // Logo
   static const String darkAppLogo = "$_baseLogosPath/tmdb-logo.svg";

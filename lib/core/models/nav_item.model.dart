@@ -1,6 +1,6 @@
-import 'package:bhutan_hub/core/constants/colors.dart';
-import 'package:bhutan_hub/core/constants/images.dart';
-import 'package:bhutan_hub/core/models/rive.model.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/images.dart';
+import 'package:bhutanhub/core/models/rive.model.dart';
 import 'package:flutter/material.dart';
 
 class NavItemModel {

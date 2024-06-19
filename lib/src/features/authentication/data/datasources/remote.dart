@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:bhutan_hub/core/constants/enums.dart';
-import 'package:bhutan_hub/core/errors/exception.dart';
-import 'package:bhutan_hub/core/errors/firebase.auth.dart';
-import 'package:bhutan_hub/core/errors/firebase.platform.dart';
-import 'package:bhutan_hub/core/services/api/v1/constant.dart';
-import 'package:bhutan_hub/core/utils/typedef.dart';
-import 'package:bhutan_hub/src/features/authentication/data/models/user.model.dart';
+import 'package:bhutanhub/core/constants/enums.dart';
+import 'package:bhutanhub/core/errors/exception.dart';
+import 'package:bhutanhub/core/errors/firebase.auth.dart';
+import 'package:bhutanhub/core/errors/firebase.platform.dart';
+import 'package:bhutanhub/core/services/api/v1/constant.dart';
+import 'package:bhutanhub/core/utils/typedef.dart';
+import 'package:bhutanhub/src/features/authentication/data/models/user.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -24,6 +24,7 @@ abstract class AuthRemoteDataSource {
   });
 
   Future<void> register({
+    required String name,
     required String email,
     required String password,
   });
@@ -139,6 +140,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
   @override
   Future<void> register({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -148,15 +150,8 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         password: password,
       );
       final user = result.user;
-
-      if (user == null) {
-        throw const APIException(
-          message: 'Registration failed',
-          statusCode: 500,
-        );
-      }
-
-      var userData = await _getUserData(user.uid);
+      await user?.updateDisplayName(name);
+      var userData = await _getUserData(user!.uid);
 
       if (!userData.exists) {
         await _setUserData(user, email);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BHAppBarTheme {
   BHAppBarTheme._();
@@ -15,6 +16,7 @@ class BHAppBarTheme {
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
   );
 
   static const darkAppBarTheme = AppBarTheme(
@@ -30,5 +32,6 @@ class BHAppBarTheme {
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
+    systemOverlayStyle: SystemUiOverlayStyle.light,
   );
 }

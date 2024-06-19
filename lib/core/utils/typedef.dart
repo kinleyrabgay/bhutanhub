@@ -1,4 +1,4 @@
-import 'package:bhutan_hub/core/errors/failure.dart';
+import 'package:bhutanhub/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
 
 // T

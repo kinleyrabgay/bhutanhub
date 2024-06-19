@@ -1,11 +1,10 @@
-import 'package:bhutan_hub/core/common/widgets/loading.dart';
-import 'package:bhutan_hub/core/constants/images.dart';
-import 'package:bhutan_hub/core/constants/texts.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/widgets/_navigation.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/widgets/_next.button.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/widgets/_page.dart';
-import 'package:bhutan_hub/src/features/onboarding/presentations/widgets/_skip.dart';
+import 'package:bhutanhub/core/common/widgets/loading.dart';
+import 'package:bhutanhub/core/constants/onboarding.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/widgets/_navigation.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/widgets/_next.button.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/widgets/_page.dart';
+import 'package:bhutanhub/src/features/onboarding/presentations/widgets/_skip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,26 +32,18 @@ class OnboardingView extends StatelessWidget {
 
           return Stack(
             children: [
-              PageView(
+              PageView.builder(
                 controller: cubit.pageController,
                 onPageChanged: (index) => cubit.updatePageIndicator(index),
-                children: const [
-                  OnboardingPage(
-                    image: BHImages.goggle,
-                    title: BHTexts.onBoardingTitle1,
-                    subtitle: BHTexts.onBoardingSubTitle1,
-                  ),
-                  OnboardingPage(
-                    image: BHImages.goggle,
-                    title: BHTexts.onBoardingTitle2,
-                    subtitle: BHTexts.onBoardingSubTitle2,
-                  ),
-                  OnboardingPage(
-                    image: BHImages.goggle,
-                    title: BHTexts.onBoardingTitle3,
-                    subtitle: BHTexts.onBoardingSubTitle3,
-                  ),
-                ],
+                itemCount: onboardingPages.length,
+                itemBuilder: (context, index) {
+                  final content = onboardingPages[index];
+                  return OnboardingPage(
+                    image: content.image,
+                    title: content.title,
+                    subtitle: content.subtitle,
+                  );
+                },
               ),
               const OnboardingSkip(),
               const OnboardingDotNavigation(),

@@ -8,6 +8,23 @@ class BHTexts {
   static const String onBoardingTitle2 = "Discover Great Products";
   static const String onBoardingTitle3 = "Easy & Secure Transactions";
 
+  static const String obT1 = "Welcome to BhutanHub";
+  static const String obT2 = "Discover Great Products";
+  static const String obT3 = "Sell with Ease";
+  static const String obT4 = "Recommendations";
+  static const String obT5 = "Shop New and Pre-Loved Items";
+
+  static const String obST1 =
+      "Your gateway to a world of buying and selling goods and services, tailored just for you.";
+  static const String obST2 =
+      "Explore a wide range of products and services, and find exactly what you need.";
+  static const String obST3 =
+      "List your products and services quickly and reach a wide audience effortlessly. Start selling in just a few taps!";
+  static const String obST4 =
+      "Get tailored suggestions based on your preferences and browsing history. Find what you need, faster.";
+  static const String obST5 =
+      "Explore a wide variety of products, from the latest electronics to second-hand treasures, all in one place.";
+
 // Onboarding sub-title text
   static const String onBoardingSubTitle1 =
       "Your gateway to a world of buying and selling goods and services, tailored just for you.";
@@ -81,4 +98,11 @@ class BHTexts {
       "Your Account Successfully Created";
   static const String yourAccountCreatedSubTitle =
       "Welcome to Your Ultimate Shopping Destination! Your Account is create, Unleash the Joy of Seamless Online Shopping.";
+
+  static const String errorSnackTitle = 'Oh Snap!';
+  static const String successSnackTitle = 'Success!';
+  static const String successRegisterSnackBody =
+      'Account registered successfully, Welcome!';
+  static const String successLoginSnackBody =
+      'Login successfull, Welcome back!';
 }

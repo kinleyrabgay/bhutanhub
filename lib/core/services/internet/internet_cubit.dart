@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bhutan_hub/core/constants/enums.dart';
+import 'package:bhutanhub/core/constants/enums.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 

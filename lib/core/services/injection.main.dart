@@ -16,7 +16,9 @@ Future<void> _initUtility() async {
     ..registerFactory(
       () => InternetCubit(connectivity: sl()),
     )
-    ..registerLazySingleton(() => prefs)
+    ..registerLazySingleton(
+      () => prefs,
+    )
     ..registerLazySingleton(
       () => StorageService(sl()),
     )
@@ -26,7 +28,18 @@ Future<void> _initUtility() async {
     ..registerLazySingleton(
       () => PageController(),
     )
-    ..registerLazySingleton(() => client);
+    ..registerLazySingleton(
+      () => client,
+    )
+    ..registerLazySingleton(
+      () => FirebaseAuth.instance,
+    )
+    ..registerLazySingleton(
+      () => FirebaseFirestore.instance,
+    )
+    ..registerLazySingleton(
+      () => FirebaseStorage.instance,
+    );
 }
 
 Future<void> _initOnboarding() async {
@@ -99,8 +112,5 @@ Future<void> _initAuthentication() async {
       () => AutheLocalDataSourceImplementation(
         storageService: sl(),
       ),
-    )
-    ..registerLazySingleton(() => FirebaseAuth.instance)
-    ..registerLazySingleton(() => FirebaseFirestore.instance)
-    ..registerLazySingleton(() => FirebaseStorage.instance);
+    );
 }
