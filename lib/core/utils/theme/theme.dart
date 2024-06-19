@@ -1,3 +1,4 @@
+import 'package:bhutanhub/core/utils/theme/custom/switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -38,6 +39,7 @@ class BHAppTheme {
     elevatedButtonTheme: BHElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: BHOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: BHTextFieldTheme.lightInputDecorationTheme,
+    switchTheme: BHSwitchTheme.lightSwitchTheme,
   );
 
   // Dark Theme
@@ -55,5 +57,6 @@ class BHAppTheme {
     elevatedButtonTheme: BHElevatedButtonTheme.darkElevatedButtonTheme,
     outlinedButtonTheme: BHOutlinedButtonTheme.darkOutlinedButtonTheme,
     inputDecorationTheme: BHTextFieldTheme.darkInputDecorationTheme,
+    switchTheme: BHSwitchTheme.darkSwitchTheme,
   );
 }

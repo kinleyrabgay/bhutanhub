@@ -74,14 +74,14 @@ class Settings {
       'icon': Iconsax.notification,
       'title': 'Notifications',
       'subTitle': 'Enable push notification',
-      'route': '/notifications',
       'isSwitch': true,
-      'value': true,
+      'value': false,
     },
     {
       'icon': Iconsax.trash,
       'title': 'Delete Account',
       'subTitle': 'Delete your account associated to BhutanHub',
+      'route': '/delete-account',
       'isSwitch': false,
     },
   ];
@@ -105,7 +105,7 @@ class Settings {
       'icon': Iconsax.security_user,
       'title': 'Account Privacy',
       'subTitle': 'Manage data usage and connected accounts',
-      'route': null,
+      'route': '/account-privacy',
       'isSwitch': false,
     },
   ];

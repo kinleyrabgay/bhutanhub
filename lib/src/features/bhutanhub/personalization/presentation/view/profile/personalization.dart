@@ -97,9 +97,12 @@ class PersonalizationView extends StatelessWidget {
               trailing: item['isSwitch']
                   ? SizedBox(
                       width: 24,
-                      child: Switch(
-                        value: item['value'],
-                        onChanged: (value) {},
+                      child: Transform.scale(
+                        scale: 0.8,
+                        child: Switch(
+                          value: item['value'],
+                          onChanged: (value) {},
+                        ),
                       ),
                     )
                   : null,
