@@ -129,7 +129,7 @@ class Settings {
       'icon': Iconsax.info_circle,
       'title': 'About Us',
       'subTitle': 'Learn more about our company',
-      'route': '/about',
+      'route': '/about-us',
       'isSwitch': false,
     },
   ];

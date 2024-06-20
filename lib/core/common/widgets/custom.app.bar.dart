@@ -17,7 +17,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: Theme.of(context).textTheme.titleLarge,
       ),
-      automaticallyImplyLeading: false,
+      titleSpacing: 0,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: Container(
