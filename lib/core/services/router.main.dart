@@ -12,13 +12,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               child: const OnboardingView(),
             );
           } else if (sl<FirebaseAuth>().currentUser != null) {
-            final user = sl<FirebaseAuth>().currentUser!;
-            final localUser = UserModel(
-              uid: user.uid,
-              avatar: user.photoURL ?? '',
-              name: user.displayName ?? '',
-              email: user.email ?? '',
-            );
+            // final user = sl<FirebaseAuth>().currentUser!;
+            // final localUser = UserModel(
+            //   uid: user.uid,
+            //   avatar: user.photoURL ?? '',
+            //   name: user.displayName ?? '',
+            //   email: user.email ?? '',
+            // );
             //  context.userProvider.initUser(localUser);
             return const BhutanhubNavigation();
           }
@@ -57,6 +57,33 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/forgot-password':
       return _pageBuilder(
         (_) => const fui.ForgotPasswordScreen(),
+        settings: settings,
+      );
+
+    case AboutUsView.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<PersonalizationBloc>(),
+          child: const AboutUsView(),
+        ),
+        settings: settings,
+      );
+
+    case HelpCenterView.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<PersonalizationBloc>(),
+          child: const HelpCenterView(),
+        ),
+        settings: settings,
+      );
+
+    case FeedbackView.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<PersonalizationBloc>(),
+          child: const FeedbackView(),
+        ),
         settings: settings,
       );
 
