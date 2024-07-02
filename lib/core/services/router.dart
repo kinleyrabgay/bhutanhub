@@ -8,9 +8,12 @@ import 'package:bhutanhub/src/features/authentication/presentation/view/sign.up.
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/about.us.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/address/address.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/feedback.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/help.center.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';

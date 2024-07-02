@@ -6,15 +6,18 @@ import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
-class AboutUs extends StatelessWidget {
-  const AboutUs({super.key});
+class AboutUsView extends StatelessWidget {
+  const AboutUsView({super.key});
 
   static const routeName = '/about-us';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(title: 'BhutanHub / About'),
+      appBar: const CustomAppbar(
+        title: 'About Us',
+        titleSpacing: 0,
+      ),
       body: buildAboutAccordian(AboutConstant.data, context),
     );
   }

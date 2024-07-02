@@ -6,18 +6,20 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
     super.key,
     required this.title,
+    this.titleSpacing,
   });
 
   final String title;
+  final double? titleSpacing;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.titleLarge,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
-      titleSpacing: 0,
+      titleSpacing: titleSpacing,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: Container(

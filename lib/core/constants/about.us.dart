@@ -5,29 +5,6 @@ class AccordionItem {
   AccordionItem(this.header, this.body);
 }
 
-final List<AccordionItem> accordionData = [
-  AccordionItem(
-    'Account Settings',
-    'Manage your account settings including password, email, and more.',
-  ),
-  AccordionItem(
-    'Privacy Policy',
-    'Read our privacy policy and understand how we handle your data.',
-  ),
-  AccordionItem(
-    'Terms of Service',
-    'Understand the terms and conditions for using our platform.',
-  ),
-  AccordionItem(
-    'Help & Support',
-    'Find answers to common questions and get support from our team.',
-  ),
-  AccordionItem(
-    'About Us',
-    'Learn more about our company and our mission.',
-  ),
-];
-
 class AboutConstant {
   static const List<Map<String, dynamic>> data = [
     {

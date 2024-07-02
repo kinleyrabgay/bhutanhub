@@ -60,11 +60,29 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
-    case AboutUs.routeName:
+    case AboutUsView.routeName:
       return _pageBuilder(
         (_) => BlocProvider(
           create: (_) => sl<PersonalizationBloc>(),
-          child: const AboutUs(),
+          child: const AboutUsView(),
+        ),
+        settings: settings,
+      );
+
+    case HelpCenterView.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<PersonalizationBloc>(),
+          child: const HelpCenterView(),
+        ),
+        settings: settings,
+      );
+
+    case FeedbackView.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<PersonalizationBloc>(),
+          child: const FeedbackView(),
         ),
         settings: settings,
       );

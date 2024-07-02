@@ -5,10 +5,17 @@ class Settings {
 
   static const List<Map<String, dynamic>> accountSettings = [
     {
-      'icon': Iconsax.add_square,
-      'title': 'Product & Service',
-      'subTitle': 'Post your products & services on the BhutanHub',
-      'route': '/manage-addresses',
+      'icon': Iconsax.briefcase,
+      'title': 'Service',
+      'subTitle': 'Post your services on the BhutanHub',
+      'route': '/services',
+      'isSwitch': false,
+    },
+    {
+      'icon': Iconsax.shopping_cart,
+      'title': 'Products',
+      'subTitle': 'Post your products on the BhutanHub',
+      'route': '/products',
       'isSwitch': false,
     },
     {
@@ -32,13 +39,13 @@ class Settings {
       'route': '/order-history',
       'isSwitch': false,
     },
-    {
-      'icon': Iconsax.discount_shape,
-      'title': 'My Coupons',
-      'subTitle': 'List of all the discounted coupons',
-      'route': null,
-      'isSwitch': false,
-    },
+    // {
+    //   'icon': Iconsax.discount_shape,
+    //   'title': 'My Coupons',
+    //   'subTitle': 'List of all the discounted coupons',
+    //   'route': null,
+    //   'isSwitch': false,
+    // },
     // {
     //   'icon': Iconsax.card,
     //   'title': 'Payment Methods',

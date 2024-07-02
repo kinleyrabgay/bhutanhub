@@ -2,7 +2,7 @@ import 'package:bhutanhub/core/common/widgets/section.menu.tile.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/settings.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/profile/widgets/profile.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/widgets/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
