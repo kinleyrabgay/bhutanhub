@@ -1,5 +1,4 @@
 import 'package:bhutanhub/core/constants/colors.dart';
-import 'package:bhutanhub/src/features/bhutanhub/category/presentation/view/category.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -19,9 +18,8 @@ class _BhutanhubNavigationState extends State<BhutanhubNavigation> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     ExploreView(),
-    CategoryView(),
-    SellView(),
-    WishlistView(),
+    ServiceView(),
+    SearchView(),
     PersonalizationView(),
   ];
 
@@ -36,17 +34,12 @@ class _BhutanhubNavigationState extends State<BhutanhubNavigation> {
     },
     {
       'label': 'Service',
-      'icon': Iconsax.programming_arrow,
+      'icon': Iconsax.magicpen,
       'activeIcon': Iconsax.category5,
     },
     {
-      'label': 'New',
-      'icon': Iconsax.flash_1,
-      'activeIcon': Iconsax.heart5,
-    },
-    {
-      'label': 'Trending',
-      'icon': Iconsax.chart_21,
+      'label': 'Search',
+      'icon': Iconsax.search_normal,
       'activeIcon': Iconsax.add_square5,
     },
     {
@@ -74,7 +67,7 @@ class _BhutanhubNavigationState extends State<BhutanhubNavigation> {
           return BottomNavigationBarItem(
             icon: Padding(
               padding: const EdgeInsets.all(6),
-              child: index == 4
+              child: index == 3
                   ? Container(
                       width: 25,
                       height: 25,
@@ -104,8 +97,8 @@ class _BhutanhubNavigationState extends State<BhutanhubNavigation> {
         }).toList(),
         elevation: 1,
         backgroundColor: BHColors.white,
-        showUnselectedLabels: true,
-        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
         selectedFontSize: 10,
         unselectedFontSize: 10,
         enableFeedback: true,
