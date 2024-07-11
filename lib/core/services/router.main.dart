@@ -93,6 +93,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
+    case ProductsView.routeName:
+      return _pageBuilder(
+        (_) => const ProductsView(),
+        settings: settings,
+      );
+
     default:
       return _pageBuilder(
         (_) => const PageUnderConstruction(),

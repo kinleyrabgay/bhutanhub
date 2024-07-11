@@ -6,6 +6,7 @@ Future<void> init() async {
   await _initUtility();
   await _initOnboarding();
   await _initAuthentication();
+  await _initPersonalization();
 }
 
 Future<void> _initUtility() async {
@@ -111,6 +112,28 @@ Future<void> _initAuthentication() async {
     ..registerLazySingleton<AutheLocalDataSource>(
       () => AutheLocalDataSourceImplementation(
         storageService: sl(),
+      ),
+    );
+}
+
+Future<void> _initPersonalization() async {
+  sl
+    ..registerFactory(
+      () => PersonalizationBloc(
+        createProduct: sl(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => CreateProduct(sl()),
+    )
+    ..registerLazySingleton<ProductRepository>(
+      () => ProductRepositoryImplementation(
+        remoteDataSource: sl(),
+      ),
+    )
+    ..registerLazySingleton<ProductRemoteDataSource>(
+      () => ProductRemoteDataSourceImplementation(
+        client: sl(),
       ),
     );
 }

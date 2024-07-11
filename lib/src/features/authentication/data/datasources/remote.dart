@@ -3,7 +3,6 @@ import 'package:bhutanhub/core/constants/enums.dart';
 import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:bhutanhub/core/errors/firebase.auth.dart';
 import 'package:bhutanhub/core/errors/firebase.platform.dart';
-import 'package:bhutanhub/core/services/api/v1/constant.dart';
 import 'package:bhutanhub/core/utils/typedef.dart';
 import 'package:bhutanhub/src/features/authentication/data/models/user.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -165,13 +164,10 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     }
   }
 
+  // TODO
   @override
   Future<void> forgotPassword(String email) async {
-    print(email);
-    final response = await _client.get(Uri.https(APIService.greeting));
-    print(response);
-
-    // throw UnimplementedError();
+    throw UnimplementedError();
   }
 
   @override
@@ -194,6 +190,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         );
   }
 
+  // TODO
   Future<void> _updateUserData(DataMap data) async {
     await _cloudStoreClient
         .collection('users')
