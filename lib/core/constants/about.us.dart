@@ -25,3 +25,21 @@ class AboutConstant {
     }
   ];
 }
+
+class TestData {
+  static const List<Map<String, dynamic>> data = [
+    {
+      'header': 'iPhone 14 Pro Max',
+      'body':
+          'The iPhone 14 Pro Max is a powerful and stylish device that delivers exceptional performance.',
+    },
+    {
+      'header': 'MacBook Pro',
+      'body': 'The MacBook Pro is a powerful and stylish laptop',
+    },
+    {
+      'header': 'Bolero',
+      'body': 'The Bolero is a classic and elegant car for men',
+    },
+  ];
+}

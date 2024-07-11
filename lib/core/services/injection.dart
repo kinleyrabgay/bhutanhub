@@ -12,6 +12,11 @@ import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.in.da
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.up.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/update.user.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/data/datsources/product.remote.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/data/repositories/product.repo.implmentation.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/repositories/product.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/usecases/create.product.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/onboarding/data/datasource/local.source.dart';
 import 'package:bhutanhub/src/features/onboarding/data/repos/onboarding.repo.impl.dart';
 import 'package:bhutanhub/src/features/onboarding/domain/repos/onboarding.repo.dart';
