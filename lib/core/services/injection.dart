@@ -13,9 +13,13 @@ import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.up.da
 import 'package:bhutanhub/src/features/authentication/domain/usecases/update.user.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/data/datsources/product.remote.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/data/datsources/upload.remote.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/data/repositories/product.repo.implmentation.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/data/repositories/upload.repo.implementation.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/repositories/product.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/repositories/upload.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/usecases/create.product.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/usecases/update.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/onboarding/data/datasource/local.source.dart';
 import 'package:bhutanhub/src/features/onboarding/data/repos/onboarding.repo.impl.dart';
@@ -25,10 +29,12 @@ import 'package:bhutanhub/src/features/onboarding/domain/usecases/check_if_user_
 import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 

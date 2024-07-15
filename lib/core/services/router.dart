@@ -10,7 +10,7 @@ import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/vi
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/address/address.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/feedback.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/help.center.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/products.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';

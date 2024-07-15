@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: GetMaterialApp(
-        title: 'BhutanHub',
+        title: 'Bhutan Hub',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         darkTheme: BHAppTheme.darkTheme,

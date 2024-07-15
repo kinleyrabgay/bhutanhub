@@ -39,6 +39,11 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   url_launcher: ^6.3.0
   accordion: ^2.6.0
+  reactive_forms: ^17.0.1
+  horizontal_stepper_step: ^0.0.5
+  dotted_border: ^2.1.0
+  image_picker: ^1.1.2
+  dio: ^5.5.0+1
 
 dev_dependencies:
   flutter_test:

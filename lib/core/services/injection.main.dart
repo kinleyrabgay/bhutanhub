@@ -30,7 +30,13 @@ Future<void> _initUtility() async {
       () => PageController(),
     )
     ..registerLazySingleton(
+      () => ImagePicker(),
+    )
+    ..registerLazySingleton(
       () => client,
+    )
+    ..registerLazySingleton(
+      () => Dio(),
     )
     ..registerLazySingleton(
       () => FirebaseAuth.instance,
@@ -121,10 +127,25 @@ Future<void> _initPersonalization() async {
     ..registerFactory(
       () => PersonalizationBloc(
         createProduct: sl(),
+        upload: sl(),
       ),
     )
     ..registerLazySingleton(
       () => CreateProduct(sl()),
+    )
+    ..registerLazySingleton(
+      () => Upload(sl()),
+    )
+    ..registerLazySingleton<UploadRepository>(
+      () => UploadRepositoryImplementation(
+        uploadRemoteDataSource: sl(),
+      ),
+    )
+    ..registerLazySingleton<UploadRemoteDataSource>(
+      () => UploadRemoteDataSourceImplementation(
+        picker: sl(),
+        dio: sl(),
+      ),
     )
     ..registerLazySingleton<ProductRepository>(
       () => ProductRepositoryImplementation(
@@ -133,7 +154,7 @@ Future<void> _initPersonalization() async {
     )
     ..registerLazySingleton<ProductRemoteDataSource>(
       () => ProductRemoteDataSourceImplementation(
-        client: sl(),
+        dio: sl(),
       ),
     );
 }
