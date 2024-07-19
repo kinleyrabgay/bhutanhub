@@ -9,14 +9,17 @@ class BHTextFieldTheme {
     // errorMaxLines: 3,
     prefixIconColor: BHColors.grey,
     suffixIconColor: BHColors.darkGrey,
-    labelStyle: const TextStyle().copyWith(fontSize: 14, color: BHColors.grey),
-    hintStyle: const TextStyle().copyWith(fontSize: 14, color: BHColors.grey),
+    prefixStyle: const TextStyle().copyWith(fontSize: 12, color: BHColors.grey),
+    labelStyle: const TextStyle().copyWith(fontSize: 12, color: BHColors.grey),
+    hintStyle: const TextStyle().copyWith(fontSize: 12, color: BHColors.grey),
     errorStyle: const TextStyle().copyWith(
       fontSize: 10, fontStyle: FontStyle.normal, height: 0,
       // color: Colors.transparent,
     ),
-    contentPadding:
-        const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 0,
+      horizontal: 12.0,
+    ),
     floatingLabelStyle: const TextStyle().copyWith(
       color: Colors.black.withOpacity(0.8),
     ),
@@ -47,14 +50,17 @@ class BHTextFieldTheme {
     // errorMaxLines: 3,
     prefixIconColor: BHColors.grey,
     suffixIconColor: BHColors.grey,
-    labelStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
-    hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
+    prefixStyle: const TextStyle().copyWith(fontSize: 12, color: BHColors.grey),
+    labelStyle: const TextStyle().copyWith(fontSize: 12, color: Colors.white),
+    hintStyle: const TextStyle().copyWith(fontSize: 12, color: Colors.white),
     errorStyle: const TextStyle().copyWith(
       fontSize: 10, fontStyle: FontStyle.normal, height: 0,
       // color: Colors.transparent,
     ),
-    contentPadding:
-        const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 0,
+      horizontal: 12.0,
+    ),
     floatingLabelStyle: const TextStyle().copyWith(
       color: Colors.white.withOpacity(0.8),
     ),

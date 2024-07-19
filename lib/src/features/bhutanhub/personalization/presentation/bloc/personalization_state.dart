@@ -26,7 +26,13 @@ class ProductCreationFailed extends PersonalizationState {
 }
 
 // Image
-class ImageUploading extends PersonalizationState {}
+class ImageUploading extends PersonalizationState {
+  final bool isUploading;
+  const ImageUploading(this.isUploading);
+
+  @override
+  List<bool> get props => [isUploading];
+}
 
 class ImageUploadSuccess extends PersonalizationState {
   final List<String> imageUrl;
@@ -43,3 +49,5 @@ class ImageUploadFailure extends PersonalizationState {
   @override
   List<Object> get props => [message];
 }
+
+class ImageUpload extends PersonalizationState {}

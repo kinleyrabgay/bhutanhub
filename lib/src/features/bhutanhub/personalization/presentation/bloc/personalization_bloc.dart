@@ -53,10 +53,7 @@ class PersonalizationBloc
     UploadImageEvent event,
     Emitter<PersonalizationState> emit,
   ) async {
-    // emit(ImageUploading());
-
     final result = await _upload();
-    print('bloc $result');
     result.fold(
       (failure) => emit(const ImageUploadFailure(
         'Failed to upload image, please try again',

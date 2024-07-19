@@ -111,7 +111,6 @@ Future<void> _initAuthentication() async {
       () => AuthRemoteDataSourceImplementation(
         authClient: sl(),
         cloudStoreClient: sl(),
-        dbClient: sl(),
         client: sl(),
       ),
     )

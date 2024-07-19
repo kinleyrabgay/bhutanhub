@@ -48,7 +48,7 @@ class UploadRemoteDataSourceImplementation implements UploadRemoteDataSource {
         );
 
         final response = await _dio.post(
-          APIService.uploadProductImage,
+          APITestService.uploadProductImage,
           data: formData,
         );
 
