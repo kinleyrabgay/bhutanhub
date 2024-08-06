@@ -10,7 +10,9 @@ class ProductModel extends ProductEntity {
     required super.price,
     required super.image,
     required super.quantity,
-    required super.categoryId,
+    required super.category,
+    required super.brand,
+    required super.condition,
   });
 
   factory ProductModel.fromJson(String source) =>
@@ -22,9 +24,11 @@ class ProductModel extends ProductEntity {
           name: map['name'] ?? '',
           description: map['description'] ?? '',
           price: map['price']?.toDouble() ?? 0.0,
-          image: map['image'] ?? '',
+          image: List<String>.from(map['image'] ?? const []),
           quantity: map['quantity']?.toInt() ?? 0,
-          categoryId: map['categoryId'] ?? '',
+          category: CategoryEntity.fromMap(map['category'] ?? const {}),
+          brand: BrandEntity.fromMap(map['brand'] ?? const {}),
+          condition: map['condition'] ?? 'new',
         );
 
   DataMap toMap() {
@@ -35,7 +39,9 @@ class ProductModel extends ProductEntity {
       'price': price,
       'image': image,
       'quantity': quantity,
-      'categoryId': categoryId,
+      'category': category.toMap(),
+      'brand': brand.toMap(),
+      'condition': condition,
     };
   }
 
@@ -52,7 +58,9 @@ class ProductModel extends ProductEntity {
       price: price,
       image: image,
       quantity: quantity,
-      categoryId: categoryId,
+      category: category,
+      brand: brand,
+      condition: condition,
     );
   }
 
@@ -62,8 +70,10 @@ class ProductModel extends ProductEntity {
           name: '',
           description: '',
           price: 0.0,
-          image: '',
+          image: const [],
           quantity: 0,
-          categoryId: '',
+          category: const CategoryEntity.empty(),
+          brand: const BrandEntity.empty(),
+          condition: 'new',
         );
 }

@@ -6,10 +6,10 @@ import 'package:bhutanhub/src/features/authentication/presentation/bloc/authenti
 import 'package:bhutanhub/src/features/authentication/presentation/view/sign.in.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/view/sign.up.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/about.us.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/address/address.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/feedback.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/help.center.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/about-us/about.us.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/address-book/address.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/feedback/feedback.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/help-center/help.center.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/products.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/views/onboarding.dart';

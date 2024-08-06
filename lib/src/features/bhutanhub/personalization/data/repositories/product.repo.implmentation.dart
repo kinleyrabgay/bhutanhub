@@ -24,7 +24,9 @@ class ProductRepositoryImplementation implements ProductRepository {
         price: product.price,
         image: product.image,
         quantity: product.quantity,
-        categoryId: product.categoryId,
+        category: product.category,
+        brand: product.brand,
+        condition: product.condition,
       );
       await remoteDataSource.createProduct(
         product: productModel,

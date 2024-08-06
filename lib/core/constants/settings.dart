@@ -5,17 +5,17 @@ class Settings {
 
   static const List<Map<String, dynamic>> accountSettings = [
     {
-      'icon': Iconsax.briefcase,
-      'title': 'Service',
-      'subTitle': 'Post your services on the BhutanHub',
-      'route': '/services',
+      'icon': Iconsax.document_upload,
+      'title': 'Products',
+      'subTitle': 'Create, edit & delete your products on the BhutanHub',
+      'route': '/products',
       'isSwitch': false,
     },
     {
-      'icon': Iconsax.shopping_cart,
-      'title': 'Products',
-      'subTitle': 'Post your products on the BhutanHub',
-      'route': '/products',
+      'icon': Iconsax.briefcase,
+      'title': 'Services',
+      'subTitle': 'Create, edit & delete your services on the BhutanHub',
+      'route': '/services',
       'isSwitch': false,
     },
     {

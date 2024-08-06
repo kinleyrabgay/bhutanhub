@@ -51,25 +51,30 @@ class ProductList extends StatelessWidget {
               item['header'],
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            content: Row(
-              children: [
-                Expanded(
-                  flex: 9,
-                  child: Text(
-                    item['body'],
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                ),
-                const Spacer(),
-                Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    child: const Icon(
-                      Iconsax.edit,
+            content: Dismissible(
+              key: UniqueKey(),
+              // Remove it
+              onDismissed: (_) => onProductTap?.call(item),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 9,
+                    child: Text(
+                      item['body'],
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
-                )
-              ],
+                  const Spacer(),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      child: const Icon(
+                        Iconsax.edit,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         )

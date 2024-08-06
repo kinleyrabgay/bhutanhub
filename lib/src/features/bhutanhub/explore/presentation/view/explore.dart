@@ -87,18 +87,18 @@ class _ExploreViewState extends State<ExploreView>
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Iconsax.notification),
-              onPressed: () {},
-            ),
             BHCart(
               iconColor: Colors.white,
               onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(Iconsax.search_normal),
+              icon: const Icon(Iconsax.notification),
               onPressed: () {},
             ),
+            // IconButton(
+            //   icon: const Icon(Iconsax.search_normal),
+            //   onPressed: () {},
+            // ),
           ],
         ),
         body: Padding(

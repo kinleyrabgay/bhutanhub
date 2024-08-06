@@ -15,10 +15,11 @@ class PersonalizationView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header
+            // --- Profile Header ---
             const ProfileWidget(),
             const SizedBox(height: BHSizes.spaceItems),
 
+            // --- Settings ---
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: BHSizes.defaultSpace,

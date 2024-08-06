@@ -1,5 +1,61 @@
 import 'package:equatable/equatable.dart';
 
+class CategoryEntity {
+  final int id;
+  final String name;
+
+  const CategoryEntity({
+    required this.id,
+    required this.name,
+  });
+
+  factory CategoryEntity.fromMap(Map<String, dynamic> map) {
+    return CategoryEntity(
+      id: map['id'] ?? 0,
+      name: map['name'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
+
+  const CategoryEntity.empty()
+      : id = 0,
+        name = '';
+}
+
+class BrandEntity {
+  final int id;
+  final String name;
+
+  const BrandEntity({
+    required this.id,
+    required this.name,
+  });
+
+  factory BrandEntity.fromMap(Map<String, dynamic> map) {
+    return BrandEntity(
+      id: map['id'] ?? 0,
+      name: map['name'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
+
+  const BrandEntity.empty()
+      : id = 0,
+        name = '';
+}
+
 class ProductEntity extends Equatable {
   const ProductEntity({
     required this.uid,
@@ -8,9 +64,10 @@ class ProductEntity extends Equatable {
     required this.price,
     required this.image,
     required this.quantity,
-    required this.categoryId,
+    required this.category,
+    required this.brand,
+    required this.condition,
     this.sku,
-    this.brand,
     this.discount,
     this.weight,
     this.length,
@@ -28,11 +85,12 @@ class ProductEntity extends Equatable {
   final String name;
   final String description;
   final double price;
-  final String image;
+  final List<String> image;
   final int quantity;
-  final String categoryId;
+  final String condition;
+  final CategoryEntity category;
+  final BrandEntity brand;
   final String? sku;
-  final String? brand;
   final double? discount;
   final double? weight;
   final double? length;
@@ -51,9 +109,11 @@ class ProductEntity extends Equatable {
           name: '',
           description: '',
           price: 0,
-          image: '',
+          image: const [],
           quantity: 0,
-          categoryId: '',
+          category: const CategoryEntity.empty(),
+          brand: const BrandEntity.empty(),
+          condition: 'new',
         );
 
   @override
@@ -64,7 +124,7 @@ class ProductEntity extends Equatable {
         price,
         image,
         quantity,
-        categoryId,
+        category,
         sku,
         brand,
         discount,

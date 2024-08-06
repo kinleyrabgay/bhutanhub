@@ -1,20 +1,20 @@
-import 'package:bhutanhub/core/common/widgets/custom.dropdown.field.dart';
-import 'package:bhutanhub/core/common/widgets/custom.text.field.dart';
-import 'package:bhutanhub/core/common/widgets/horizontal.step.dart';
+import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/entities/product.entity.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/brand_constant.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/category_constant.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/product.image.uploader.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step1.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step2.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step3.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step4.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step5.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
+import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 
 class AddProduct extends StatefulWidget {
-  const AddProduct({
-    super.key,
-    this.product,
-  });
+  const AddProduct({super.key, this.product});
 
   final ProductEntity? product;
 
@@ -23,115 +23,244 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  late TextEditingController _nameController;
-  late TextEditingController _priceController;
-  late SingleValueDropDownController _categoryController;
-  late SingleValueDropDownController _brandController;
+  // Step 1
+  late final TextEditingController _nameController;
+  late final TextEditingController _descriptionController;
+  late final TextEditingController _priceController;
 
-  final String _locale = 'en';
+  // Step 2
+  late final SingleValueDropDownController _categoryController;
+  late final SingleValueDropDownController _brandController;
 
-  String _formatNumber(String s) {
-    if (s.isEmpty) return '0';
-    int parsedNumber = int.parse(s.trim());
-    return NumberFormat.decimalPattern(_locale).format(parsedNumber);
-  }
+  // Step 3
+  late final SingleValueDropDownController _conditionController;
+  late final TextEditingController _discountController;
+  late final SingleValueDropDownController _stockController;
 
-  String get _currency => 'Nu.';
+  int _activeStep = 0;
+  bool _isValid = false;
+  bool _allTermsChecked = false;
 
-  final List<String> titles = [
-    'TextConstant.CART',
-    'TextConstant.ADDRESS',
-    'TextConstant.PAYMENT'
+  final List<IconData> _stepIcons = [
+    Iconsax.image,
+    Iconsax.category,
+    Iconsax.tag,
+    Iconsax.document,
   ];
-  final int _curStep = 1;
 
   @override
   void initState() {
     super.initState();
+
     _nameController = TextEditingController();
+    _descriptionController = TextEditingController();
     _priceController = TextEditingController();
     _categoryController = SingleValueDropDownController();
     _brandController = SingleValueDropDownController();
+    _conditionController = SingleValueDropDownController();
+    _discountController = TextEditingController();
+    _stockController = SingleValueDropDownController();
+
+    // Validate form
+    _nameController.addListener(_validateForm);
+    _descriptionController.addListener(_validateForm);
+    _priceController.addListener(_validateForm);
+    _categoryController.addListener(_validateForm);
+    _brandController.addListener(_validateForm);
+    _conditionController.addListener(_validateForm);
+    _discountController.addListener(_validateForm);
+    _stockController.addListener(_validateForm);
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _descriptionController.dispose();
     _priceController.dispose();
     _categoryController.dispose();
     _brandController.dispose();
+    _conditionController.dispose();
+    _discountController.dispose();
+    _stockController.dispose();
     super.dispose();
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isValid = _nameController.text.trim().isNotEmpty &&
+          _descriptionController.text.trim().isNotEmpty &&
+          _priceController.text.trim().isNotEmpty &&
+          _categoryController.dropDownValue != null &&
+          _brandController.dropDownValue?.value != null &&
+          _allTermsChecked;
+    });
+  }
+
+  void _onStepReached(int index) {
+    setState(() {
+      if (index == 0) {
+        _activeStep = index;
+      }
+      if (index == 1 &&
+          _nameController.text.isNotEmpty &&
+          _descriptionController.text.isNotEmpty &&
+          _priceController.text.isNotEmpty) {
+        _activeStep = index;
+      }
+      if (index == 2 &&
+          _categoryController.dropDownValue != null &&
+          _brandController.dropDownValue?.value != null) {
+        _activeStep = index;
+      }
+      if (index == 3 &&
+          _conditionController.dropDownValue != null &&
+          _stockController.dropDownValue != null) {
+        _activeStep = index + 1;
+      }
+    });
+  }
+
+  Future<void> _onCreateProduct(BuildContext context) async {
+    context.read<PersonalizationBloc>().add(
+          const CreateProductEvent(
+            product: ProductEntity(
+              uid: 'OO5yaWON4DeeGdG4CyRaDWQoGq13',
+              image: ['https://example.com/image1.jpg'],
+              quantity: 10,
+              category: CategoryEntity(id: 1, name: 'Mobiles'),
+              brand: BrandEntity(id: 3, name: 'Apple'),
+              name: 'iPhone 14 Pro',
+              description:
+                  'Latest Apple iPhone with A16 chip and ProMotion display.',
+              price: 999.99,
+              condition: 'New',
+              discount: 10.0,
+            ),
+          ),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: BHSizes.defaultSpace),
+      child: Column(
+        children: [
+          // --- Header ---
+          header(context),
+
+          // --- Steps ---
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  EasyStepper(
+                    activeStep: _activeStep,
+                    lineStyle: const LineStyle(
+                      lineType: LineType.normal,
+                      lineThickness: 1,
+                      lineSpace: 1,
+                      defaultLineColor: BHColors.grey,
+                      finishedLineColor: BHColors.primary,
+                    ),
+                    internalPadding: 0,
+                    stepRadius: 16,
+                    borderThickness: 0,
+                    finishedStepBackgroundColor: BHColors.primary,
+                    finishedStepBorderType: BorderType.normal,
+                    finishedStepIconColor: BHColors.white,
+                    finishedStepTextColor: BHColors.primary,
+                    stepShape: StepShape.rRectangle,
+                    stepBorderRadius: 4,
+                    showTitle: false,
+                    fitWidth: false,
+                    defaultStepBorderType: BorderType.normal,
+                    direction: Axis.horizontal,
+                    showScrollbar: false,
+                    stepAnimationDuration: const Duration(milliseconds: 300),
+                    padding: EdgeInsets.zero,
+                    // showLoadingAnimation: _activeStep < 3 ? true : false,
+                    steps: List.generate(
+                      4,
+                      (index) => EasyStep(
+                        icon: Icon(_stepIcons[index], size: 14),
+                        finishIcon: const Icon(
+                          Iconsax.tick_circle,
+                          size: 14,
+                        ),
+                      ),
+                    ),
+                    onStepReached: _onStepReached,
+                  ),
+                ],
+              ),
+              const SizedBox(height: BHSizes.spaceItems),
+              _steps.elementAt(_activeStep == 5 ? 4 : _activeStep),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row header(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // TODO
-        // HorizontalStepper(
-        //   width: MediaQuery.of(context).size.width,
-        //   curStep: _curStep,
-        //   color: const Color(0xff50AC02),
-        //   showTitle: false,
-        //   titles: titles,
-        // ),
-        // --- Product Image Uploader ---
-        const ProductImageUploader(),
-        const SizedBox(height: BHSizes.spaceSections / 2),
-
-        // --- Product Category ---
-        CustomDropDownTextField(
-          controller: _categoryController,
-          labelText: 'Product Category',
-          hintText: 'Select a category',
-          searchHintText: 'Search for a category',
-          dropDownItemCount: 2,
-          dropDownList: categoryList,
-          onChanged: (val) {},
+        // --- Title
+        Text(
+          'Add Product',
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .apply(color: BHColors.primary),
         ),
-        const SizedBox(height: BHSizes.spaceSections / 2),
-
-        // --- Product Brand ---
-        CustomDropDownTextField(
-          controller: _brandController,
-          labelText: 'Product Brand',
-          hintText: 'Select a brand',
-          searchHintText: 'Search for a brand',
-          dropDownItemCount: 2,
-          dropDownList: brandList,
-          onChanged: (val) {},
-        ),
-        const SizedBox(height: BHSizes.spaceSections / 2),
-
-        // --- Product Name ---
-        CustomTextFormField(
-          controller: _nameController,
-          labelText: 'Product Name',
-          hintText: 'Enter a name for your product',
-          onChanged: (value) => _nameController.text = value,
-        ),
-        const SizedBox(height: BHSizes.spaceSections / 2),
-
-        // --- Product Price ---
-        CustomTextFormField(
-          controller: _priceController,
-          labelText: 'Product Price',
-          hintText: '',
-          prefixText: _currency,
-          keyboardType: TextInputType.number,
-          onChanged: (value) {
-            value = _formatNumber(value.replaceAll(',', ''));
-            _priceController.value = TextEditingValue(
-              text: value,
-              selection: TextSelection.collapsed(offset: value.length),
-            );
-          },
-        ),
-        const SizedBox(height: BHSizes.spaceSections / 2),
-
-        // --- Product Description ---
+        Row(
+          children: [
+            // --- Back Button
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'Cancel',
+              ),
+            ),
+            // --- Add Button
+            if (true) ...[
+              TextButton(
+                onPressed: () => _onCreateProduct(context),
+                child: const Text(
+                  'Add',
+                ),
+              ),
+            ],
+          ],
+        )
       ],
     );
   }
+
+  List<Widget> get _steps => [
+        Step1(
+          nameController: _nameController,
+          descriptionController: _descriptionController,
+          priceController: _priceController,
+        ),
+        Step2(
+          categoryController: _categoryController,
+          brandController: _brandController,
+        ),
+        Step3(
+          conditionController: _conditionController,
+          discountController: _discountController,
+          stockController: _stockController,
+        ),
+        Step4(
+          onAllTermsChecked: (value) => {
+            _allTermsChecked = value,
+            _validateForm(),
+          },
+        ),
+        const Step5()
+      ];
 }

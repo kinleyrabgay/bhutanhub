@@ -3,7 +3,7 @@ class BHTexts {
 
   // Global
 
-// Onboarding title text
+  // Onboarding title text
   static const String onBoardingTitle1 = "Welcome to Bhutan Hub";
   static const String onBoardingTitle2 = "Discover Great Products";
   static const String onBoardingTitle3 = "Easy & Secure Transactions";
@@ -105,4 +105,48 @@ class BHTexts {
       'Account registered successfully, Welcome!';
   static const String successLoginSnackBody =
       'Login successfull, Welcome back!';
+  static const String successProductCreationSnackBody =
+      "Product created successfully!";
+
+  // --------------------------------- Product creation ------------------------------
+  static const String uploadProductImage = "Let's upload your product image";
+
+  // Category
+  static const String category = "Category";
+  static const String hintCategory = "Select a Category";
+  static const String searchCategory = "Search for a Category";
+
+  // Brand
+  static const String brand = "Brand";
+  static const String hintBrand = "Select a Brand";
+  static const String searchBrand = "Search for a Brand";
+
+  // Condition
+  static const String condition = "Condition";
+  static const String hintCondition = "Select a condition";
+  static const String searchCondition = "Search for a condition";
+
+  // Stock
+  static const String stock = "Stock";
+  static const String hintStock = "Select a stock";
+  static const String searchStock = "Search for a stock";
+
+// Terms and Conditions
+  static const String term1 =
+      "By creating or listing a product on our platform, you agree to these terms. If you do not agree, please do not use the platform.";
+
+  static const String term2 =
+      "You must be at least 18 years old and legally capable of entering into contracts to create or list products.";
+
+  static const String term3 =
+      "You agree to provide accurate and complete product information, including name, description, price, and category, and to keep it up to date.";
+
+  static const String term4 =
+      "Do not list illegal, harmful, or prohibited products, including counterfeit goods, hazardous materials, or those promoting hate or violence.";
+
+  static const String term5 =
+      "We are not liable for issues arising from your product listings. You agree to indemnify us against any claims related to your listings.";
+
+  static const String term6 =
+      "We may suspend or terminate your ability to list products without notice if you violate these terms or engage in illegal activities.";
 }

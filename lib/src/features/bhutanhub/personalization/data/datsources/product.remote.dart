@@ -32,16 +32,10 @@ class ProductRemoteDataSourceImplementation implements ProductRemoteDataSource {
         ),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        // Return success
-        return;
-      } else {
-        // Return failure with APIException
-        throw APIException(
-          message: 'Failed to create product, please try again',
-          statusCode: response.statusCode ?? 500,
-        );
-      }
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      //   // Return success
+      //   return;
+      // }
     } catch (e) {
       // Return failure with APIException for exceptions
       throw APIException(

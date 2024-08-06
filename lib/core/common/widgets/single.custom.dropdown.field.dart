@@ -4,10 +4,9 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class CustomDropDownTextField extends StatelessWidget {
-  const CustomDropDownTextField({
+class SingleCustomDropDownTextField extends StatelessWidget {
+  const SingleCustomDropDownTextField({
     super.key,
-    required this.controller,
     required this.labelText,
     this.hintText,
     this.searchHintText,
@@ -17,9 +16,10 @@ class CustomDropDownTextField extends StatelessWidget {
     required this.dropDownList,
     this.enableSearch = true,
     this.dropDownItemCount = 8,
+    required this.singleValueDropDownController,
   });
 
-  final SingleValueDropDownController controller;
+  final SingleValueDropDownController singleValueDropDownController;
   final String labelText;
   final String? hintText, searchHintText;
   final String? prefixText;
@@ -36,11 +36,14 @@ class CustomDropDownTextField extends StatelessWidget {
       children: [
         Text(
           labelText,
-          style: Theme.of(context).textTheme.labelLarge!,
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge!
+              .apply(color: BHColors.primary),
         ),
         const SizedBox(height: BHSizes.spaceItems / 2),
         DropDownTextField(
-          controller: controller,
+          controller: singleValueDropDownController,
           clearOption: true,
           dropdownRadius: 4,
           enableSearch: enableSearch,
@@ -79,6 +82,10 @@ class CustomDropDownTextField extends StatelessWidget {
           ),
           listTextStyle: Theme.of(context).textTheme.labelLarge,
           textFieldFocusNode: FocusNode(),
+          textStyle: Theme.of(context)
+              .textTheme
+              .labelLarge!
+              .apply(color: BHColors.primary),
         ),
       ],
     );

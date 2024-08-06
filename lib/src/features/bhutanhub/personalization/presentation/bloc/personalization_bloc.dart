@@ -36,9 +36,7 @@ class PersonalizationBloc
       ),
     );
     result.fold(
-      (failure) => emit(const ProductCreationFailed(
-        'Failed to create product, please try again',
-      )),
+      (failure) => emit(ProductCreationFailed(failure.message)),
       (_) => emit(ProductCreationSuccess()),
     );
   }

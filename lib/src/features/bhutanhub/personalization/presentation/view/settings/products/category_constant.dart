@@ -8,3 +8,13 @@ final List<DropDownValueModel> categoryList = [
   const DropDownValueModel(name: 'Toys', value: "toys"),
   const DropDownValueModel(name: 'Groceries', value: "groceries"),
 ];
+
+final List<DropDownValueModel> conditionList = [
+  const DropDownValueModel(name: 'New', value: "new"),
+  const DropDownValueModel(name: 'Use', value: "used"),
+];
+
+final List<DropDownValueModel> stockList = [
+  const DropDownValueModel(name: 'In Stock', value: "in_stock"),
+  const DropDownValueModel(name: 'Out of Stock', value: "out_of_stock"),
+];

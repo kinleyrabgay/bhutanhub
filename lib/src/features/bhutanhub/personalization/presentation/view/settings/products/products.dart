@@ -4,8 +4,8 @@ import 'package:bhutanhub/core/constants/about.us.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/texts.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/product.bottom.sheet.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/product.list.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/product.bottom.sheet.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/product.list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -32,7 +32,7 @@ class ProductsView extends StatelessWidget {
             EasyLoading.dismiss();
             BHLoaders.successSnackBar(
               title: BHTexts.successSnackTitle,
-              message: BHTexts.successLoginSnackBody,
+              message: BHTexts.successProductCreationSnackBody,
             );
           } else if (state is ProductCreationFailed) {
             EasyLoading.dismiss();
@@ -68,6 +68,7 @@ class ProductsView extends StatelessWidget {
     );
   }
 
+  // --- Build Product List
   Widget buildProductList(
     List<Map<String, dynamic>> data,
     BuildContext context,
