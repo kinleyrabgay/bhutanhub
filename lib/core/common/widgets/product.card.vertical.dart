@@ -1,49 +1,76 @@
+import 'package:bhutanhub/core/common/entities/product.entity.dart';
+import 'package:bhutanhub/core/common/widgets/circular.image.dart';
 import 'package:bhutanhub/core/common/widgets/product.price.tag.dart';
 import 'package:bhutanhub/core/common/widgets/product.title.dart';
-import 'package:bhutanhub/core/common/widgets/rounded.container.dart';
-import 'package:bhutanhub/core/common/widgets/rounded.image.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
-import 'package:bhutanhub/core/constants/images.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/core/utils/helpers/helper.function.dart';
 import 'package:flutter/material.dart';
 
 class BHProductCardVertical extends StatelessWidget {
-  const BHProductCardVertical({super.key});
+  const BHProductCardVertical({
+    super.key,
+    required this.product,
+  });
+
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
-    final dark = BHHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () => {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BHRoundedContainer(
-            height: 250,
-            backgroundColor: dark ? BHColors.dark : BHColors.light,
-            child: BHRoundedImage(
-              width: MediaQuery.of(context).size.width * 1.0,
-              height: MediaQuery.of(context).size.height * 1.0,
-              borderRadius: 0,
-              imageUrl: BHImages.naruto,
-              applyImageRadius: true,
-              fit: BoxFit.cover,
-            ),
+          Stack(
+            children: [
+              BHCircularImage(
+                image: product.image[0],
+                width: double.infinity,
+                height: 250,
+                borderRadius: 2,
+                border: 2,
+                isNetworkImage: true,
+                applyImageRadius: true,
+                padding: 0,
+                fit: BoxFit.cover,
+              ),
+              if (product.discount! > 0) ...[
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: BHColors.primary,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        '${product.discount}%',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall!
+                            .apply(color: BHColors.white),
+                      ),
+                    ),
+                  ),
+                )
+              ]
+            ],
           ),
           const SizedBox(height: BHSizes.spaceItems / 2),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BHProductTitleText(
-                title: 'NARUTO TEAM FIGURE',
+                title: product.name,
                 smallSize: true,
               ),
-              SizedBox(height: BHSizes.spaceItems / 4),
+              const SizedBox(height: BHSizes.spaceItems / 4),
               BHProductPrice(
-                discountedPrice: '5639',
-                percentOff: '8',
-                actualPrice: '6130',
+                discountedPrice: product.discountedPrice!,
+                percentOff: product.discount!,
+                actualPrice: product.price,
               )
             ],
           )

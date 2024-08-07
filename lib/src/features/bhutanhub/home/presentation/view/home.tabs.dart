@@ -1,49 +1,40 @@
 import 'package:bhutanhub/core/common/widgets/cart.dart';
+import 'package:bhutanhub/src/features/bhutanhub/home/domain/entities/tab.entity.dart';
 import 'package:flutter/material.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/src/features/bhutanhub/explore/presentation/view/widgets/explore.tab.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:bhutanhub/src/features/bhutanhub/home/presentation/widgets/home.dart';
 import 'package:iconsax/iconsax.dart';
 
-class ExploreView extends StatefulWidget {
-  const ExploreView({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<ExploreView> createState() => _ExploreViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _ExploreViewState extends State<ExploreView>
+class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final List<String> tabTitles = [
-    "VIEW ALL",
-    "SERVICES",
-    "DRESSES",
-    "JACKETS",
-    "ELECTRONICS",
+  String tabKey = "view_all";
+
+  // List of TabEntity objects
+  final List<TabEntity> tabs = [
+    const TabEntity(name: "VIEW ALL", key: "view_all"),
+    const TabEntity(name: "DRESSES", key: "dresses"),
+    const TabEntity(name: "JACKETS", key: "jackets"),
+    const TabEntity(name: "ELECTRONICS", key: "electronics"),
   ];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabTitles.length, vsync: this);
+    _tabController = TabController(length: tabs.length, vsync: this);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        // This block is executed during a drag (index is changing)
-        print('Dragging to ${tabTitles[_tabController.index]}');
-        EasyLoading.show(
-          indicator: const CircularProgressIndicator(
-            backgroundColor: BHColors.primary,
-            color: BHColors.white,
-          ),
-          maskType: EasyLoadingMaskType.clear,
-          dismissOnTap: true,
-        );
-      } else if (_tabController.index != _tabController.previousIndex) {
-        // This block is executed after the tab index has changed
-        print('Switched to ${tabTitles[_tabController.index]}');
-        EasyLoading.dismiss();
+        setState(() {
+          tabKey = tabs[_tabController.index].key;
+        });
       }
     });
   }
@@ -57,16 +48,16 @@ class _ExploreViewState extends State<ExploreView>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: tabTitles.length,
+      length: tabs.length,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
             controller: _tabController,
-            tabs: tabTitles
+            tabs: tabs
                 .map(
-                  (title) => Tab(
+                  (tab) => Tab(
                     child: Text(
-                      title,
+                      tab.name,
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
@@ -80,6 +71,7 @@ class _ExploreViewState extends State<ExploreView>
             dividerColor: BHColors.primary.withOpacity(0.3),
             indicatorPadding: EdgeInsets.zero,
             onTap: (value) => {},
+            // physics: const NeverScrollableScrollPhysics(),
           ),
           automaticallyImplyLeading: false,
           title: Text(
@@ -95,23 +87,14 @@ class _ExploreViewState extends State<ExploreView>
               icon: const Icon(Iconsax.notification),
               onPressed: () {},
             ),
-            // IconButton(
-            //   icon: const Icon(Iconsax.search_normal),
-            //   onPressed: () {},
-            // ),
           ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: BHSizes.defaultSpace),
           child: TabBarView(
             controller: _tabController,
-            children: tabTitles
-                .map(
-                  (title) => ExploreTab(
-                    title: title,
-                  ),
-                )
-                .toList(),
+            physics: const NeverScrollableScrollPhysics(),
+            children: tabs.map((tab) => HomeTab(tabKey: tabKey)).toList(),
           ),
         ),
       ),

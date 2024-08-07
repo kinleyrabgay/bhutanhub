@@ -4,6 +4,7 @@ import 'package:bhutanhub/core/services/router.dart';
 import 'package:bhutanhub/core/utils/theme/theme.dart';
 import 'package:bhutanhub/firebase_options.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:bhutanhub/src/features/bhutanhub/home/presentation/bloc/home_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<PersonalizationBloc>(
           create: (_) => sl<PersonalizationBloc>(),
         ),
+        BlocProvider<HomeBloc>(
+          create: (_) => sl<HomeBloc>(),
+        )
       ],
       child: GetMaterialApp(
         title: 'Bhutan Hub',

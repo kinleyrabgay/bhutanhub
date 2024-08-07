@@ -6,6 +6,7 @@ Future<void> init() async {
   await _initUtility();
   await _initOnboarding();
   await _initAuthentication();
+  await _initExplore();
   await _initPersonalization();
 }
 
@@ -68,6 +69,28 @@ Future<void> _initOnboarding() async {
     )
     ..registerLazySingleton<OnboardingLocalDatasource>(
       () => OnboardingLocalDatasourceImplementation(sl()),
+    );
+}
+
+Future<void> _initExplore() async {
+  sl
+    ..registerFactory(
+      () => HomeBloc(
+        fetchProduct: sl(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => FetchProduct(sl()),
+    )
+    ..registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImplementation(
+        remote: sl(),
+      ),
+    )
+    ..registerLazySingleton<HomeRemoteDatasource>(
+      () => HomeRemoteDatasourceImplementation(
+        dio: sl(),
+      ),
     );
 }
 

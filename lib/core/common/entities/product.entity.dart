@@ -1,60 +1,7 @@
+import 'package:bhutanhub/core/common/entities/brand.entity.dart';
+import 'package:bhutanhub/core/common/entities/category.entity.dart';
+import 'package:bhutanhub/core/constants/images.dart';
 import 'package:equatable/equatable.dart';
-
-class CategoryEntity {
-  final int id;
-  final String name;
-
-  const CategoryEntity({
-    required this.id,
-    required this.name,
-  });
-
-  factory CategoryEntity.fromMap(Map<String, dynamic> map) {
-    return CategoryEntity(
-      id: map['id'] ?? 0,
-      name: map['name'] ?? '',
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
-
-  const CategoryEntity.empty()
-      : id = 0,
-        name = '';
-}
-
-class BrandEntity {
-  final int id;
-  final String name;
-
-  const BrandEntity({
-    required this.id,
-    required this.name,
-  });
-
-  factory BrandEntity.fromMap(Map<String, dynamic> map) {
-    return BrandEntity(
-      id: map['id'] ?? 0,
-      name: map['name'] ?? '',
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
-
-  const BrandEntity.empty()
-      : id = 0,
-        name = '';
-}
 
 class ProductEntity extends Equatable {
   const ProductEntity({
@@ -79,6 +26,7 @@ class ProductEntity extends Equatable {
     this.updatedAt,
     this.averageRating,
     this.reviews,
+    this.discountedPrice,
   });
 
   final String uid;
@@ -102,6 +50,7 @@ class ProductEntity extends Equatable {
   final DateTime? updatedAt;
   final double? averageRating;
   final List<String>? reviews;
+  final double? discountedPrice;
 
   const ProductEntity.empty()
       : this(
@@ -109,11 +58,12 @@ class ProductEntity extends Equatable {
           name: '',
           description: '',
           price: 0,
-          image: const [],
+          image: const [BHImages.defaultPlaceholder],
           quantity: 0,
           category: const CategoryEntity.empty(),
           brand: const BrandEntity.empty(),
           condition: 'new',
+          discountedPrice: 0,
         );
 
   @override
@@ -138,5 +88,6 @@ class ProductEntity extends Equatable {
         updatedAt,
         averageRating,
         reviews,
+        discountedPrice,
       ];
 }

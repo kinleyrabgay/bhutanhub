@@ -1,4 +1,4 @@
-import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/entities/product.entity.dart';
+import 'package:bhutanhub/core/common/entities/product.entity.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/usecases/create.product.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/usecases/update.dart';
 import 'package:bloc/bloc.dart';

@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:bhutanhub/core/common/entities/brand.entity.dart';
+import 'package:bhutanhub/core/common/entities/category.entity.dart';
+import 'package:bhutanhub/core/common/entities/product.entity.dart';
 import 'package:bhutanhub/core/utils/typedef.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/entities/product.entity.dart';
 
 class ProductModel extends ProductEntity {
   const ProductModel({
@@ -13,6 +15,8 @@ class ProductModel extends ProductEntity {
     required super.category,
     required super.brand,
     required super.condition,
+    super.discount,
+    super.discountedPrice,
   });
 
   factory ProductModel.fromJson(String source) =>
@@ -23,12 +27,14 @@ class ProductModel extends ProductEntity {
           uid: map['uid'] ?? '',
           name: map['name'] ?? '',
           description: map['description'] ?? '',
-          price: map['price']?.toDouble() ?? 0.0,
+          price: (map['price'] as num?)?.toDouble() ?? 0.0,
           image: List<String>.from(map['image'] ?? const []),
-          quantity: map['quantity']?.toInt() ?? 0,
+          quantity: (map['quantity'] as num?)?.toInt() ?? 0,
           category: CategoryEntity.fromMap(map['category'] ?? const {}),
           brand: BrandEntity.fromMap(map['brand'] ?? const {}),
           condition: map['condition'] ?? 'new',
+          discount: (map['discount'] as num?)?.toDouble() ?? 0.0,
+          discountedPrice: (map['discountedPrice'] as num).toDouble(),
         );
 
   DataMap toMap() {
@@ -42,6 +48,8 @@ class ProductModel extends ProductEntity {
       'category': category.toMap(),
       'brand': brand.toMap(),
       'condition': condition,
+      'discount': discount,
+      'discountedPrice': discountedPrice,
     };
   }
 
@@ -61,6 +69,8 @@ class ProductModel extends ProductEntity {
       category: category,
       brand: brand,
       condition: condition,
+      discount: discount,
+      discountedPrice: discountedPrice,
     );
   }
 
@@ -75,5 +85,7 @@ class ProductModel extends ProductEntity {
           category: const CategoryEntity.empty(),
           brand: const BrandEntity.empty(),
           condition: 'new',
+          discount: 0.0,
+          discountedPrice: 0.0,
         );
 }

@@ -1,6 +1,6 @@
+import 'package:bhutanhub/core/common/models/product.model.dart';
 import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:bhutanhub/core/services/api/v1/constant.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/data/model/product.model.dart';
 import 'package:dio/dio.dart';
 
 abstract class ProductRemoteDataSource {
@@ -21,7 +21,6 @@ class ProductRemoteDataSourceImplementation implements ProductRemoteDataSource {
     required ProductModel product,
   }) async {
     try {
-      print(APITestService.product);
       final response = await _dio.post(
         APITestService.product,
         data: product.toJson(),
@@ -32,10 +31,10 @@ class ProductRemoteDataSourceImplementation implements ProductRemoteDataSource {
         ),
       );
 
-      // if (response.statusCode == 200 || response.statusCode == 201) {
-      //   // Return success
-      //   return;
-      // }
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Return success
+        return;
+      }
     } catch (e) {
       // Return failure with APIException for exceptions
       throw APIException(

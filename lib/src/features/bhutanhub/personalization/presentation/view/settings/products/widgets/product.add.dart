@@ -1,6 +1,8 @@
+import 'package:bhutanhub/core/common/entities/brand.entity.dart';
+import 'package:bhutanhub/core/common/entities/category.entity.dart';
+import 'package:bhutanhub/core/common/entities/product.entity.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/entities/product.entity.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step1.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step2.dart';

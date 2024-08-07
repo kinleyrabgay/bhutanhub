@@ -1,5 +1,6 @@
 import 'package:bhutanhub/core/common/widgets/product.price.text.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/currency.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -11,48 +12,42 @@ class BHProductPrice extends StatelessWidget {
     required this.discountedPrice,
   });
 
-  final String actualPrice;
-  final String percentOff;
-  final String discountedPrice;
+  final double actualPrice;
+  final double percentOff;
+  final double discountedPrice;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         BHProductPriceText(
-          currencySign: '\$',
+          currencySign: Currency.ngultrum,
           price: actualPrice,
           maxLines: 1,
           isLarge: false,
-          lineThrough: true,
+          lineThrough: percentOff > 0 ? true : false,
           textColor: BHColors.primary,
         ),
         const SizedBox(width: BHSizes.pSm),
-        Container(
-          color: BHColors.primary,
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              children: [
-                Text(
-                  '-$percentOff%',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall!
-                      .apply(color: BHColors.white),
-                ),
-                const SizedBox(width: BHSizes.pSm),
-                BHProductPriceText(
-                  currencySign: '\$',
-                  price: discountedPrice,
-                  maxLines: 1,
-                  isLarge: false,
-                  lineThrough: false,
-                ),
-              ],
+        if (percentOff > 0) ...[
+          Container(
+            decoration: BoxDecoration(
+              color: BHColors.primary,
+              borderRadius: BorderRadius.circular(2),
             ),
-          ),
-        )
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: BHProductPriceText(
+                currencySign: Currency.ngultrum,
+                price: discountedPrice,
+                maxLines: 1,
+                isLarge: false,
+                lineThrough: false,
+              ),
+            ),
+          )
+        ]
       ],
     );
   }

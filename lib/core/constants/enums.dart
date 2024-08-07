@@ -14,7 +14,6 @@ enum PaymentMethods {
   paytm
 }
 
-
 enum UpdateUserAction {
   displayName,
   email,
@@ -28,3 +27,7 @@ enum ConnectionType {
   mobile,
 }
 
+enum TabSubKey {
+  popular,
+  trending,
+}
