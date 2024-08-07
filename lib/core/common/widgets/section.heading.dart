@@ -1,3 +1,4 @@
+import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BHSectionHeading extends StatelessWidget {
@@ -5,6 +6,7 @@ class BHSectionHeading extends StatelessWidget {
     super.key,
     this.textColor,
     required this.showActionButton,
+    this.showActionIcon = false,
     this.title,
     this.buttonTitle = 'View all',
     this.onPressed,
@@ -14,6 +16,7 @@ class BHSectionHeading extends StatelessWidget {
   final bool showActionButton;
   final String? title;
   final String? buttonTitle;
+  final bool? showActionIcon;
   final void Function()? onPressed;
 
   @override
@@ -32,6 +35,14 @@ class BHSectionHeading extends StatelessWidget {
           TextButton(
             onPressed: onPressed,
             child: Text(buttonTitle!),
+          ),
+        if (showActionIcon!)
+          GestureDetector(
+            onTap: onPressed,
+            child: const Icon(
+              Icons.close,
+              color: BHColors.primary,
+            ),
           )
       ],
     );

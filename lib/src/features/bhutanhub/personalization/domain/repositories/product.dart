@@ -1,5 +1,5 @@
+import 'package:bhutanhub/core/common/entities/product.entity.dart';
 import 'package:bhutanhub/core/utils/typedef.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/domain/entities/product.entity.dart';
 
 abstract class ProductRepository {
   const ProductRepository();

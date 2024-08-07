@@ -6,6 +6,7 @@ Future<void> init() async {
   await _initUtility();
   await _initOnboarding();
   await _initAuthentication();
+  await _initExplore();
   await _initPersonalization();
 }
 
@@ -30,7 +31,13 @@ Future<void> _initUtility() async {
       () => PageController(),
     )
     ..registerLazySingleton(
+      () => ImagePicker(),
+    )
+    ..registerLazySingleton(
       () => client,
+    )
+    ..registerLazySingleton(
+      () => Dio(),
     )
     ..registerLazySingleton(
       () => FirebaseAuth.instance,
@@ -62,6 +69,28 @@ Future<void> _initOnboarding() async {
     )
     ..registerLazySingleton<OnboardingLocalDatasource>(
       () => OnboardingLocalDatasourceImplementation(sl()),
+    );
+}
+
+Future<void> _initExplore() async {
+  sl
+    ..registerFactory(
+      () => HomeBloc(
+        fetchProduct: sl(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => FetchProduct(sl()),
+    )
+    ..registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImplementation(
+        remote: sl(),
+      ),
+    )
+    ..registerLazySingleton<HomeRemoteDatasource>(
+      () => HomeRemoteDatasourceImplementation(
+        dio: sl(),
+      ),
     );
 }
 
@@ -105,7 +134,6 @@ Future<void> _initAuthentication() async {
       () => AuthRemoteDataSourceImplementation(
         authClient: sl(),
         cloudStoreClient: sl(),
-        dbClient: sl(),
         client: sl(),
       ),
     )
@@ -121,10 +149,25 @@ Future<void> _initPersonalization() async {
     ..registerFactory(
       () => PersonalizationBloc(
         createProduct: sl(),
+        upload: sl(),
       ),
     )
     ..registerLazySingleton(
       () => CreateProduct(sl()),
+    )
+    ..registerLazySingleton(
+      () => Upload(sl()),
+    )
+    ..registerLazySingleton<UploadRepository>(
+      () => UploadRepositoryImplementation(
+        uploadRemoteDataSource: sl(),
+      ),
+    )
+    ..registerLazySingleton<UploadRemoteDataSource>(
+      () => UploadRemoteDataSourceImplementation(
+        picker: sl(),
+        dio: sl(),
+      ),
     )
     ..registerLazySingleton<ProductRepository>(
       () => ProductRepositoryImplementation(
@@ -133,7 +176,7 @@ Future<void> _initPersonalization() async {
     )
     ..registerLazySingleton<ProductRemoteDataSource>(
       () => ProductRemoteDataSourceImplementation(
-        client: sl(),
+        dio: sl(),
       ),
     );
 }

@@ -1,10 +1,11 @@
 import 'package:bhutanhub/core/constants/colors.dart';
+import 'package:bhutanhub/core/constants/currency.dart';
 import 'package:flutter/material.dart';
 
 class BHProductPriceText extends StatelessWidget {
   const BHProductPriceText({
     super.key,
-    this.currencySign = '\$',
+    this.currencySign = Currency.ngultrum,
     required this.price,
     this.maxLines = 1,
     this.isLarge = false,
@@ -12,7 +13,8 @@ class BHProductPriceText extends StatelessWidget {
     this.textColor = BHColors.white,
   });
 
-  final String currencySign, price;
+  final String currencySign;
+  final double price;
   final int maxLines;
   final bool isLarge;
   final bool lineThrough;
@@ -21,7 +23,7 @@ class BHProductPriceText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      currencySign + price,
+      '$currencySign $price',
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       style: isLarge

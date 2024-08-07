@@ -83,4 +83,8 @@ class BHImages {
 
   // Profile
   static const String defaultProfile = "$_baseProfilePath/default.cover.jpg";
+
+  // Default placeholder
+  static const String defaultPlaceholder =
+      "https://www.shutterstock.com/image-illustration/no-picture-available-placeholder-thumbnail-260nw-2179364083.jpg";
 }

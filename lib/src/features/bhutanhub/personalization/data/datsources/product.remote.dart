@@ -1,7 +1,7 @@
+import 'package:bhutanhub/core/common/models/product.model.dart';
 import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:bhutanhub/core/services/api/v1/constant.dart';
-import 'package:bhutanhub/src/features/bhutanhub/personalization/data/model/product.model.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 abstract class ProductRemoteDataSource {
   Future<void> createProduct({
@@ -11,36 +11,29 @@ abstract class ProductRemoteDataSource {
 
 class ProductRemoteDataSourceImplementation implements ProductRemoteDataSource {
   const ProductRemoteDataSourceImplementation({
-    required http.Client client,
-  }) : _client = client;
+    required Dio dio,
+  }) : _dio = dio;
 
-  final http.Client _client;
+  final Dio _dio;
 
   @override
   Future<void> createProduct({
     required ProductModel product,
   }) async {
     try {
-      final response = await _client.post(
-        Uri.http(
-          APITestService.host,
-          APITestService.product,
+      final response = await _dio.post(
+        APITestService.product,
+        data: product.toJson(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+          },
         ),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: product.toJson(),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         // Return success
         return;
-      } else {
-        // Return failure with APIException
-        throw APIException(
-          message: 'Failed to create product, please try again',
-          statusCode: response.statusCode,
-        );
       }
     } catch (e) {
       // Return failure with APIException for exceptions

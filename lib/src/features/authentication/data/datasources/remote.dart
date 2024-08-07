@@ -40,15 +40,12 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImplementation({
     required FirebaseAuth authClient,
     required FirebaseFirestore cloudStoreClient,
-    required FirebaseStorage dbClient,
     required http.Client client,
   })  : _authClient = authClient,
         _cloudStoreClient = cloudStoreClient,
-        _dbClient = dbClient,
         _client = client;
   final FirebaseAuth _authClient;
   final FirebaseFirestore _cloudStoreClient;
-  final FirebaseStorage _dbClient;
   final http.Client _client;
 
   @override
