@@ -36,10 +36,10 @@ class AuthenticationFailure extends AuthenticationState {
   List<Object> get props => [error];
 }
 
-class UserSignedIn extends AuthenticationState {
-  const UserSignedIn(this.user);
+class Authenticated extends AuthenticationState {
+  const Authenticated(this.user);
 
-  final User user;
+  final UserEntity user;
 
   @override
   List<Object> get props => [user];

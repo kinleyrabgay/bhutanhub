@@ -5,12 +5,12 @@ import 'package:bhutanhub/core/common/widgets/loader.dart';
 import 'package:bhutanhub/core/constants/images.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
 import 'package:bhutanhub/core/constants/texts.dart';
+import 'package:bhutanhub/core/utils/loading.helper.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/view/sign.in.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/widgets/_register.form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
@@ -23,21 +23,17 @@ class SignUpView extends StatelessWidget {
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthenticationLoading) {
-            EasyLoading.show(
-              indicator: const CircularProgressIndicator(),
-              maskType: EasyLoadingMaskType.clear,
-              dismissOnTap: true,
-            );
+            LoadingHelper.showLoading();
           } else if (state is AuthenticationSuccess) {
-            EasyLoading.dismiss();
-            BHLoaders.successSnackBar(
+            LoadingHelper.dismissLoading();
+            Loader.successSnackBar(
               title: BHTexts.successSnackTitle,
               message: BHTexts.successRegisterSnackBody,
             );
             Navigator.pushNamed(context, SignInView.routeName);
           } else if (state is AuthenticationError) {
-            EasyLoading.dismiss();
-            BHLoaders.errorSnackBar(
+            LoadingHelper.dismissLoading();
+            Loader.errorSnackBar(
               title: BHTexts.errorSnackTitle,
               message: state.message,
             );

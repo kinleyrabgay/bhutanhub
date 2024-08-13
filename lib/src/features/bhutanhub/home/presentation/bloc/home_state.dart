@@ -28,6 +28,38 @@ final class HomeError extends HomeState {
 }
 
 // --- Loaded
+class HomeLoaded extends HomeState {
+  const HomeLoaded({
+    this.popularProducts = const [],
+    this.newProducts = const [],
+    this.trendings = const [],
+    this.isLoading,
+  });
+
+  final List<ProductEntity> popularProducts;
+  final List<ProductEntity> newProducts;
+  final List<ProductEntity> trendings;
+  final bool? isLoading;
+
+  HomeLoaded copyWith({
+    List<ProductEntity>? popularProducts,
+    List<ProductEntity>? newProducts,
+    List<ProductEntity>? trendings,
+    bool? isLoading,
+  }) {
+    return HomeLoaded(
+      popularProducts: popularProducts ?? this.popularProducts,
+      newProducts: newProducts ?? this.newProducts,
+      trendings: trendings ?? this.trendings,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+
+  @override
+  List<List<ProductEntity>> get props =>
+      [popularProducts, newProducts, trendings];
+}
+
 final class NewProductsLoaded extends HomeState {
   const NewProductsLoaded({
     required this.products,

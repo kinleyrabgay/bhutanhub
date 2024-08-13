@@ -5,6 +5,7 @@ import 'package:bhutanhub/core/services/injection.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/view/sign.in.dart';
 import 'package:bhutanhub/src/features/authentication/presentation/view/sign.up.dart';
+import 'package:bhutanhub/src/features/bhutanhub/home/presentation/widgets/_popular.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/about-us/about.us.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/address-book/address.dart';

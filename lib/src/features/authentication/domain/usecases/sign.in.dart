@@ -10,7 +10,7 @@ class Login extends UsecaseWithParam<void, LoginParams> {
   final AuthenticationRepository _repo;
 
   @override
-  ResultFuture<User> call(LoginParams params) => _repo.login(
+  ResultFuture<UserEntity> call(LoginParams params) => _repo.login(
         email: params.email,
         password: params.password,
       );

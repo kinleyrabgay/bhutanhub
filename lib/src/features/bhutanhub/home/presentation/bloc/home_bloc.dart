@@ -1,5 +1,5 @@
 import 'package:bhutanhub/core/common/entities/product.entity.dart';
-import 'package:bhutanhub/core/constants/enums.dart';
+import 'package:bhutanhub/core/constants/tab.keys.dart';
 import 'package:bhutanhub/src/features/bhutanhub/home/domain/usecases/fetch.products.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,17 +15,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         super(
           const HomeInitial(),
         ) {
-    // --- Fetch Products ---
     on<FetchProductEvent>(_fetchProductHandler);
   }
 
   final FetchProduct _fetchProduct;
+  String _localKey = '';
 
   Future<void> _fetchProductHandler(
     FetchProductEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(HomeLoading());
+    // Get the current state
+    final currentState = state;
+
+    // Clear the state only if the main key (tab) changes
+    if (_localKey != event.key) {
+      _localKey = event.key;
+      if (currentState is HomeLoaded) {
+        emit(const HomeLoaded(
+          popularProducts: [],
+          newProducts: [],
+          trendings: [],
+        ));
+      }
+    }
+
+    // Call the use case
     final result = await _fetchProduct(
       FetchProductParams(
         key: event.key,
@@ -33,13 +48,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
     );
 
+    // Handle the result
     result.fold(
       (failure) => emit(HomeError(message: failure.message)),
-      (response) => emit(
-        TabSubKey.popular.toString() == event.subKey
-            ? PopularProductLoaded(products: response, subKey: event.subKey)
-            : NewProductsLoaded(products: response, subKey: event.subKey),
-      ),
+      (response) {
+        if (currentState is HomeLoaded) {
+          // Update the specific category with the new data
+          emit(currentState.copyWith(
+            popularProducts: event.subKey == TabSubKey.popular
+                ? response
+                : currentState.popularProducts,
+            newProducts: event.subKey == TabSubKey.newArrivals
+                ? response
+                : currentState.newProducts,
+            trendings: event.subKey == TabSubKey.trending
+                ? response
+                : currentState.trendings,
+          ));
+        } else {
+          // Initialize the state with the fetched data
+          emit(HomeLoaded(
+            popularProducts: event.subKey == TabSubKey.popular ? response : [],
+            newProducts: event.subKey == TabSubKey.newArrivals ? response : [],
+            trendings: event.subKey == TabSubKey.trending ? response : [],
+          ));
+        }
+      },
     );
   }
 }

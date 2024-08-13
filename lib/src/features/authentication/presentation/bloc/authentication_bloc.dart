@@ -54,7 +54,7 @@ class AuthenticationBloc
     final result = await _sso();
     result.fold(
       (failure) => emit(AuthenticationError(failure.message)),
-      (_) => emit(const AuthenticationSuccess()),
+      (user) => emit(Authenticated(user)),
     );
   }
 
@@ -71,7 +71,7 @@ class AuthenticationBloc
     );
     result.fold(
       (failure) => emit(AuthenticationError(failure.message)),
-      (user) => emit(UserSignedIn(user)),
+      (user) => emit(Authenticated(user)),
     );
   }
 

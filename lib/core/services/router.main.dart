@@ -99,6 +99,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
+    case Populars.routeName:
+      return _pageBuilder(
+        (_) => const Populars(),
+        settings: settings,
+      );
+
     default:
       return _pageBuilder(
         (_) => const PageUnderConstruction(),

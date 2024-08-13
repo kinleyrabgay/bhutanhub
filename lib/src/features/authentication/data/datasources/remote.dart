@@ -7,7 +7,6 @@ import 'package:bhutanhub/core/utils/typedef.dart';
 import 'package:bhutanhub/src/features/authentication/data/models/user.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -33,7 +32,7 @@ abstract class AuthRemoteDataSource {
     dynamic userData,
   });
 
-  Future<void> googleSSO();
+  Future<UserModel> googleSSO();
 }
 
 class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
@@ -61,13 +60,18 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> googleSSO() async {
+  Future<UserModel> googleSSO() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
+      if (googleUser == null) {
+        throw const APIException(
+            message: 'Google Sign-In cancelled', statusCode: 400);
+      }
+
       final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
+          await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -76,27 +80,44 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
       final UserCredential userCredential =
           await _authClient.signInWithCredential(credential);
-
       final User? user = userCredential.user;
 
-      var userData = await _getUserData(user!.uid);
+      if (user == null) {
+        throw const APIException(
+            message: 'User not found after Google Sign-In', statusCode: 404);
+      }
 
+      // Check if user data exists
+      var userData = await _getUserData(user.uid);
       if (!userData.exists) {
         await _setUserData(user, user.email!);
+        userData = await _getUserData(user.uid);
       }
+
+      // Return UserModel
+      return UserModel.fromMap(userData.data()!);
     } on FirebaseAuthException catch (e) {
       throw APIException(
         message: e.message ?? 'Google Sign-In failed',
         statusCode: 500,
       );
     } on FirebaseException catch (e) {
-      throw BHFirebaseAuthException(e.code).message;
+      throw APIException(
+        message: BHFirebaseAuthException(e.code).message,
+        statusCode: 500,
+      );
     } on FormatException catch (_) {
       throw const FormatException();
     } on PlatformException catch (e) {
-      throw BHFirebasePlatformException(e.code).message;
+      throw APIException(
+        message: BHFirebasePlatformException(e.code).message,
+        statusCode: 500,
+      );
     } catch (e) {
-      throw 'Something went wrong, Please try again';
+      throw const APIException(
+        message: 'Something went wrong, Please try again',
+        statusCode: 500,
+      );
     }
   }
 

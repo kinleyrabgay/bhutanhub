@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class BHLoaders {
-  BHLoaders._();
+class Loader {
+  Loader._();
 
   static customToast(BuildContext context, {required message}) {
     ScaffoldMessenger.of(context)
