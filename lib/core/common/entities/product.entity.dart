@@ -27,6 +27,7 @@ class ProductEntity extends Equatable {
     this.averageRating,
     this.reviews,
     this.discountedPrice,
+    this.termsAccepted,
   });
 
   final String uid;
@@ -51,6 +52,7 @@ class ProductEntity extends Equatable {
   final double? averageRating;
   final List<String>? reviews;
   final double? discountedPrice;
+  final bool? termsAccepted;
 
   const ProductEntity.empty()
       : this(
@@ -63,7 +65,8 @@ class ProductEntity extends Equatable {
           category: const CategoryEntity.empty(),
           brand: const BrandEntity.empty(),
           condition: 'new',
-          discountedPrice: 0,
+          discount: 0.0,
+          discountedPrice: 0.0,
         );
 
   @override

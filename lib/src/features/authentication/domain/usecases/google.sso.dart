@@ -1,5 +1,6 @@
 import 'package:bhutanhub/core/usecase/usecase.dart';
 import 'package:bhutanhub/core/utils/typedef.dart';
+import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
 import 'package:bhutanhub/src/features/authentication/domain/repositories/authentication.dart';
 
 class GoogleSSO extends UsecaseWithoutParam<void> {
@@ -8,5 +9,5 @@ class GoogleSSO extends UsecaseWithoutParam<void> {
   final AuthenticationRepository _repo;
 
   @override
-  ResultFuture<void> call() => _repo.googleSSO();
+  ResultFuture<UserEntity> call() => _repo.googleSSO();
 }

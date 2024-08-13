@@ -29,7 +29,9 @@ class Step2 extends StatelessWidget {
           searchHintText: BHTexts.searchCategory,
           dropDownItemCount: 3,
           dropDownList: categoryList,
-          onChanged: (val) {},
+          onChanged: (val) {
+            print(val);
+          },
         ),
         const SizedBox(height: BHSizes.spaceSections / 2),
 

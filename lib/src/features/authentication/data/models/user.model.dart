@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:bhutanhub/core/utils/typedef.dart';
 import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
 
-class UserModel extends User {
+class UserModel extends UserEntity {
   const UserModel({
     required super.uid,
     required super.avatar,

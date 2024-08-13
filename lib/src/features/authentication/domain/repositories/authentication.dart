@@ -5,11 +5,11 @@ import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart'
 abstract class AuthenticationRepository {
   const AuthenticationRepository();
 
-  ResultVoid googleSSO();
+  ResultFuture<UserEntity> googleSSO();
 
-  ResultFuture<User> getUser();
+  ResultFuture<UserEntity> getUser();
 
-  ResultFuture<User> login({
+  ResultFuture<UserEntity> login({
     required String email,
     required String password,
   });

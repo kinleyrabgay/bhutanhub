@@ -1,20 +1,20 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 
 final List<DropDownValueModel> categoryList = [
-  const DropDownValueModel(name: 'Electronics', value: "electronics"),
-  const DropDownValueModel(name: 'Fashion', value: "fashion"),
-  const DropDownValueModel(name: 'Home Appliances', value: "home_appliances"),
-  const DropDownValueModel(name: 'Books', value: "books"),
-  const DropDownValueModel(name: 'Toys', value: "toys"),
-  const DropDownValueModel(name: 'Groceries', value: "groceries"),
+  const DropDownValueModel(name: 'Electronics', value: 1),
+  const DropDownValueModel(name: 'Fashion', value: 2),
+  const DropDownValueModel(name: 'Home Appliances', value: 3),
+  const DropDownValueModel(name: 'Books', value: 4),
+  const DropDownValueModel(name: 'Toys', value: 5),
+  const DropDownValueModel(name: 'Groceries', value: 6),
 ];
 
 final List<DropDownValueModel> conditionList = [
-  const DropDownValueModel(name: 'New', value: "new"),
-  const DropDownValueModel(name: 'Use', value: "used"),
+  const DropDownValueModel(name: 'New', value: 1),
+  const DropDownValueModel(name: 'Used', value: 2),
 ];
 
 final List<DropDownValueModel> stockList = [
-  const DropDownValueModel(name: 'In Stock', value: "in_stock"),
-  const DropDownValueModel(name: 'Out of Stock', value: "out_of_stock"),
+  const DropDownValueModel(name: 'In Stock', value: 1),
+  const DropDownValueModel(name: 'Out of Stock', value: 2),
 ];

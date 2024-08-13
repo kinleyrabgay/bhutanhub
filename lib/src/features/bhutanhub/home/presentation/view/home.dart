@@ -1,9 +1,9 @@
 import 'package:bhutanhub/core/common/widgets/cart.dart';
-import 'package:bhutanhub/src/features/bhutanhub/home/domain/entities/tab.entity.dart';
+import 'package:bhutanhub/core/constants/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/src/features/bhutanhub/home/presentation/widgets/home.dart';
+import 'package:bhutanhub/src/features/bhutanhub/home/presentation/view/_home.tabs.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomeView extends StatefulWidget {
@@ -16,26 +16,17 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String tabKey = "view_all";
-
-  // List of TabEntity objects
-  final List<TabEntity> tabs = [
-    const TabEntity(name: "VIEW ALL", key: "view_all"),
-    const TabEntity(name: "DRESSES", key: "dresses"),
-    const TabEntity(name: "JACKETS", key: "jackets"),
-    const TabEntity(name: "ELECTRONICS", key: "electronics"),
-  ];
+  late List<Tabs> _tabs;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
+    _tabs = tabs;
+    _tabController = TabController(length: _tabs.length, vsync: this);
     _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        setState(() {
-          tabKey = tabs[_tabController.index].key;
-        });
-      }
+      // if (_tabController.previousIndex == _tabController.index) {
+      //   LoadingHelper.showLoading();
+      // }
     });
   }
 
@@ -48,12 +39,12 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: tabs.length,
+      length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
             controller: _tabController,
-            tabs: tabs
+            tabs: _tabs
                 .map(
                   (tab) => Tab(
                     child: Text(
@@ -94,7 +85,7 @@ class _HomeViewState extends State<HomeView>
           child: TabBarView(
             controller: _tabController,
             physics: const NeverScrollableScrollPhysics(),
-            children: tabs.map((tab) => HomeTab(tabKey: tabKey)).toList(),
+            children: _tabs.map((tab) => HomeTabs(tabKey: tab.key)).toList(),
           ),
         ),
       ),

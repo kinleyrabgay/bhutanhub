@@ -26,8 +26,3 @@ enum ConnectionType {
   wifi,
   mobile,
 }
-
-enum TabSubKey {
-  popular,
-  trending,
-}

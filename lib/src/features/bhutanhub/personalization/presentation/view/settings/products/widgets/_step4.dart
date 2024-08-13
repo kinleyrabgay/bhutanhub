@@ -1,6 +1,6 @@
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/core/constants/terms.constants.dart';
+import 'package:bhutanhub/core/constants/terms.dart';
 import 'package:flutter/material.dart';
 
 class Step4 extends StatefulWidget {

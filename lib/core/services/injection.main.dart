@@ -25,6 +25,9 @@ Future<void> _initUtility() async {
       () => StorageService(sl()),
     )
     ..registerLazySingleton(
+      () => UserStore(sl()),
+    )
+    ..registerLazySingleton(
       () => Connectivity(),
     )
     ..registerLazySingleton(
