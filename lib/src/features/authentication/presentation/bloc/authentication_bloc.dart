@@ -4,6 +4,7 @@ import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart'
 import 'package:bhutanhub/src/features/authentication/domain/usecases/cache.credentials.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/forgot.password.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/google.sso.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/logout.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.in.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.up.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/update.user.dart';
@@ -17,12 +18,14 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     required Login login,
+    required Logout logout,
     required GoogleSSO sso,
     required Register register,
     required ForgotPassword forgotPassword,
     required UpdateUser updateUser,
     required CacheCredentials cacheCredentials,
   })  : _login = login,
+        _logout = logout,
         _register = register,
         _forgotPassword = forgotPassword,
         _updateUser = updateUser,
@@ -37,9 +40,12 @@ class AuthenticationBloc
     on<UpdateUserEvent>(_updateUserHandler);
     on<SignInWithGoogleEvent>(_googleSigninHandler);
     on<CacheCredentialsEvent>(_cacheCredentialsHandler);
+    on<LogoutEvent>(_logoutHandler);
+    on<GetCurrentUserEvent>(_getCurrentUserHandler);
   }
 
   final Login _login;
+  final Logout _logout;
   final Register _register;
   final ForgotPassword _forgotPassword;
   final UpdateUser _updateUser;
@@ -90,6 +96,26 @@ class AuthenticationBloc
     result.fold(
       (failure) => emit(AuthenticationError(failure.message)),
       (_) => emit(const AuthenticationSuccess()),
+    );
+  }
+
+  Future<void> _getCurrentUserHandler(
+    GetCurrentUserEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {}
+
+  Future<void> _logoutHandler(
+    LogoutEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(AuthenticationLoading());
+    final result = await _logout();
+    result.fold(
+      (failure) => emit(Error(
+        error: ErrorType.logoutErorr,
+        message: 'Logout failed',
+      )),
+      (_) => emit(Success(success: SuccessType.logoutSuccess)),
     );
   }
 

@@ -14,6 +14,8 @@ abstract class AuthenticationRepository {
     required String password,
   });
 
+  ResultFuture<void> logout();
+
   ResultFuture<void> register({
     required String name,
     required String email,

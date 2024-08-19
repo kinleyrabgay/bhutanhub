@@ -139,5 +139,12 @@ class Settings {
       'route': '/about-us',
       'isSwitch': false,
     },
+    {
+      'icon': Iconsax.ghost,
+      'title': 'Carousel',
+      'subTitle': 'Learn more about our company',
+      'route': '/carousel',
+      'isSwitch': false,
+    },
   ];
 }

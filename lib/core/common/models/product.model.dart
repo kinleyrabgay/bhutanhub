@@ -6,7 +6,7 @@ import 'package:bhutanhub/core/utils/typedef.dart';
 
 class ProductModel extends ProductEntity {
   const ProductModel({
-    required super.uid,
+    required super.token,
     required super.name,
     required super.description,
     required super.price,
@@ -24,7 +24,7 @@ class ProductModel extends ProductEntity {
 
   ProductModel.fromMap(DataMap map)
       : super(
-          uid: map['uid'] ?? '',
+          token: map['token'] ?? '',
           name: map['name'] ?? '',
           description: map['description'] ?? '',
           price: (map['price'] as num?)?.toDouble() ?? 0.0,
@@ -39,7 +39,7 @@ class ProductModel extends ProductEntity {
 
   DataMap toMap() {
     return {
-      'uid': uid,
+      'token': token,
       'name': name,
       'description': description,
       'price': price,
@@ -60,7 +60,7 @@ class ProductModel extends ProductEntity {
     String? description,
   }) {
     return ProductModel(
-      uid: uid,
+      token: token,
       name: name ?? this.name,
       description: description ?? this.description,
       price: price,
@@ -76,7 +76,7 @@ class ProductModel extends ProductEntity {
 
   const ProductModel.empty()
       : super(
-          uid: '',
+          token: '',
           name: '',
           description: '',
           price: 0.0,

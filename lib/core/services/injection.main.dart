@@ -25,7 +25,7 @@ Future<void> _initUtility() async {
       () => StorageService(sl()),
     )
     ..registerLazySingleton(
-      () => UserStore(sl()),
+      () => TokenStore(sl()),
     )
     ..registerLazySingleton(
       () => Connectivity(),
@@ -102,6 +102,7 @@ Future<void> _initAuthentication() async {
     ..registerFactory(
       () => AuthenticationBloc(
         login: sl(),
+        logout: sl(),
         register: sl(),
         forgotPassword: sl(),
         updateUser: sl(),
@@ -114,6 +115,9 @@ Future<void> _initAuthentication() async {
     )
     ..registerLazySingleton(
       () => Login(sl()),
+    )
+    ..registerLazySingleton(
+      () => Logout(sl()),
     )
     ..registerLazySingleton(
       () => Register(sl()),
@@ -138,6 +142,7 @@ Future<void> _initAuthentication() async {
         authClient: sl(),
         cloudStoreClient: sl(),
         client: sl(),
+        dio: sl(),
       ),
     )
     ..registerLazySingleton<AutheLocalDataSource>(

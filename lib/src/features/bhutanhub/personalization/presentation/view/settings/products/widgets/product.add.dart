@@ -3,7 +3,7 @@ import 'package:bhutanhub/core/common/entities/category.entity.dart';
 import 'package:bhutanhub/core/common/entities/product.entity.dart';
 import 'package:bhutanhub/core/constants/colors.dart';
 import 'package:bhutanhub/core/constants/sizes.dart';
-import 'package:bhutanhub/src/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:bhutanhub/core/providers/user.provider.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step1.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/widgets/_step2.dart';
@@ -13,8 +13,8 @@ import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/vi
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key, this.product});
@@ -125,77 +125,65 @@ class _AddProductState extends State<AddProduct> {
     });
   }
 
-  // Future<void> _onCreateProduct(BuildContext context) async {
-  //   print(_imageUrls);
-  //   print(context.read<PersonalizationBloc>().state as ImageUploadSuccess);
-
-  //   context.read<PersonalizationBloc>().add(
-  //         CreateProductEvent(
-  //           product: ProductEntity(
-  //             uid: 'OO5yaWON4DeeGdG4CyRaDWQoGq13',
-  //             image: const [
-  //               'https://www.optus.com.au/content/dam/optus/images/shop/mobile/phones/apple/iphone-15/og-image/og-apple-iphone15.jpg',
-  //               'https://inventstore.in/wp-content/uploads/2023/04/Purple-scaled.webp',
-  //               'https://files.refurbed.com/ii/iphone-14-1675938865.jpg?t=fitdesign&h=600&w=800'
-  //             ],
-  //             quantity: 10,
-  //             category: const CategoryEntity(id: 1, name: 'Mobiles'),
-  //             brand: const BrandEntity(id: 3, name: 'Apple'),
-  //             name: 'iPhone 14 Pro',
-  //             description:
-  //                 'Latest Apple iPhone with A16 chip and ProMotion display.',
-  //             price: 999.99,
-  //             condition: 'New',
-  //             discount: 10.0,
-  //             termsAccepted: _allTermsChecked,
-  //           ),
-  //         ),
-  //       );
-  // }
-
   Future<void> _onCreateProduct(BuildContext context) async {
-    // Access the user state from AuthenticationBloc
-    final authState = context.read<AuthenticationBloc>().state;
+    final user = Provider.of<UserProvider>(context, listen: false).user;
 
-    String? userUid;
-    if (authState is Authenticated) {
-      userUid = authState.user.uid;
-    }
-
-    // Ensure that userUid is available
-    if (userUid == null) {
-      // Handle the case where UID is not available
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User is not authenticated')),
-      );
-      return;
-    }
-
-    // Proceed with creating the product
     context.read<PersonalizationBloc>().add(
           CreateProductEvent(
             product: ProductEntity(
-              uid: userUid, // Use the fetched UID here
-              image: _imageUrls,
-              quantity:
-                  int.tryParse(_stockController.dropDownValue?.value ?? '0') ??
-                      0,
-              category: CategoryEntity(
-                  id: _categoryController.dropDownValue?.value ?? 0,
-                  name: 'Default'),
-              brand: BrandEntity(
-                  id: _brandController.dropDownValue?.value ?? 0,
-                  name: 'Default'),
-              name: _nameController.text.trim(),
-              description: _descriptionController.text.trim(),
-              price: double.tryParse(_priceController.text.trim()) ?? 0.0,
-              condition: _conditionController.dropDownValue?.value ?? 'Unknown',
-              discount: double.tryParse(_discountController.text.trim()) ?? 0.0,
+              token: user!.token,
+              image: const [
+                'https://www.optus.com.au/content/dam/optus/images/shop/mobile/phones/apple/iphone-15/og-image/og-apple-iphone15.jpg',
+                'https://inventstore.in/wp-content/uploads/2023/04/Purple-scaled.webp',
+                'https://files.refurbed.com/ii/iphone-14-1675938865.jpg?t=fitdesign&h=600&w=800'
+              ],
+              quantity: 10,
+              category: const CategoryEntity(id: 1, name: 'Mobiles'),
+              brand: const BrandEntity(id: 3, name: 'Apple'),
+              name: 'iPhone 14 Pro',
+              description:
+                  'Latest Apple iPhone with A16 chip and ProMotion display.',
+              price: 999.99,
+              condition: 'New',
+              discount: 10.0,
               termsAccepted: _allTermsChecked,
             ),
           ),
         );
   }
+
+  // Future<void> _onCreateProduct(BuildContext context) async {
+  //   // Access the user state from AuthenticationBloc
+  //   // final user = context.watch<UserProvider>().user;
+  //   final user = Provider.of<UserProvider>(context, listen: false).user;
+
+  //   print(user?.uid);
+
+  //   // Proceed with creating the product
+  //   context.read<PersonalizationBloc>().add(
+  //         CreateProductEvent(
+  //           product: ProductEntity(
+  //             uid: user!.uid, // Use the fetched UID here
+  //             image: _imageUrls,
+  //             quantity:
+  //                 int.tryParse(_stockController.dropDownValue?.value ?? '0') ??
+  //                     0,
+  //             category: CategoryEntity(
+  //                 id: _categoryController.dropDownValue?.value ?? 0,
+  //                 name: 'Default'),
+  //             brand: BrandEntity(
+  //                 id: _brandController.dropDownValue?.value ?? 0,
+  //                 name: 'Default'),
+  //             name: _nameController.text.trim(),
+  //             description: _descriptionController.text.trim(),
+  //             price: double.tryParse(_priceController.text.trim()) ?? 0.0,
+  //             condition: _conditionController.dropDownValue?.value ?? 'Unknown',
+  //             discount: double.tryParse(_discountController.text.trim()) ?? 0.0,
+  //             termsAccepted: _allTermsChecked,
+  //           ),
+  //         ),
+  //       );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -283,7 +271,7 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
             // --- Add Button
-            if (_isValid) ...[
+            if (true) ...[
               TextButton(
                 onPressed: () => _onCreateProduct(context),
                 child: const Text(

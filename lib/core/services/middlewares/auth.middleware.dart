@@ -1,4 +1,4 @@
-import 'package:bhutanhub/core/store/user.store.dart';
+import 'package:bhutanhub/core/store/token.store.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +7,7 @@ class RouteAuthMiddleware {
     required this.userStore,
   });
 
-  final UserStore userStore;
+  final TokenStore userStore;
 
   Future<void> redirect({
     required BuildContext context,

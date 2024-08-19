@@ -45,6 +45,32 @@ class Authenticated extends AuthenticationState {
   List<Object> get props => [user];
 }
 
+class LogoutSuccess extends AuthenticationState {
+  const LogoutSuccess();
+}
+
+class Error extends AuthenticationState {
+  const Error({
+    required this.error,
+    required this.message,
+  });
+
+  final ErrorType error;
+  final String? message;
+
+  @override
+  List<Object> get props => [error];
+}
+
+class Success extends AuthenticationState {
+  const Success({required this.success});
+
+  final SuccessType success;
+
+  @override
+  List<Object> get props => [success];
+}
+
 class UserSignedUp extends AuthenticationState {
   const UserSignedUp();
 }
