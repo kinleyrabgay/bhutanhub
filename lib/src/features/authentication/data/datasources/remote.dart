@@ -3,9 +3,11 @@ import 'package:bhutanhub/core/constants/enums.dart';
 import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:bhutanhub/core/errors/firebase.auth.dart';
 import 'package:bhutanhub/core/errors/firebase.platform.dart';
+import 'package:bhutanhub/core/services/api/v1/constant.dart';
 import 'package:bhutanhub/core/utils/typedef.dart';
 import 'package:bhutanhub/src/features/authentication/data/models/user.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,6 +22,8 @@ abstract class AuthRemoteDataSource {
     required String email,
     required String password,
   });
+
+  Future<void> logout();
 
   Future<void> register({
     required String name,
@@ -40,12 +44,15 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     required FirebaseAuth authClient,
     required FirebaseFirestore cloudStoreClient,
     required http.Client client,
+    required Dio dio,
   })  : _authClient = authClient,
         _cloudStoreClient = cloudStoreClient,
-        _client = client;
+        _client = client,
+        _dio = dio;
   final FirebaseAuth _authClient;
   final FirebaseFirestore _cloudStoreClient;
   final http.Client _client;
+  final Dio _dio;
 
   @override
   Future<UserModel> getUser() async {
@@ -127,56 +134,68 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
-      final result = await _authClient.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+      final response = await _dio.post(
+        APITestService.login,
+        data: {
+          'email': email,
+          'password': password,
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        ),
       );
-      var userData = await _getUserData(result.user!.uid);
-      return UserModel.fromMap(userData.data()!);
-    } on FirebaseAuthException catch (e) {
-      throw APIException(
-        message: BHFirebaseAuthException(e.code).message,
-        statusCode: 505,
-      );
-    } on FirebaseException catch (e) {
-      throw APIException(
-        message: BHFirebaseAuthException(e.code).message,
-        statusCode: 505,
-      );
-    } on FormatException catch (_) {
-      throw const FormatException();
-    } on PlatformException catch (e) {
-      throw APIException(
-        message: BHFirebasePlatformException(e.code).message,
-        statusCode: 505,
-      );
+      if ([200, 201].contains(response.data['statusCode'])) {
+        return UserModel.fromMap(response.data['data']);
+      } else {
+        throw APIException(
+          message: response.data['statusMessage'],
+          statusCode: response.data['statusCode'],
+        );
+      }
     } catch (e) {
-      throw 'Something went wrong, Please try again';
+      throw APIException(
+        message: 'Server is down, Please try again',
+        statusCode: 500,
+      );
     }
   }
 
-  @override
   Future<void> register({
     required String name,
     required String email,
     required String password,
   }) async {
-    try {
-      final result = await _authClient.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      final user = result.user;
-      await user?.updateDisplayName(name);
-      var userData = await _getUserData(user!.uid);
+    final response = await _dio.post(
+      APITestService.register,
+      data: {
+        'name': name,
+        'email': email,
+        'password': password,
+      },
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
-      if (!userData.exists) {
-        await _setUserData(user, email);
-        userData = await _getUserData(user.uid);
-      }
-    } on FirebaseAuthException catch (e) {
+    if ([200, 201].contains(response.data['statusCode'])) {
+      return;
+    } else {
       throw APIException(
-        message: e.message ?? 'Registration error',
+        message: response.data['statusMessage'],
+        statusCode: response.data['statusCode'],
+      );
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    try {} on FirebaseAuthException catch (e) {
+      throw APIException(
+        message: BHFirebaseAuthException(e.code).message,
         statusCode: 505,
       );
     }
@@ -200,7 +219,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   Future<void> _setUserData(User user, String fallbackEmail) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
           UserModel(
-            uid: user.uid,
+            token: user.uid,
             email: user.email ?? fallbackEmail,
             name: user.displayName ?? '',
             avatar: user.photoURL ?? '',

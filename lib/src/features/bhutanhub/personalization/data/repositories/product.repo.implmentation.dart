@@ -18,7 +18,7 @@ class ProductRepositoryImplementation implements ProductRepository {
   }) async {
     try {
       final productModel = ProductModel(
-        uid: product.uid,
+        token: product.token,
         name: product.name,
         description: product.description,
         price: product.price,

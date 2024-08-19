@@ -1,3 +1,4 @@
+import 'package:bhutanhub/core/providers/user.provider.dart';
 import 'package:bhutanhub/core/services/internet/internet_cubit.dart';
 import 'package:bhutanhub/core/services/injection.dart';
 import 'package:bhutanhub/core/services/router.dart';
@@ -57,7 +58,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<HomeBloc>(
           create: (_) => sl<HomeBloc>(),
-        )
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (_) => UserProvider(),
+        ),
       ],
       child: GetMaterialApp(
         title: 'Bhutan Hub',

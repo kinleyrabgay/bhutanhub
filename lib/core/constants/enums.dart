@@ -26,3 +26,12 @@ enum ConnectionType {
   wifi,
   mobile,
 }
+
+enum ErrorType {
+  logoutErorr,
+}
+
+enum SuccessType {
+  logoutSuccess,
+  loginSuccess,
+}

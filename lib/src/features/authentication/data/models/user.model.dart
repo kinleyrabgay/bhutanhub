@@ -4,7 +4,7 @@ import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart'
 
 class UserModel extends UserEntity {
   const UserModel({
-    required super.uid,
+    required super.token,
     required super.avatar,
     required super.name,
     required super.email,
@@ -15,7 +15,7 @@ class UserModel extends UserEntity {
 
   UserModel.fromMap(DataMap map)
       : super(
-          uid: map['uid'] ?? '',
+          token: map['token'] ?? '',
           avatar: map['avatar'] ?? '',
           name: map['name'] ?? '',
           email: map['email'] ?? '',
@@ -23,7 +23,7 @@ class UserModel extends UserEntity {
 
   DataMap toMap() {
     return {
-      'uid': uid,
+      'token': token,
       'name': name,
       'avatar': avatar,
       'emal': email,
@@ -33,13 +33,13 @@ class UserModel extends UserEntity {
   String toJson() => json.encode(toMap());
 
   UserModel copyWith({
-    String? uid,
+    String? token,
     String? name,
     String? avatar,
     String? email,
   }) {
     return UserModel(
-      uid: uid ?? this.uid,
+      token: token ?? this.token,
       name: name ?? this.name,
       avatar: avatar ?? this.avatar,
       email: email ?? this.email,
@@ -48,7 +48,7 @@ class UserModel extends UserEntity {
 
   const UserModel.empty()
       : this(
-          uid: '',
+          token: '',
           avatar: '',
           name: '',
           email: '',

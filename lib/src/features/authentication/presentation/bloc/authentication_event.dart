@@ -106,3 +106,20 @@ class CacheCredentialsEvent extends AuthenticationEvent {
   @override
   List<Object?> get props => [email, password];
 }
+
+// Logout
+class LogoutEvent extends AuthenticationEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class GetCurrentUserEvent extends AuthenticationEvent {
+  const GetCurrentUserEvent({
+    required this.token,
+  });
+
+  final String token;
+
+  @override
+  List<Object?> get props => [token];
+}

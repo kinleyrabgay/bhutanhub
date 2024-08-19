@@ -43,13 +43,13 @@ dependencies:
   dotted_border: ^2.1.0
   image_picker: ^1.1.2
   dio: ^5.5.0+1
-  carousel_slider: ^4.2.1
   dropdown_textfield: ^1.2.0
   hexcolor: ^3.0.1
   text_area: ^0.0.3
   easy_stepper: ^0.8.5
   flutter_slidable: ^3.1.1
   visibility_detector: ^0.4.0+2
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

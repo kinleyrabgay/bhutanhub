@@ -1,3 +1,8 @@
+import 'package:bhutanhub/core/constants/store.dart';
+import 'package:bhutanhub/core/providers/user.provider.dart';
+import 'package:bhutanhub/core/store/store.dart';
+import 'package:bhutanhub/core/store/token.store.dart';
+import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
 import 'package:bhutanhub/src/features/bhutanhub/bhutanhub.navigation.dart';
 import 'package:bhutanhub/core/common/views/page.under.construction.dart';
 import 'package:bhutanhub/core/constants/keys.dart';
@@ -9,12 +14,14 @@ import 'package:bhutanhub/src/features/bhutanhub/home/presentation/widgets/_popu
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/bloc/personalization_bloc.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/about-us/about.us.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/address-book/address.dart';
+import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/carousel/carousel.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/feedback/feedback.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/help-center/help.center.dart';
 import 'package:bhutanhub/src/features/bhutanhub/personalization/presentation/view/settings/products/products.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/cubit/onboarding_cubit.dart';
 import 'package:bhutanhub/src/features/onboarding/presentations/views/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

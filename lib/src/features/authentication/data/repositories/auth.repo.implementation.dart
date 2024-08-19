@@ -22,10 +22,13 @@ class AuthenticationRepositoryImplementation
     try {
       final model = await remoteDataSource.getUser();
       final entity = UserEntity(
-        uid: model.uid,
+        token: model.token,
         name: model.name,
         email: model.email,
         avatar: model.avatar,
+        ratings: model.ratings,
+        contact: model.contact,
+        bio: model.bio,
       );
       return Right(entity);
     } on APIException catch (e) {
@@ -38,10 +41,13 @@ class AuthenticationRepositoryImplementation
     try {
       final model = await remoteDataSource.googleSSO();
       final entity = UserEntity(
-        uid: model.uid,
+        token: model.token,
         name: model.name,
         email: model.email,
         avatar: model.avatar,
+        ratings: model.ratings,
+        contact: model.contact,
+        bio: model.bio,
       );
       return Right(entity);
     } on APIException catch (e) {
@@ -60,12 +66,25 @@ class AuthenticationRepositoryImplementation
         password: password,
       );
       final entity = UserEntity(
-        uid: model.uid,
+        token: model.token,
         name: model.name,
         email: model.email,
         avatar: model.avatar,
+        ratings: model.ratings,
+        contact: model.contact,
+        bio: model.bio,
       );
       return Right(entity);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<void> logout() async {
+    try {
+      await remoteDataSource.logout();
+      return const Right(null);
     } on APIException catch (e) {
       return Left(APIFailure.fromException(e));
     }

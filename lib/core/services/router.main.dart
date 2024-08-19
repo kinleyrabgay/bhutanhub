@@ -11,17 +11,29 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               create: (_) => sl<OnboardingCubit>(),
               child: const OnboardingView(),
             );
-          } else if (sl<FirebaseAuth>().currentUser != null) {
-            // final user = sl<FirebaseAuth>().currentUser!;
-            // final localUser = UserModel(
-            //   uid: user.uid,
-            //   avatar: user.photoURL ?? '',
-            //   name: user.displayName ?? '',
-            //   email: user.email ?? '',
-            // );
-            //  context.userProvider.initUser(localUser);
-            return const BhutanhubNavigation();
+          } else if (prefs.getString(StoreKey.token)?.isNotEmpty ?? false) {
+            // Get the token
+            final token = prefs.getString(StoreKey.token)!;
+
+            // Get the token and fetch current user
+            BlocProvider.of<AuthenticationBloc>(context).add(
+              GetCurrentUserEvent(token: token),
+            );
+            // return const BhutanhubNavigation();
           }
+          // else if (sl<FirebaseAuth>().currentUser != null) {
+          //   final user = sl<FirebaseAuth>().currentUser!;
+          //   print(user);
+          //   final entity = UserEntity(
+          //     uid: user.uid,
+          //     name: user.displayName ?? '',
+          //     avatar: user.photoURL ?? '',
+          //     email: user.email ?? '',
+          //   );
+          //   // Initialize the user provider with the user data
+          //   context.read<UserProvider>().initUser(entity);
+          //   return const BhutanhubNavigation();
+          // }
           return BlocProvider(
             create: (_) => sl<AuthenticationBloc>(),
             child: const SignInView(),
@@ -90,6 +102,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AddressView.routeName:
       return _pageBuilder(
         (_) => const AddressView(),
+        settings: settings,
+      );
+
+    case CoverFlowCarouselPage.routeName:
+      return _pageBuilder(
+        (_) => const CoverFlowCarouselPage(),
         settings: settings,
       );
 

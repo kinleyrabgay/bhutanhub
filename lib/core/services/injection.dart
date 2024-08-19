@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bhutanhub/core/services/internet/internet_cubit.dart';
 import 'package:bhutanhub/core/store/store.dart';
-import 'package:bhutanhub/core/store/user.store.dart';
+import 'package:bhutanhub/core/store/token.store.dart';
 import 'package:bhutanhub/src/features/authentication/data/datasources/local.dart';
 import 'package:bhutanhub/src/features/authentication/data/datasources/remote.dart';
 import 'package:bhutanhub/src/features/authentication/data/repositories/auth.repo.implementation.dart';
@@ -9,6 +9,7 @@ import 'package:bhutanhub/src/features/authentication/domain/repositories/authen
 import 'package:bhutanhub/src/features/authentication/domain/usecases/cache.credentials.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/forgot.password.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/google.sso.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/logout.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.in.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.up.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/update.user.dart';

@@ -27,7 +27,7 @@ class HomeRepositoryImplementation implements HomeRepository {
       final productsEntity = products
           .map(
             (product) => ProductEntity(
-                uid: product.uid,
+                token: product.token,
                 name: product.name,
                 description: product.description,
                 price: product.price,
