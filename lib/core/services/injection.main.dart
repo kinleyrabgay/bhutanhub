@@ -108,6 +108,7 @@ Future<void> _initAuthentication() async {
         updateUser: sl(),
         sso: sl(),
         cacheCredentials: sl(),
+        getCurrentUser: sl(),
       ),
     )
     ..registerLazySingleton(
@@ -131,6 +132,9 @@ Future<void> _initAuthentication() async {
     ..registerLazySingleton(
       () => CacheCredentials(sl()),
     )
+    ..registerLazySingleton(
+      () => GetCurrentUser(sl()),
+    )
     ..registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImplementation(
         remoteDataSource: sl(),
@@ -143,6 +147,7 @@ Future<void> _initAuthentication() async {
         cloudStoreClient: sl(),
         client: sl(),
         dio: sl(),
+        pref: sl(),
       ),
     )
     ..registerLazySingleton<AutheLocalDataSource>(

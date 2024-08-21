@@ -113,13 +113,10 @@ class LogoutEvent extends AuthenticationEvent {
   List<Object?> get props => [];
 }
 
+// Get Current User
 class GetCurrentUserEvent extends AuthenticationEvent {
-  const GetCurrentUserEvent({
-    required this.token,
-  });
-
-  final String token;
+  const GetCurrentUserEvent();
 
   @override
-  List<Object?> get props => [token];
+  List<Object?> get props => [];
 }

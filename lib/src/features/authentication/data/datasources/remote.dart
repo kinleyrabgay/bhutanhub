@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bhutanhub/core/constants/enums.dart';
+import 'package:bhutanhub/core/constants/store.dart';
 import 'package:bhutanhub/core/errors/exception.dart';
 import 'package:bhutanhub/core/errors/firebase.auth.dart';
 import 'package:bhutanhub/core/errors/firebase.platform.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthRemoteDataSource {
   Future<UserModel> getUser();
@@ -37,6 +39,8 @@ abstract class AuthRemoteDataSource {
   });
 
   Future<UserModel> googleSSO();
+
+  Future<UserModel> getCurrentUser();
 }
 
 class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
@@ -45,14 +49,17 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     required FirebaseFirestore cloudStoreClient,
     required http.Client client,
     required Dio dio,
+    required SharedPreferences pref,
   })  : _authClient = authClient,
         _cloudStoreClient = cloudStoreClient,
         _client = client,
-        _dio = dio;
+        _dio = dio,
+        _pref = pref;
   final FirebaseAuth _authClient;
   final FirebaseFirestore _cloudStoreClient;
   final http.Client _client;
   final Dio _dio;
+  final SharedPreferences _pref;
 
   @override
   Future<UserModel> getUser() async {
@@ -147,6 +154,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         ),
       );
       if ([200, 201].contains(response.data['statusCode'])) {
+        _pref.setString(StoreKey.token, response.data['data']['token']);
         return UserModel.fromMap(response.data['data']);
       } else {
         throw APIException(
@@ -155,13 +163,14 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         );
       }
     } catch (e) {
-      throw APIException(
+      throw const APIException(
         message: 'Server is down, Please try again',
         statusCode: 500,
       );
     }
   }
 
+  @override
   Future<void> register({
     required String name,
     required String email,
@@ -233,5 +242,43 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
         .collection('users')
         .doc(_authClient.currentUser?.uid)
         .update(data);
+  }
+
+  @override
+  Future<UserModel> getCurrentUser() async {
+    try {
+      // --- Get the token
+      final token = _pref.getString(StoreKey.token) ?? '';
+
+      if (token.isEmpty) {
+        throw const APIException(
+          message: 'You need to be logged in to perform this action',
+          statusCode: 404,
+        );
+      }
+
+      final response = await _dio.get(
+        APITestService.current,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if ([200, 201].contains(response.data['statusCode'])) {
+        return UserModel.fromMap(response.data['data']);
+      } else {
+        throw APIException(
+          message: response.data['statusMessage'],
+          statusCode: response.data['statusCode'],
+        );
+      }
+    } catch (e) {
+      throw const APIException(
+        message: 'Server is down, Please try again',
+        statusCode: 500,
+      );
+    }
   }
 }

@@ -148,4 +148,23 @@ class AuthenticationRepositoryImplementation
       );
     }
   }
+
+  @override
+  ResultFuture<UserEntity> getCurrentUser() async {
+    try {
+      final model = await remoteDataSource.getCurrentUser();
+      final entity = UserEntity(
+        token: model.token,
+        name: model.name,
+        email: model.email,
+        avatar: model.avatar,
+        ratings: model.ratings,
+        contact: model.contact,
+        bio: model.bio,
+      );
+      return Right(entity);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
+  }
 }

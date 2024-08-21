@@ -8,6 +8,7 @@ import 'package:bhutanhub/src/features/authentication/data/repositories/auth.rep
 import 'package:bhutanhub/src/features/authentication/domain/repositories/authentication.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/cache.credentials.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/forgot.password.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/get.current.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/google.sso.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/logout.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.in.dart';

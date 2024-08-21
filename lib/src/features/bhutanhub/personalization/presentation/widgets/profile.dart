@@ -22,17 +22,17 @@ class ProfileWidget extends StatelessWidget {
           profileFit: BoxFit.cover,
           coverHeight: 200,
           coverWidth: double.infinity,
-          profileImageUrl: user!.avatar,
+          profileImageUrl: user?.avatar,
           borderRadius: 80,
         ),
         const SizedBox(height: BHSizes.spaceItems * 2),
         ListTile(
           title: Text(
-            user.name,
+            user?.name ?? 'Name',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           subtitle: Text(
-            user.email,
+            user?.email ?? 'Email',
             style: Theme.of(context).textTheme.labelLarge,
           ),
         ),

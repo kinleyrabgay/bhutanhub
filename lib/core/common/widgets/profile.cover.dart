@@ -24,8 +24,8 @@ class ProfileCover extends StatelessWidget {
   });
 
   final double profileWidth, profileHeight, coverWidth, coverHeight;
-  final String coverImageUrl;
-  final String profileImageUrl;
+  final String? coverImageUrl;
+  final String? profileImageUrl;
   final BoxFit? coverFit;
   final BoxFit? profileFit;
   final bool isProfileNetworkImage, isCoverNetworkImage;
@@ -38,7 +38,7 @@ class ProfileCover extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         BHCoverImage(
-          image: coverImageUrl,
+          image: coverImageUrl!,
           isNetworkImage: isCoverNetworkImage,
           fit: coverFit,
           width: coverWidth,
@@ -48,7 +48,7 @@ class ProfileCover extends StatelessWidget {
           bottom: -40,
           left: BHSizes.defaultSpace,
           child: BHCircularImage(
-            image: profileImageUrl,
+            image: profileImageUrl!,
             isNetworkImage: isProfileNetworkImage,
             width: profileWidth,
             height: profileHeight,

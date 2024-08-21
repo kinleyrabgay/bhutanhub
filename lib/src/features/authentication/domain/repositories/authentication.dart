@@ -33,4 +33,6 @@ abstract class AuthenticationRepository {
     required String email,
     required String password,
   });
+
+  ResultFuture<UserEntity> getCurrentUser();
 }

@@ -3,6 +3,7 @@ import 'package:bhutanhub/core/constants/enums.dart';
 import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/cache.credentials.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/forgot.password.dart';
+import 'package:bhutanhub/src/features/authentication/domain/usecases/get.current.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/google.sso.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/logout.dart';
 import 'package:bhutanhub/src/features/authentication/domain/usecases/sign.in.dart';
@@ -24,6 +25,7 @@ class AuthenticationBloc
     required ForgotPassword forgotPassword,
     required UpdateUser updateUser,
     required CacheCredentials cacheCredentials,
+    required GetCurrentUser getCurrentUser,
   })  : _login = login,
         _logout = logout,
         _register = register,
@@ -31,6 +33,7 @@ class AuthenticationBloc
         _updateUser = updateUser,
         _sso = sso,
         _cacheCredentials = cacheCredentials,
+        _getCurrentUser = getCurrentUser,
         super(
           const AuthenticationInitial(),
         ) {
@@ -51,6 +54,7 @@ class AuthenticationBloc
   final UpdateUser _updateUser;
   final GoogleSSO _sso;
   final CacheCredentials _cacheCredentials;
+  final GetCurrentUser _getCurrentUser;
 
   Future<void> _googleSigninHandler(
     SignInWithGoogleEvent event,
@@ -99,10 +103,17 @@ class AuthenticationBloc
     );
   }
 
+  // Inside your method:
   Future<void> _getCurrentUserHandler(
     GetCurrentUserEvent event,
     Emitter<AuthenticationState> emit,
-  ) async {}
+  ) async {
+    final result = await _getCurrentUser();
+    result.fold(
+      (failure) => emit(AuthenticationError(failure.message)),
+      (user) => emit(Authenticated(user)),
+    );
+  }
 
   Future<void> _logoutHandler(
     LogoutEvent event,
@@ -111,7 +122,7 @@ class AuthenticationBloc
     emit(AuthenticationLoading());
     final result = await _logout();
     result.fold(
-      (failure) => emit(Error(
+      (failure) => emit(const Error(
         error: ErrorType.logoutErorr,
         message: 'Logout failed',
       )),

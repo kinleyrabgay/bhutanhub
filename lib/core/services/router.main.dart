@@ -12,28 +12,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               child: const OnboardingView(),
             );
           } else if (prefs.getString(StoreKey.token)?.isNotEmpty ?? false) {
-            // Get the token
-            final token = prefs.getString(StoreKey.token)!;
-
-            // Get the token and fetch current user
+            // Fetch current user
             BlocProvider.of<AuthenticationBloc>(context).add(
-              GetCurrentUserEvent(token: token),
+              const GetCurrentUserEvent(),
             );
-            // return const BhutanhubNavigation();
+            return const BhutanhubNavigation();
           }
-          // else if (sl<FirebaseAuth>().currentUser != null) {
-          //   final user = sl<FirebaseAuth>().currentUser!;
-          //   print(user);
-          //   final entity = UserEntity(
-          //     uid: user.uid,
-          //     name: user.displayName ?? '',
-          //     avatar: user.photoURL ?? '',
-          //     email: user.email ?? '',
-          //   );
-          //   // Initialize the user provider with the user data
-          //   context.read<UserProvider>().initUser(entity);
-          //   return const BhutanhubNavigation();
-          // }
           return BlocProvider(
             create: (_) => sl<AuthenticationBloc>(),
             child: const SignInView(),

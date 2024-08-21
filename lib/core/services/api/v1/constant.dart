@@ -16,6 +16,7 @@ class APITestService {
 
   static const String login = '$_baseAuthentication/login';
   static const String register = '$_baseAuthentication/register';
+  static const String current = '$_baseAuthentication/current';
 
   static const String product = '$host/products';
   static const String uploadProductImage = '$host/file-uploader';

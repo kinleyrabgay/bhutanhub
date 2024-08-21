@@ -1,6 +1,4 @@
 import 'package:bhutanhub/core/providers/user.provider.dart';
-import 'package:bhutanhub/core/services/injection.dart';
-import 'package:bhutanhub/core/store/token.store.dart';
 import 'package:bhutanhub/core/utils/loading.helper.dart';
 import 'package:bhutanhub/src/features/bhutanhub/bhutanhub.navigation.dart';
 import 'package:bhutanhub/core/common/custom/auth.container.dart';
@@ -31,7 +29,6 @@ class SignInView extends StatelessWidget {
           if (state is AuthenticationLoading) {
             LoadingHelper.showLoading();
           } else if (state is Authenticated) {
-            TokenStore(sl()).saveToken(state.user.token);
             context.read<UserProvider>().initUser(state.user);
             LoadingHelper.dismissLoading();
             Loader.successSnackBar(

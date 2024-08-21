@@ -3,10 +3,11 @@ import 'package:bhutanhub/core/utils/typedef.dart';
 import 'package:bhutanhub/src/features/authentication/domain/entities/user.dart';
 import 'package:bhutanhub/src/features/authentication/domain/repositories/authentication.dart';
 
-class GetUser extends UsecaseWithoutParam<UserEntity> {
-  const GetUser(this._repository);
-  final AuthenticationRepository _repository;
+class GetCurrentUser extends UsecaseWithoutParam<void> {
+  const GetCurrentUser(this._repo);
+
+  final AuthenticationRepository _repo;
 
   @override
-  ResultFuture<UserEntity> call() async => _repository.getUser();
+  ResultFuture<UserEntity> call() => _repo.getCurrentUser();
 }
