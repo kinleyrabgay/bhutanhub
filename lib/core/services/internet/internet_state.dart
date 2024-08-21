@@ -6,10 +6,10 @@ class InternetLoading extends InternetState {}
 
 class InternetConnected extends InternetState {
   InternetConnected({
-    required this.connectionType,
+    this.connectionType,
   });
 
-  final ConnectionType connectionType;
+  final ConnectionType? connectionType;
 }
 
 class InternetDisconnected extends InternetState {}

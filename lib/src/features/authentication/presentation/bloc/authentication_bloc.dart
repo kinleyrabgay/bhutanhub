@@ -80,7 +80,7 @@ class AuthenticationBloc
       ),
     );
     result.fold(
-      (failure) => emit(AuthenticationError(failure.message)),
+      (failure) => emit(Error(message: failure.message)),
       (user) => emit(Authenticated(user)),
     );
   }

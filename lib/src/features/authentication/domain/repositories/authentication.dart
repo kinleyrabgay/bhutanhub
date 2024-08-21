@@ -7,20 +7,18 @@ abstract class AuthenticationRepository {
 
   ResultFuture<UserEntity> googleSSO();
 
-  ResultFuture<UserEntity> getUser();
-
   ResultFuture<UserEntity> login({
     required String email,
     required String password,
   });
-
-  ResultFuture<void> logout();
 
   ResultFuture<void> register({
     required String name,
     required String email,
     required String password,
   });
+
+  ResultFuture<void> logout();
 
   ResultFuture<void> forgotPassword(String email);
 

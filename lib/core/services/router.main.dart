@@ -11,11 +11,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               create: (_) => sl<OnboardingCubit>(),
               child: const OnboardingView(),
             );
-          } else if (prefs.getString(StoreKey.token)?.isNotEmpty ?? false) {
-            // Fetch current user
-            BlocProvider.of<AuthenticationBloc>(context).add(
-              const GetCurrentUserEvent(),
-            );
+          }
+          if (prefs.getString(StoreKey.token)?.isNotEmpty ?? false) {
+            BlocProvider.of<AuthenticationBloc>(context)
+                .add(const GetCurrentUserEvent());
             return const BhutanhubNavigation();
           }
           return BlocProvider(

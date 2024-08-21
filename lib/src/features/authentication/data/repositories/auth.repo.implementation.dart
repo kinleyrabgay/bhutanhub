@@ -18,25 +18,6 @@ class AuthenticationRepositoryImplementation
   final AutheLocalDataSource localDataSource;
 
   @override
-  ResultFuture<UserEntity> getUser() async {
-    try {
-      final model = await remoteDataSource.getUser();
-      final entity = UserEntity(
-        token: model.token,
-        name: model.name,
-        email: model.email,
-        avatar: model.avatar,
-        ratings: model.ratings,
-        contact: model.contact,
-        bio: model.bio,
-      );
-      return Right(entity);
-    } on APIException catch (e) {
-      return Left(APIFailure.fromException(e));
-    }
-  }
-
-  @override
   ResultFuture<UserEntity> googleSSO() async {
     try {
       final model = await remoteDataSource.googleSSO();

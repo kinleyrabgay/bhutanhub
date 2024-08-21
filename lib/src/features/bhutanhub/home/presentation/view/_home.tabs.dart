@@ -25,6 +25,8 @@ class _HomeTabsState extends State<HomeTabs> {
   bool _hasFetchedNewArrivals = false;
   bool _hasFetchedTrending = false;
 
+  Future<void> _fetchBanner() async {}
+
   /// Fetch popular products
   Future<void> _fetchPopular() async {
     if (!_hasFetchedPopular) {
@@ -97,6 +99,13 @@ class _HomeTabsState extends State<HomeTabs> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Banner
+                if (widget.tabKey == 'view_all') ...[
+                  Text('BANNER'),
+                ],
+
+                Text('BANNER'),
+
                 // Popular
                 Column(
                   children: [
@@ -123,64 +132,64 @@ class _HomeTabsState extends State<HomeTabs> {
                 ),
 
                 // New Arrivals
-                // if (_hasFetchedPopular) ...[
-
-                // ],
-                Column(
-                  children: [
-                    if (state.newProducts.isEmpty) ...[
-                      const ProductLoader(),
-                    ] else ...[
-                      BHSectionHeading(
-                        showActionButton: true,
-                        title: 'New Arrivals',
-                        onPressed: () => {},
-                      ),
-                      BHGridLayout(
-                        itemCount: state.newProducts.length,
-                        mainAxisExtent: 330,
-                        itemBuilder: (_, idx) {
-                          return BHProductCardVertical(
-                            product: state.newProducts[idx],
-                          );
-                        },
-                      ),
+                if (_hasFetchedPopular) ...[
+                  Column(
+                    children: [
+                      if (state.newProducts.isEmpty) ...[
+                        const ProductLoader(),
+                      ] else ...[
+                        BHSectionHeading(
+                          showActionButton: true,
+                          title: 'New Arrivals',
+                          onPressed: () => {},
+                        ),
+                        BHGridLayout(
+                          itemCount: state.newProducts.length,
+                          mainAxisExtent: 330,
+                          itemBuilder: (_, idx) {
+                            return BHProductCardVertical(
+                              product: state.newProducts[idx],
+                            );
+                          },
+                        ),
+                      ],
                     ],
-                  ],
-                ),
+                  ),
+                ],
 
-                // if (_hasFetchedNewArrivals) ...[
-                //   // New Arrivals
-
-                // ]
-                Column(
-                  children: [
-                    if (state.trendings.isEmpty) ...[
-                      const ProductLoader(),
-                    ] else ...[
-                      BHSectionHeading(
-                        showActionButton: true,
-                        title: 'Trendings',
-                        onPressed: () => {},
-                      ),
-                      BHGridLayout(
-                        itemCount: state.trendings.length,
-                        mainAxisExtent: 330,
-                        itemBuilder: (_, idx) {
-                          return BHProductCardVertical(
-                            product: state.trendings[idx],
-                          );
-                        },
-                      ),
-                    ]
-                  ],
-                ),
+                if (_hasFetchedNewArrivals) ...[
+                  // New Arrivals
+                  Column(
+                    children: [
+                      if (state.trendings.isEmpty) ...[
+                        const ProductLoader(),
+                      ] else ...[
+                        BHSectionHeading(
+                          showActionButton: true,
+                          title: 'Trendings',
+                          onPressed: () => {},
+                        ),
+                        BHGridLayout(
+                          itemCount: state.trendings.length,
+                          mainAxisExtent: 330,
+                          itemBuilder: (_, idx) {
+                            return BHProductCardVertical(
+                              product: state.trendings[idx],
+                            );
+                          },
+                        ),
+                      ]
+                    ],
+                  ),
+                ]
               ],
             ),
           );
         } else {
-          return const SingleChildScrollView(
-            child: ProductLoader(),
+          return SingleChildScrollView(
+            child: ProductLoader(
+              showBannerLoader: widget.tabKey == 'view_all',
+            ),
           );
         }
       },

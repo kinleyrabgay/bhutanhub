@@ -12,6 +12,9 @@ class BHImages {
   static const String _baseProfilePath = "$_baseImagesPath/profile";
   static const String _baseRivePath = "$_baseAssetPath/rive";
 
+  // No internet
+  static const String noInternet = "$_baseImagesPath/no-internet.png";
+
   // Onboarding
   static const String obIM1 = "$_baseOnboardingPath/welcome.png";
   static const String obIM2 = "$_baseOnboardingPath/discover.png";

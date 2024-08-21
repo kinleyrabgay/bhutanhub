@@ -51,15 +51,15 @@ class LogoutSuccess extends AuthenticationState {
 
 class Error extends AuthenticationState {
   const Error({
-    required this.error,
-    required this.message,
+    this.error,
+    this.message,
   });
 
-  final ErrorType error;
+  final ErrorType? error;
   final String? message;
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [];
 }
 
 class Success extends AuthenticationState {

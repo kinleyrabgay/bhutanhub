@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 class ProductLoader extends StatelessWidget {
   const ProductLoader({
     super.key,
+    this.showBannerLoader = false,
   });
+
+  final bool showBannerLoader;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +19,14 @@ class ProductLoader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: BHSizes.spaceItems),
+        if (showBannerLoader) ...[
+          BHShimmerEffect(
+            width: MediaQuery.of(context).size.width,
+            height: 170,
+            radius: 4,
+          ),
+          const SizedBox(height: BHSizes.spaceItems),
+        ],
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

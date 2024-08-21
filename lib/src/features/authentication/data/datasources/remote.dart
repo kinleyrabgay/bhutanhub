@@ -16,8 +16,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel> getUser();
-
   Future<void> forgotPassword(String email);
 
   Future<UserModel> login({
@@ -140,32 +138,25 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     required String email,
     required String password,
   }) async {
-    try {
-      final response = await _dio.post(
-        APITestService.login,
-        data: {
-          'email': email,
-          'password': password,
+    final response = await _dio.post(
+      APITestService.login,
+      data: {
+        'email': email,
+        'password': password,
+      },
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
         },
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
-      if ([200, 201].contains(response.data['statusCode'])) {
-        _pref.setString(StoreKey.token, response.data['data']['token']);
-        return UserModel.fromMap(response.data['data']);
-      } else {
-        throw APIException(
-          message: response.data['statusMessage'],
-          statusCode: response.data['statusCode'],
-        );
-      }
-    } catch (e) {
-      throw const APIException(
-        message: 'Server is down, Please try again',
-        statusCode: 500,
+      ),
+    );
+    if ([200, 201].contains(response.data['statusCode'])) {
+      _pref.setString(StoreKey.token, response.data['data']['token']);
+      return UserModel.fromMap(response.data['data']);
+    } else {
+      throw APIException(
+        message: response.data['message'],
+        statusCode: response.data['statusCode'],
       );
     }
   }
@@ -194,7 +185,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       return;
     } else {
       throw APIException(
-        message: response.data['statusMessage'],
+        message: response.data['message'],
         statusCode: response.data['statusCode'],
       );
     }
@@ -210,7 +201,6 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
     }
   }
 
-  // TODO
   @override
   Future<void> forgotPassword(String email) async {
     throw UnimplementedError();
@@ -246,38 +236,32 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
 
   @override
   Future<UserModel> getCurrentUser() async {
-    try {
-      // --- Get the token
-      final token = _pref.getString(StoreKey.token) ?? '';
+    // --- Get the token
+    final token = _pref.getString(StoreKey.token) ?? '';
 
-      if (token.isEmpty) {
-        throw const APIException(
-          message: 'You need to be logged in to perform this action',
-          statusCode: 404,
-        );
-      }
-
-      final response = await _dio.get(
-        APITestService.current,
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-        ),
-      );
-      if ([200, 201].contains(response.data['statusCode'])) {
-        return UserModel.fromMap(response.data['data']);
-      } else {
-        throw APIException(
-          message: response.data['statusMessage'],
-          statusCode: response.data['statusCode'],
-        );
-      }
-    } catch (e) {
+    if (token.isEmpty) {
       throw const APIException(
-        message: 'Server is down, Please try again',
-        statusCode: 500,
+        message: 'You need to be logged in to perform this action',
+        statusCode: 404,
+      );
+    }
+
+    final response = await _dio.get(
+      APITestService.current,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    if ([200, 201].contains(response.data['statusCode'])) {
+      return UserModel.fromMap(response.data['data']);
+    } else {
+      throw APIException(
+        message: response.data['message'],
+        statusCode: response.data['statusCode'],
       );
     }
   }

@@ -23,6 +23,7 @@ class ProfileWidget extends StatelessWidget {
           coverHeight: 200,
           coverWidth: double.infinity,
           profileImageUrl: user?.avatar,
+          coverImageUrl: user?.avatar,
           borderRadius: 80,
         ),
         const SizedBox(height: BHSizes.spaceItems * 2),
