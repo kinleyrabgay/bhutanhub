@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:bhutanhub/core/constants/enums.dart';
 import 'package:bhutanhub/core/constants/store.dart';
 import 'package:bhutanhub/core/errors/exception.dart';
@@ -12,24 +11,21 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<void> forgotPassword(String email);
-
   Future<UserModel> login({
     required String email,
     required String password,
   });
-
-  Future<void> logout();
 
   Future<void> register({
     required String name,
     required String email,
     required String password,
   });
+
+  Future<void> forgotPassword(String email);
 
   Future<void> updateUser({
     required UpdateUserAction action,
@@ -39,37 +35,24 @@ abstract class AuthRemoteDataSource {
   Future<UserModel> googleSSO();
 
   Future<UserModel> getCurrentUser();
+
+  Future<void> logout();
 }
 
 class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImplementation({
     required FirebaseAuth authClient,
     required FirebaseFirestore cloudStoreClient,
-    required http.Client client,
     required Dio dio,
     required SharedPreferences pref,
   })  : _authClient = authClient,
         _cloudStoreClient = cloudStoreClient,
-        _client = client,
         _dio = dio,
         _pref = pref;
   final FirebaseAuth _authClient;
   final FirebaseFirestore _cloudStoreClient;
-  final http.Client _client;
   final Dio _dio;
   final SharedPreferences _pref;
-
-  @override
-  Future<UserModel> getUser() async {
-    try {
-      final response = await _client.get(Uri.https('uri'));
-      return jsonDecode(response.body) as UserModel;
-    } on APIException {
-      rethrow;
-    } catch (e) {
-      throw APIException(message: e.toString(), statusCode: 505);
-    }
-  }
 
   @override
   Future<UserModel> googleSSO() async {
@@ -151,7 +134,10 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       ),
     );
     if ([200, 201].contains(response.data['statusCode'])) {
+      // Save token
       _pref.setString(StoreKey.token, response.data['data']['token']);
+
+      // Return UserModel
       return UserModel.fromMap(response.data['data']);
     } else {
       throw APIException(
